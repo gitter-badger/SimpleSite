@@ -4,9 +4,9 @@
     @endphp
     <div class="ui segment">
         <div class="content">
-            <h3 class="header">
+            <h2 class="header">
                 <a href="{{ route('news.show', [$headPost->id]) }}">{{ $headPost->title }}</a>
-            </h3>
+            </h2>
             <div class="meta">
                 <span class="author">{{ $headPost->author->name }}</span>
             </div>
@@ -20,12 +20,12 @@
     </div>
 
 <div class="ui two cards">
-    @foreach($posts->skip(1) as $post)
+    @foreach($posts->filter(function($post) use($headPost) { return $post->id != $headPost->id; }) as $post)
     <div class="card">
         <div class="content">
-            <h3 class="header">
+            <h4 class="header">
                 <a href="{{ route('news.show', [$post->id]) }}">{{ $post->title }}</a>
-            </h3>
+            </h4>
             <div class="meta">
                 <span class="author">{{ $post->author->name }}</span>
             </div>
