@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="image">
-                            <img src="{{ $category->thumb }}">
+                            <img src="{{ $category->thumb_url }}">
                         </div>
                     </div>
                 @endforeach

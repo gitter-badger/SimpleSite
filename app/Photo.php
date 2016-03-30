@@ -14,8 +14,14 @@ use Symfony\Component\HttpFoundation\File\Exception\UploadException;
  *
  * @property string        $caption
  * @property string        $description
- * @property string        $file
+ * @property string        $image
  * @property string        $thumb
+ *
+ * @property string        $image_path
+ * @property string        $thumb_path
+ *
+ * @property string        $image_url
+ * @property string        $thumb_url
  *
  * @property integer       $category_id
  * @property PhotoCategory $category
@@ -35,9 +41,17 @@ class Photo extends Model
     {
         parent::boot();
 
+        static::updating(function (Photo $photo) {
+            foreach (['image', 'thumb'] as $key) {
+                if (! empty($photo->original[$key]) and file_exists($file_path = public_path($photo->original[$key]))) {
+                    unlink($file_path);
+                }
+            }
+        });
+
         static::deleting(function (Photo $photo) {
-            unlink(public_path($photo->file));
-            unlink(public_path($photo->thumb));
+            unlink($photo->image_path);
+            unlink($photo->thumb_path);
         });
     }
 
@@ -70,7 +84,7 @@ class Photo extends Model
     public function attachFile(UploadedFile $file)
     {
         $destination_path = 'storage';
-        $filename = str_random(6).'_'.$file->getClientOriginalName();
+        $filename         = str_random(6).'_'.$file->getClientOriginalName();
 
         $subFolder = substr(md5($filename), 0, 2);
 
@@ -81,7 +95,7 @@ class Photo extends Model
         Image::make($file)->resize(1280, 1024)->save(public_path($path = $photosDir.'/'.$filename));
         Image::make($file)->resize(200, 200)->save(public_path($thumbPath = $photosDir.'/thumb_'.$filename));
 
-        $this->file = $path;
+        $this->image  = $path;
         $this->thumb = $thumbPath;
     }
 
@@ -90,30 +104,54 @@ class Photo extends Model
      **********************************************************************/
 
     /**
-     * @param string $file
-     *
      * @return string
      */
-    public function getFileAttribute($file)
+    public function getImageUrlAttribute()
     {
-        return url($file);
+        if (! empty($this->attributes['image'])) {
+            return url($this->attributes['image']);
+        }
     }
-    
+
     /**
-     * @param string $thumb
-     *
      * @return string
      */
-    public function getThumbAttribute($thumb)
+    public function getThumbUrlAttribute()
     {
-        return url($thumb);
+        if (! empty($this->attributes['thumb'])) {
+            return url($this->attributes['thumb']);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getImagePathAttribute()
+    {
+        if (! empty($this->attributes['image'])) {
+            return public_path($this->attributes['image']);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getThumbPathAttribute()
+    {
+        if (! empty($this->attributes['thumb'])) {
+            return public_path($this->attributes['thumb']);
+        }
     }
 
     /**
      * @param UploadedFile $file
      */
-    public function setUploadFileAttribute(UploadedFile $file)
+    public function setUploadFileAttribute(UploadedFile $file = null)
     {
+        if (is_null($file)) {
+            return;
+        }
+
         $this->attachFile($file);
     }
 

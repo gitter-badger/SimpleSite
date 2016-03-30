@@ -80,6 +80,10 @@ $factory->define(App\Photo::class, function (Faker\Generator $faker) {
         'category_id' => function () use ($faker) {
             $categories = App\PhotoCategory::pluck('id')->all();
 
+            if (empty($categories)) {
+                $categories[] = factory(App\PhotoCategory::class)->create()->id;
+            }
+
             return $faker->randomElement($categories);
         },
         'upload_file' => function() {

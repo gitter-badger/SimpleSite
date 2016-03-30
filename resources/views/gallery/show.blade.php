@@ -15,8 +15,8 @@
     <div class="ui five cards">
         @foreach($photos as $photo)
             <div class="card">
-                <a class="image image-link" href="{{ $photo->file }}">
-                    <img src="{{ $photo->thumb }}">
+                <a class="image image-link" href="{{ $photo->image_url }}">
+                    <img src="{{ $photo->thumb_url }}">
                 </a>
                 <div class="content">
                     @if(!empty($photo->caption))
