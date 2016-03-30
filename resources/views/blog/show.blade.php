@@ -1,20 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="ui items container">
-        <div class="news-item item">
-            <div class="ui segment">
+    <div class="ui container">
+        <div class="ui items">
+            <div class="news-item item box">
                 <div class="content">
-                    <h1 class="head">{{ $post->title }}</h1>
+                    <h1>{{ $post->title }}</h1>
+
                     <div class="meta">
-                        <span class="date">{{ $post->created_at->format('d F Y') }}</span>
+                        <span class="author">{!! $post->author->name !!}</span>
+                        <span>|</span>
+                        <span class="date">Опубликовано: {{ $post->created_at->format('d F Y') }}</span>
                     </div>
+
+                    <div class="ui section divider"></div>
 
                     <div class="description">
 
-                    {!! $post->text_intro !!}
+                        {!! $post->text_intro !!}
 
-                    {!! $post->text !!}
+                        @if(!empty($post->image))
+                            <div class="image">
+                                <img src="{{ $post->image_url }}">
+                            </div>
+                        @endif
+
+                        {!! $post->text !!}
                     </div>
                 </div>
             </div>

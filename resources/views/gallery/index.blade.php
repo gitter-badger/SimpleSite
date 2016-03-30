@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="ui container">
-        <div class="news-items">
-            <h2>Фотоархив</h2>
+    <div class="ui container photo-categories">
+        <h1 class="header">Фотоархив</h1>
 
-            <div class="ui five cards">
+        @if($categories->count() > 0)
+            <div class="ui four doubling cards">
                 @foreach($categories as $category)
-                    <div class="card">
+                    <div class="card photo-category">
                         <div class="content">
                             <a class="header" href="{{ route('gallery.category', [$category->id]) }}">
                                 {{ $category->title }}
@@ -23,9 +23,9 @@
                             @endif
                         </div>
 
-                        <div class="image">
+                        <a class="image" href="{{ route('gallery.category', [$category->id]) }}">
                             <img src="{{ $category->thumb_url }}">
-                        </div>
+                        </a>
                     </div>
                 @endforeach
             </div>
@@ -33,6 +33,12 @@
             <div class="ui divider hidden"></div>
 
             {!! $categories->render() !!}
-        </div>
+        @else
+            <div class="ui positive message">
+                <div class="header">
+                    В разделе нет информации
+                </div>
+            </div>
+        @endif
     </div>
 @endsection

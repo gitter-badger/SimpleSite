@@ -1,17 +1,51 @@
 @import "semantic-ui/semantic";
 @import (less) "../../../node_modules/magnific-popup/dist/magnific-popup.css";
 
+body {
+  background: whitesmoke;
+}
+
 header {
   margin: 20px 0;
 }
 
+.box {
+  padding:    30px !important;
+  margin:     30px 0 !important;
+  background: #fff !important;
+  box-shadow: 0 3px 3px #ccc !important;
+}
+
 .news-items {
   margin: 30px 0;
-  .news-item {
-    margin-bottom: 2em !important;
+
+  .news-divider {
+    margin: 2em -30px;
+  }
+
+  .news-archive-link {
+    margin-top: 20px;
   }
 }
 
-.news-archive-link {
+.news-item {
+  .description {
+    font-size: 1.2em !important;
+  }
+}
 
+.photo-categories {
+  margin: 30px 0;
+
+  .photo-category {
+    box-shadow: 0 3px 3px #ccc;
+  }
+}
+
+.photo-category-description {
+
+}
+
+.photo-items {
+  padding: 20px;
 }
