@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property string             $title
  * @property string             $description
+ * @property string             $thumb_url
  *
  * @property Photo[]|Collection $photos
  * @property Photo              $photo
@@ -39,9 +40,9 @@ class PhotoCategory extends Model
     /**
      * @return string
      */
-    public function getThumbAttribute()
+    public function getThumbUrlAttribute()
     {
-        return $this->photo->thumb;
+        return $this->photo->thumb_url;
     }
 
 

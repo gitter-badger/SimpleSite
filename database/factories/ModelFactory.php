@@ -32,6 +32,24 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
 
             return $user->id;
         },
+        'upload_file' => $faker->randomElement([
+            null,
+            null,
+            null,
+            function() {
+                $files = File::files(public_path('tmp'));
+                $filesPath = $files[array_rand($files)];
+
+                $file = new \Illuminate\Http\UploadedFile(
+                    $filesPath,
+                    basename($filesPath),
+                    'image/jpeg',
+                    File::size($filesPath)
+                );
+
+                return $file;
+            }
+        ])
     ];
 });
 

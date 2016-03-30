@@ -20,6 +20,9 @@ class CreateBlogTable extends Migration
             $table->text('text');
             $table->text('text_source');
 
+            $table->string('image');
+            $table->string('thumb');
+
             $table->unsignedInteger('author_id')->index();
             $table->foreign('author_id')->references('id')->on('users');
 

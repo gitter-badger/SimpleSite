@@ -4,9 +4,11 @@ namespace App;
 
 use App\Helpers\MarkdownParser;
 use App\Traits\Authored;
+use App\Traits\Upload;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\UploadedFile;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -28,7 +30,8 @@ use Intervention\Image\Facades\Image;
  */
 class Post extends Model
 {
-    use SoftDeletes, Authored;
+
+    use SoftDeletes, Authored, Upload;
 
     /**
      * The table associated with the model.
@@ -45,6 +48,28 @@ class Post extends Model
     protected $fillable = [
         'text_source',
         'title',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'image' => 'upload',
+        'thumb' => 'upload',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $uploadSettings = [
+        'image' => [
+            'resize' => [640, 480]
+        ],
+        'thumb' => [
+            'resize' => [150, 150]
+        ]
     ];
 
     /**
@@ -85,13 +110,27 @@ class Post extends Model
         list($parsedText, $parsedTextIntro) = MarkdownParser::parseText($this->attributes['text_source']);
 
         $this->attributes['text_intro'] = $parsedTextIntro;
-        $this->attributes['text'] = $parsedText;
+        $this->attributes['text']       = $parsedText;
+    }
+
+    /**
+     * @param UploadedFile $file
+     */
+    public function setUploadFileAttribute(UploadedFile $file = null)
+    {
+        if (is_null($file)) {
+            return;
+        }
+
+        foreach ($this->getUploadFields() as $field) {
+            $this->{$field.'_file'} = $file;
+        }
     }
 
     /**********************************************************************
      * Scopes
      **********************************************************************/
-    
+
     /**
      * @param     $query
      *
