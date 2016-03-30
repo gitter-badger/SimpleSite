@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\Upload;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -17,6 +18,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
+
+    use Upload;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,6 +33,24 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'avatar' => 'upload',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $uploadSettings = [
+        'avatar' => [
+            'resize' => [200, 200]
+        ],
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -37,4 +59,28 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**********************************************************************
+     * Mutators
+     **********************************************************************/
+
+    /**
+     * @param string $name
+     *
+     * @return string|void
+     */
+    public function getNameAttribute($name)
+    {
+        if (empty($name)) {
+            return;
+        }
+
+        $avatar = $this->avatar_url;
+
+        if (! empty($avatar)) {
+            return "<img class=\"ui avatar mini image\" src=\"{$this->avatar_url}\" /> {$name}";
+        }
+
+        return $name;
+    }
 }

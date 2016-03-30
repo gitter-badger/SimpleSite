@@ -17,6 +17,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email'          => $faker->safeEmail,
         'password'       => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
+        'avatar_file'    => function () {
+            $files     = File::files(public_path('tmp'));
+            $filesPath = $files[array_rand($files)];
+            return new \Illuminate\Http\UploadedFile($filesPath, basename($filesPath), 'image/jpeg', File::size($filesPath));
+        }
     ];
 });
 
@@ -36,18 +41,10 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
             null,
             null,
             null,
-            function() {
-                $files = File::files(public_path('tmp'));
+            function () {
+                $files     = File::files(public_path('tmp'));
                 $filesPath = $files[array_rand($files)];
-
-                $file = new \Illuminate\Http\UploadedFile(
-                    $filesPath,
-                    basename($filesPath),
-                    'image/jpeg',
-                    File::size($filesPath)
-                );
-
-                return $file;
+                return new \Illuminate\Http\UploadedFile($filesPath, basename($filesPath), 'image/jpeg', File::size($filesPath));
             }
         ])
     ];
@@ -104,18 +101,11 @@ $factory->define(App\Photo::class, function (Faker\Generator $faker) {
 
             return $faker->randomElement($categories);
         },
-        'upload_file' => function() {
-            $files = File::files(public_path('tmp'));
+        'upload_file' => function () {
+            $files     = File::files(public_path('tmp'));
             $filesPath = $files[array_rand($files)];
 
-            $file = new \Illuminate\Http\UploadedFile(
-                $filesPath,
-                basename($filesPath),
-                'image/jpeg',
-                File::size($filesPath)
-            );
-
-            return $file;
+            return new \Illuminate\Http\UploadedFile($filesPath, basename($filesPath), 'image/jpeg', File::size($filesPath));
         }
     ];
 });
