@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Forms\StorePostForm;
+use App\Http\Forms\UpdatePostForm;
+use App\PhotoCategory;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -37,7 +39,10 @@ class BlogController extends Controller
             abort(404, 'Новость не найдена');
         }
 
-        return view('blog.show', compact('post'));
+        return view('blog.show', [
+            'post' => $post,
+            'categories' => $post->photo_categories,
+        ]);
     }
 
     /**
@@ -71,20 +76,42 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+
+        if (is_null($post)) {
+            abort(404, 'Новость не найдена');
+        }
+
+        return view('blog.edit', [
+            'post' => $post,
+            'categories' => PhotoCategory::pluck('title', 'id')->all(),
+            'selected_categories' => $post->photo_categories->pluck('id')->all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  UpdatePostForm $form
+     * @param  int            $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostForm $form, $id)
     {
-        //
+        $form->isValid();
+
+        $post = Post::find($id);
+
+        if (is_null($post)) {
+            abort(404, 'Новость не найдена');
+        }
+
+        $post->update($form->fields());
+
+        $post->photo_categories()->sync((array) $form->photo_categories);
+
+        return redirect()->back();
     }
 
     /**

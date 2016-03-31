@@ -6,6 +6,7 @@ use App\Helpers\MarkdownParser;
 use App\Traits\Authored;
 use App\Traits\Upload;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\UploadedFile;
@@ -15,18 +16,27 @@ use Intervention\Image\Facades\Image;
  * Class Post
  * @package App
  *
- * @property integer $id
- * @property integer $author_id
- * @property User    $author
+ * @property integer                    $id
+ * @property integer                    $author_id
+ * @property User                       $author
  *
- * @property string  $title
- * @property string  $text_source
- * @property string  $text
- * @property string  $text_intro
+ * @property string                     $title
+ * @property string                     $text_source
+ * @property string                     $text
+ * @property string                     $text_intro
  *
- * @property Carbon  $created_at
- * @property Carbon  $updated_at
- * @property Carbon  $deleted_at
+ * @property string                     $image
+ * @property string                     $thumb
+ * @property string                     $image_path
+ * @property string                     $thumb_path
+ * @property string                     $image_url
+ * @property string                     $thumb_url
+ *
+ * @property PhotoCategory[]|Collection $photo_categories
+ *
+ * @property Carbon                     $created_at
+ * @property Carbon                     $updated_at
+ * @property Carbon                     $deleted_at
  */
 class Post extends Model
 {
@@ -38,7 +48,7 @@ class Post extends Model
      *
      * @var string
      */
-    protected $table = 'blog';
+    protected $table = 'posts';
 
     /**
      * The attributes that are mass assignable.
@@ -65,11 +75,11 @@ class Post extends Model
      */
     protected $uploadSettings = [
         'image' => [
-            'resize' => [640, 480]
+            'resize' => [640, 480],
         ],
         'thumb' => [
-            'resize' => [150, 150]
-        ]
+            'resize' => [150, 150],
+        ],
     ];
 
     /**
@@ -110,7 +120,7 @@ class Post extends Model
         list($parsedText, $parsedTextIntro) = MarkdownParser::parseText($this->attributes['text_source']);
 
         $this->attributes['text_intro'] = $parsedTextIntro;
-        $this->attributes['text']       = $parsedText;
+        $this->attributes['text'] = $parsedText;
     }
 
     /**
@@ -152,4 +162,15 @@ class Post extends Model
         return $query->where('created_at', '>', Carbon::now()->subDay($days));
     }
 
+    /**********************************************************************
+     * Relations
+     **********************************************************************/
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function photo_categories()
+    {
+        return $this->belongsToMany(PhotoCategory::class);
+    }
 }
