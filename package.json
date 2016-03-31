@@ -6,6 +6,7 @@
   "dependencies": {
     "laravel-elixir": "^4.0.0",
     "bootstrap-sass": "^3.0.0",
-    "magnific-popup": "^1.1.0"
+    "magnific-popup": "^1.1.0",
+    "filedrop": "^2.0.0"
   }
 }

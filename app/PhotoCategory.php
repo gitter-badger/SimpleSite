@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class PhotoCategory
  * @package App
  *
+ * @property integer            $id
  * @property string             $title
  * @property string             $description
  * @property string             $thumb_url

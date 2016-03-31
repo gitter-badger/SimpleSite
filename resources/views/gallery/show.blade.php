@@ -10,33 +10,29 @@
                 </div>
             @endif
         </div>
-    </div>
 
-    <div class="photo-items">
-        <div class="ui six doubling cards">
-            @foreach($photos as $photo)
-                <div class="card">
-                    <a class="image image-link" href="{{ $photo->image_url }}">
-                        <img src="{{ $photo->thumb_url }}">
-                    </a>
-                    <div class="content">
-                        @if(!empty($photo->caption))
-                            <h5 class="ui header">{{ $photo->caption }}</h5>
-                        @endif
-                        @if(!empty($photo->description))
-                            <div class="description">
-                                <p>{{ $photo->description }}</p>
-                            </div>
-                        @endif
+        <div class="photo-items">
+            <div class="ui six doubling cards">
+                @foreach($photos as $photo)
+                    <div class="card">
+                        <a class="image image-link" href="{{ $photo->image_url }}">
+                            <img src="{{ $photo->thumb_url }}">
+                        </a>
+                        <div class="content">
+                            @if(!empty($photo->caption))
+                                <h5 class="ui header">{{ $photo->caption }}</h5>
+                            @endif
+                            @if(!empty($photo->description))
+                                <div class="description">
+                                    <p>{{ $photo->description }}</p>
+                                </div>
+                            @endif
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
 
-
-    <div class="ui container">
         {!! $photos->render() !!}
     </div>
-
 @endsection

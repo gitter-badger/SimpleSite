@@ -17,7 +17,10 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+
+            $table->string('hash');
             $table->string('password');
+            $table->boolean('is_ldap')->default(false);
 
             $table->string('avatar');
 

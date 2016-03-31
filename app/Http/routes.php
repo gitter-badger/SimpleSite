@@ -21,8 +21,6 @@ Route::group(['middleware' => 'web'], function () {
     ]);
 
     Route::resource('news', 'BlogController');
-    Route::resource('photo/category', 'PhotoCategoriesController');
-
     Route::get('gallery', [
         'as' => 'gallery.index',
         'uses' => 'GalleryController@index'
@@ -37,5 +35,9 @@ Route::group(['middleware' => 'web'], function () {
         return $form->persist();
     });
 });
+
+Route::group(['middleware' => ['web', 'auth']], function () {
+
+    Route::resource('photo/category', 'PhotoCategoriesController');
 
 });

@@ -15,6 +15,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $email
  * @property string $password
  *
+ * @property string $avatar
+ * @property string $avatar_path
+ * @property string $avatar_url
+ *
  */
 class User extends Authenticatable
 {
@@ -30,6 +34,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_ldap'
     ];
 
     /**
@@ -38,7 +43,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'avatar' => 'upload',
+        'avatar'  => 'upload',
+        'is_ldap' => 'boolean',
     ];
 
     /**
@@ -46,7 +52,7 @@ class User extends Authenticatable
      */
     protected $uploadSettings = [
         'avatar' => [
-            'resize' => [200, 200]
+            'resize' => [200, 200],
         ],
     ];
 
@@ -58,6 +64,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'hash',
     ];
 
     /**********************************************************************

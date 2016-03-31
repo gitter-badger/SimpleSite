@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\User;
+use Crypt;
 use Illuminate\Support\Str;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
@@ -58,18 +59,21 @@ class LdapUserProvider extends EloquentUserProvider
     {
         $user = parent::retrieveByCredentials($credentials);
 
-        if (Str::contains($credentials['email'], '@itprotect.ru')) {
-            $parts = explode("@", $credentials['email']);
-            $username = $parts[0].array_get($this->options, 'domain');
+        if (is_null($user) and Str::contains($credentials['email'], '@itprotect.ru')) {
+
+            list($name, $domain) = explode("@", $credentials['email'], 2);
+            $username = $name.array_get($this->options, 'domain');
             $password = $credentials['password'];
 
             $this->ldapUser = @ldap_bind($this->ldap, $username, $password);
 
-            if (is_null($user) and $this->ldapUser) {
+            if ($this->ldapUser) {
                 $user = User::create([
                     'email'    => $credentials['email'],
-                    'name'     => $username,
+                    'name'     => $name,
+                    'hash'     => Crypt::encrypt($credentials['password']),
                     'password' => $this->getHasher()->make($credentials['password']),
+                    'is_ldap'  => true,
                 ]);
             }
         }

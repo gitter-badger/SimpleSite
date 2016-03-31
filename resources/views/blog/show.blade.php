@@ -30,5 +30,12 @@
                 </div>
             </div>
         </div>
+
+        @if($categories->count() > 0)
+
+        <h1>Фотоархив</h1>
+
+        @include('gallery.partials.categories_list')
+        @endif
     </div>
 @endsection

@@ -11,6 +11,7 @@ use Illuminate\Http\UploadedFile;
  * Class Photo
  * @package App
  *
+ * @property integer       $id
  * @property string        $caption
  * @property string        $description
  * @property string        $image
@@ -55,16 +56,23 @@ class Photo extends Model
     ];
 
     /**
-     * @var array
+     * @return array
      */
-    protected $uploadSettings = [
-        'image' => [
-            'resize' => [1280, 1024]
-        ],
-        'thumb' => [
-            'resize' => [200, 200]
-        ]
-    ];
+    public function getUploadSettings()
+    {
+        return [
+            'image' => [
+                'resize' => [1280, 1024, function ($constraint) {
+                    $constraint->upsize();
+                }]
+            ],
+            'thumb' => [
+                'resize' => [200, 200, function ($constraint) {
+                    $constraint->upsize();
+                }]
+            ]
+        ];
+    }
 
     /**
      * @param PhotoCategory $category
