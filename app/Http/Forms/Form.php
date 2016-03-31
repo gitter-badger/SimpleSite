@@ -80,7 +80,7 @@ abstract class Form
      *
      * @return bool
      */
-    protected function isValid()
+    public function isValid()
     {
         $this->validate($this->request, $this->rules(), $this->labels());
 
