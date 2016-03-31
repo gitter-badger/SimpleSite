@@ -53,6 +53,18 @@ trait Upload
     protected $uploadFieldsKeys;
 
     /**
+     * @return array
+     */
+    public function getUploadSettings()
+    {
+        if (property_exists($this, 'uploadSettings')) {
+            return (array) $this->uploadSettings;
+        }
+
+        return [];
+    }
+
+    /**
      * @param string       $field
      * @param UploadedFile $file
      */
@@ -67,10 +79,7 @@ trait Upload
             \File::makeDirectory(public_path($dir), 493, true);
         }
 
-        $settings = [];
-        if (property_exists($this, 'uploadSettings')) {
-            $settings = array_get($this->uploadSettings, $field, $settings);
-        }
+        $settings = array_get($this->getUploadSettings(), $field, []);
 
         $image = Image::make($file);
 
@@ -107,6 +116,25 @@ trait Upload
         }
 
         return parent::getAttribute($key);
+    }
+
+
+    /**
+     * Get the value of an attribute using its mutator.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return mixed
+     */
+    protected function mutateAttribute($key, $value)
+    {
+        $this->findUploadFields();
+
+        if ($this->isUploadField($key)) {
+            return $this->getAttribute($key);
+        }
+
+        return parent::mutateAttribute($key, $value);
     }
 
     /**

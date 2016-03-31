@@ -31,4 +31,11 @@ Route::group(['middleware' => 'web'], function () {
         'as' => 'gallery.category',
         'uses' => 'GalleryController@showCategory'
     ]);
+
+
+    Route::post('upload/image', function(\App\Http\Forms\UploadForm $form) {
+        return $form->persist();
+    });
+});
+
 });
