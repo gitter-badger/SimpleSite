@@ -3,7 +3,7 @@
 @section('content')
     <div class="ui container">
         <div class="news-items box">
-            <h2>@lamg('core.post.title.archive')</h2>
+            <h2>@lang('core.post.title.archive')</h2>
 
             @include('blog.partials.list')
         </div>
