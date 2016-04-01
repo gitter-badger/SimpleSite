@@ -54,7 +54,10 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         if ($e instanceof \Illuminate\Validation\ValidationException) {
-            return $this->buildFailedValidationResponse($request, $e->validator->errors());
+            return $this->buildFailedValidationResponse(
+                $request,
+                $e->validator->errors()->toArray()
+            );
         }
 
         if ((($request->ajax() && ! $request->pjax()) || $request->wantsJson()) or ($e instanceof RestApiControllerException)) {
