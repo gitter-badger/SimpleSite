@@ -13,7 +13,7 @@ trait Upload
     {
         static::updating(function (Model $model) {
             foreach ($model->getUploadFields() as $key) {
-                if (! empty($model->original[$key]) and file_exists($filePath = public_path($model->original[$key]))) {
+                if (! empty($model->original[$key]) and ($model->original[$key] != $model->attributes[$key]) and file_exists($filePath = public_path($model->original[$key]))) {
                     unlink($filePath);
                 }
             }
@@ -204,9 +204,9 @@ trait Upload
 
     /**
      * @param string       $key
-     * @param UploadedFile $file
+     * @param UploadedFile|null $file
      */
-    public function setUploadFile(string $key, UploadedFile $file)
+    public function setUploadFile(string $key, UploadedFile $file = null)
     {
         $this->{$key} = $file;
     }
