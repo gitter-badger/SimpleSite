@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class RoleTest extends TestCase
 {
 
+    use DatabaseTransactions;
+
     /**
      * A basic test example.
      *
