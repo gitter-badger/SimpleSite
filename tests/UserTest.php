@@ -21,10 +21,10 @@ class UserTest extends TestCase
         $roles = factory(App\Role::class, 5)->create();
 
         $user->assignRoles($roles->first());
-        $this->assertEquals($user->roles->count(), 1);
+        $this->assertEquals(1, $user->roles()->count());
 
         $user->assignRoles($roles);
-        $this->assertEquals($user->roles->count(), 5);
+        $this->assertEquals(5, $user->roles()->count());
     }
 
     public function testUserRoleAssign()
@@ -36,6 +36,6 @@ class UserTest extends TestCase
         $role = factory(App\Role::class)->create();
         $user->assignRoles($role->name);
 
-        $this->assertEquals($user->roles->count(), 1);
+        $this->assertEquals(1, $user->roles()->count());
     }
 }

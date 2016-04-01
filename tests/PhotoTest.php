@@ -2,7 +2,6 @@
 
 class PhotoTest extends TestCase
 {
-
     use \Illuminate\Foundation\Testing\DatabaseTransactions;
 
     public function testFilePath()
@@ -12,10 +11,10 @@ class PhotoTest extends TestCase
         $photo->image = 'test';
         $photo->thumb = 'test';
 
-        $this->assertEquals($photo->image_path, public_path($photo->image));
-        $this->assertEquals($photo->thumb_path, public_path($photo->thumb));
-        $this->assertEquals($photo->image_url, url($photo->image));
-        $this->assertEquals($photo->thumb_url, url($photo->thumb));
+        $this->assertEquals(public_path($photo->image), $photo->image_path);
+        $this->assertEquals(public_path($photo->thumb), $photo->thumb_path);
+        $this->assertEquals(url($photo->image), $photo->image_url);
+        $this->assertEquals(url($photo->thumb), $photo->thumb_url);
     }
 
     public function testFileUpload()
@@ -48,8 +47,8 @@ class PhotoTest extends TestCase
 
         $photo->save();
 
-        $this->assertEquals($photo->image_path, $oldFilePath);
-        $this->assertEquals($photo->thumb_path, $oldThumbPath);
+        $this->assertEquals($oldFilePath, $photo->image_path);
+        $this->assertEquals($oldThumbPath, $photo->thumb_path);
 
         $this->assertFileExists($photo->image_path);
         $this->assertFileExists($photo->thumb_path);

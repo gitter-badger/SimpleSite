@@ -27,9 +27,9 @@ EOS;
 
         list($text, $textIntro) = \App\Helpers\MarkdownParser::parseText($blog->text_source);
 
-        $this->assertEquals($blog->text_source, trim($source));
-        $this->assertEquals($blog->text_intro, $textIntro);
-        $this->assertEquals($blog->text, $text);
+        $this->assertEquals(trim($source), $blog->text_source);
+        $this->assertEquals($textIntro, $blog->text_intro);
+        $this->assertEquals($text, $blog->text);
     }
 
     public function testPostTitle()
@@ -39,7 +39,7 @@ EOS;
             'title' => $title
         ]);
 
-        $this->assertEquals($blog->title, trim($title));
+        $this->assertEquals(trim($title), $blog->title);
     }
 
     public function testFileUpload()

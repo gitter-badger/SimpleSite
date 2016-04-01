@@ -25,10 +25,10 @@ class PollTest extends TestCase
         $this->assertTrue($poll instanceof \App\Poll);
         $this->assertTrue($poll->exists());
 
-        $this->assertEquals($poll->title, trim($title));
-        $this->assertEquals($poll->description, trim($description));
+        $this->assertEquals(trim($title), $poll->title);
+        $this->assertEquals(trim($description), $poll->description);
 
-        $this->assertEquals($poll->answers()->count(), is_array($answers) ? count($answers) : 0);
+        $this->assertEquals(is_array($answers) ? count($answers) : 0, $poll->answers()->count());
     }
 
     /**
@@ -81,21 +81,21 @@ class PollTest extends TestCase
         $status = $answer->vote($this->user);
 
         $this->assertTrue($status);
-        $this->assertEquals($answer->votes, $total + 1);
-        $this->assertEquals($poll->votes()->count(), $total + 1);
-        $this->assertEquals($answer->votes()->count(), $total + 1);
+        $this->assertEquals($total + 1, $answer->votes);
+        $this->assertEquals($total + 1, $poll->votes()->count());
+        $this->assertEquals($total + 1, $answer->votes()->count());
 
         $status = $answer->vote($this->user);
 
         $this->assertFalse($status);
-        $this->assertEquals($answer->votes, $total + 1);
-        $this->assertEquals($poll->votes()->count(), $total + 1);
-        $this->assertEquals($answer->votes()->count(), $total + 1);
+        $this->assertEquals($total + 1, $answer->votes);
+        $this->assertEquals($total + 1, $poll->votes()->count());
+        $this->assertEquals($total + 1, $answer->votes()->count());
 
 
         $this->assertTrue($answer->isVotedBy($this->user));
 
-        $this->assertEquals($poll->totalVotes(), $total + 1);
+        $this->assertEquals($total + 1, $poll->totalVotes());
     }
 
     /**
