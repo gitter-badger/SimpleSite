@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Http\RestApiResponse;
 use Exception;
+use Illuminate\Database\QueryException;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -11,6 +14,9 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+
+    use ValidatesRequests;
+
     /**
      * A list of the exception types that should not be reported.
      *
@@ -28,7 +34,8 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param  \Exception $e
+     *
      * @return void
      */
     public function report(Exception $e)
@@ -39,12 +46,37 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception               $e
+     *
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof \Illuminate\Validation\ValidationException) {
+            return $this->buildFailedValidationResponse($request, $e->validator->errors());
+        }
+
+        if ((($request->ajax() && ! $request->pjax()) || $request->wantsJson()) or ($e instanceof RestApiControllerException)) {
+            return RestApiResponse::createFromException($request, $e);
+        }
+
+        if ($e instanceof ModelNotFoundException) {
+            $model = $e->getModel();
+
+            if (method_exists($model, 'getNotFoundMessage')) {
+                $message = app()->make($model)->getNotFoundMessage();
+            } else {
+                $message = trans('core.message.model_not_found');
+            }
+
+            abort(404, $message);
+        }
+
+        if ($e instanceof QueryException) {
+            abort(500, trans('core.message.something_went_wrong'));
+        }
+
         return parent::render($request, $e);
     }
 }

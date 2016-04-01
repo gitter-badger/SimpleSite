@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -25,13 +26,9 @@ class GalleryController extends Controller
      * @param Request $request
      * @param int     $categoryId
      */
-    public function showCategory(Request $request, $categoryId)
+    public function showCategory(Request $request, int $categoryId)
     {
-        $category = PhotoCategory::find($categoryId);
-
-        if (is_null($category)) {
-            abort(404, 'Категория не найдена');
-        }
+        $category = PhotoCategory::findOrFail($categoryId);
 
         $photos = $category->photos()->paginate(30);
 

@@ -12,6 +12,7 @@ use App\Http\Requests;
 
 class BlogController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -31,16 +32,12 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
-        $post = Post::find($id);
-
-        if (is_null($post)) {
-            abort(404, 'Новость не найдена');
-        }
+        $post = Post::findOrFail($id);
 
         return view('blog.show', [
-            'post' => $post,
+            'post'       => $post,
             'categories' => $post->photo_categories,
         ]);
     }
@@ -74,17 +71,13 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        $post = Post::find($id);
-
-        if (is_null($post)) {
-            abort(404, 'Новость не найдена');
-        }
+        $post = Post::findOrFail($id);
 
         return view('blog.edit', [
-            'post' => $post,
-            'categories' => PhotoCategory::pluck('title', 'id')->all(),
+            'post'                => $post,
+            'categories'          => PhotoCategory::pluck('title', 'id')->all(),
             'selected_categories' => $post->photo_categories->pluck('id')->all()
         ]);
     }
@@ -97,21 +90,16 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostForm $form, $id)
+    public function update(UpdatePostForm $form, int $id)
     {
         $form->isValid();
 
-        $post = Post::find($id);
-
-        if (is_null($post)) {
-            abort(404, 'Новость не найдена');
-        }
+        $post = Post::findOrFail($id);
 
         $post->update($form->fields());
-
         $post->photo_categories()->sync((array) $form->photo_categories);
 
-        return redirect()->back();
+        return back();
     }
 
     /**
@@ -121,8 +109,11 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return back();
     }
 }
