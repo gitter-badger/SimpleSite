@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="ui container photo-categories">
-        <h1 class="header">Фотоархив</h1>
+        <h1 class="header">@lang('core.title.gallery')</h1>
 
         @if($categories->count() > 0)
             @include('gallery.partials.categories_list')
@@ -13,7 +13,7 @@
         @else
             <div class="ui positive message">
                 <div class="header">
-                    В разделе нет информации
+                    @lang('core.message.empty_section')
                 </div>
             </div>
         @endif

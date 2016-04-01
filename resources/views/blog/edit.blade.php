@@ -3,7 +3,7 @@
 @section('content')
     <div class="ui container">
         <div class="box">
-            <h1>Редактирование статьи</h1>
+            <h1>@lang('core.post.title.edit')</h1>
             <link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
             <script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
             <script>
@@ -41,7 +41,7 @@
             @endif
 
             <div class="field">
-                <label class="control-label">Заголовок</label>
+                <label class="control-label">@lang('core.post.field.title')</label>
                 {!! Form::text('title', null, ['id' => 'inputTitle']) !!}
             </div>
 
@@ -55,7 +55,7 @@
                 ]) !!}
             </div>
 
-            {!! Form::button('<i class="icon checkmark"></i> Сохранить', [
+            {!! Form::button('<i class="icon checkmark"></i> '.trans('core.post.button.save'), [
                 'type' => 'submit', 'value' => 'save',
                 'class' => 'ui big positive button'
             ]) !!}
