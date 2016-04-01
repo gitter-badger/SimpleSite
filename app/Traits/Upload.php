@@ -68,7 +68,7 @@ trait Upload
      * @param string       $field
      * @param UploadedFile $file
      */
-    protected function attachFile($field, UploadedFile $file)
+    protected function attachFile(string $field, UploadedFile $file)
     {
         $destination_path = 'storage';
         $filename         = str_random(6).'_'.$file->getClientOriginalName();
@@ -171,7 +171,7 @@ trait Upload
      *
      * @return bool
      */
-    public function isUploadField($key)
+    public function isUploadField(string $key)
     {
         return array_key_exists($key, $this->uploadGetKeys) || array_key_exists($key, $this->uploadSetKeys);
     }
@@ -182,7 +182,7 @@ trait Upload
      *
      * @return string|null
      */
-    public function getUploadUrl($key, $value)
+    public function getUploadUrl(string $key, $value)
     {
         if (! empty($value)) {
             return url($value);
@@ -195,7 +195,7 @@ trait Upload
      *
      * @return string|null
      */
-    public function getUploadPath($key, $value)
+    public function getUploadPath(string $key, $value)
     {
         if (! empty($value)) {
             return public_path($value);
@@ -206,7 +206,7 @@ trait Upload
      * @param string       $key
      * @param UploadedFile $file
      */
-    public function setUploadFile($key, UploadedFile $file)
+    public function setUploadFile(string $key, UploadedFile $file)
     {
         $this->{$key} = $file;
     }

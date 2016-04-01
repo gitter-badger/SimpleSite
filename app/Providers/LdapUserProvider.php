@@ -27,11 +27,11 @@ class LdapUserProvider extends EloquentUserProvider
     /**
      * Create a new database user provider.
      *
-     * @param  \Illuminate\Contracts\Hashing\Hasher $hasher
-     * @param  string                               $model
+     * @param \Illuminate\Contracts\Hashing\Hasher $hasher
+     * @param string                               $model
      * @param array                                 $options
      */
-    public function __construct(HasherContract $hasher, $model, array $options = [])
+    public function __construct(HasherContract $hasher, string $model, array $options = [])
     {
         parent::__construct($hasher, $model);
 

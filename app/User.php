@@ -76,7 +76,7 @@ class User extends Authenticatable
      *
      * @return string|void
      */
-    public function getNameAttribute($name)
+    public function getNameAttribute(string $name)
     {
         if (empty($name)) {
             return;

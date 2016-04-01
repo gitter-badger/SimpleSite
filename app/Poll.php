@@ -128,7 +128,7 @@ class Poll extends Model
     /**
      * @param string $title
      */
-    public function setTitleAttribute($title)
+    public function setTitleAttribute(string $title)
     {
         $this->attributes['title'] = trim($title);
     }
@@ -136,7 +136,7 @@ class Poll extends Model
     /**
      * @param string $description
      */
-    public function setDescriptionAttribute($description)
+    public function setDescriptionAttribute(string $description)
     {
         $this->attributes['description'] = trim($description);
     }

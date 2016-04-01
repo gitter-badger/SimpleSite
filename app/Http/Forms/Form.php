@@ -7,6 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class Form
 {
+
     use ValidatesRequests;
 
     /**
@@ -23,7 +24,8 @@ abstract class Form
      */
     public function __construct(Request $request = null)
     {
-        $this->request = $request ?: request();
+        $this->request = $request
+            ?: request();
     }
 
     /**
@@ -90,11 +92,11 @@ abstract class Form
     /**
      * Fetch properties from the request.
      *
-     * @param  string $property
+     * @param string $property
      *
      * @return array|string
      */
-    public function __get($property)
+    public function __get(string $property)
     {
         // Consider doing a bit more checking here...
 
