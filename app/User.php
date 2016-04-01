@@ -2,14 +2,17 @@
 
 namespace App;
 
+use App\Traits\HasRoles;
 use App\Traits\Upload;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class User
  * @package App
  *
- * @property int    $id
+ * @property int $id
  *
  * @property string $name
  * @property string $email
@@ -19,11 +22,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $avatar_path
  * @property string $avatar_url
  *
+ * @property Collection|Role[] $roles
+ *
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class User extends Authenticatable
 {
 
-    use Upload;
+    use Upload, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -34,7 +41,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_ldap'
+        'is_ldap',
     ];
 
     /**
@@ -43,7 +50,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'avatar'  => 'upload',
+        'avatar' => 'upload',
         'is_ldap' => 'boolean',
     ];
 
@@ -72,11 +79,11 @@ class User extends Authenticatable
      **********************************************************************/
 
     /**
-     * @param string $name
+     * @param string|null $name
      *
      * @return string|void
      */
-    public function getNameAttribute(string $name)
+    public function getNameAttribute(string $name = null)
     {
         if (empty($name)) {
             return;
