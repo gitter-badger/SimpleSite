@@ -41,6 +41,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'hash',
         'is_ldap',
     ];
 
@@ -73,6 +74,22 @@ class User extends Authenticatable
         'remember_token',
         'hash',
     ];
+
+    /**
+     * @return bool
+     */
+    public function isSuperAdmin()
+    {
+        return $this->hasRole(Role::ROLE_ADMIN);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isManager()
+    {
+        return $this->hasRole(Role::ROLE_MANAGER);
+    }
 
     /**********************************************************************
      * Mutators
