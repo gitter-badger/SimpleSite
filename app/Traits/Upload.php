@@ -65,7 +65,7 @@ trait Upload
     }
 
     /**
-     * @param string       $field
+     * @param string $field
      * @param UploadedFile $file
      */
     protected function attachFile(string $field, UploadedFile $file)
@@ -118,12 +118,12 @@ trait Upload
         return parent::getAttribute($key);
     }
 
-
     /**
      * Get the value of an attribute using its mutator.
      *
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param  string $key
+     * @param  mixed $value
+     *
      * @return mixed
      */
     protected function mutateAttribute($key, $value)
@@ -141,7 +141,7 @@ trait Upload
      * Set a given attribute on the model.
      *
      * @param  string $key
-     * @param  mixed  $value
+     * @param  mixed $value
      *
      * @return $this
      */
@@ -167,7 +167,7 @@ trait Upload
     /**
      * Determine if a set mutator exists for an attribute.
      *
-     * @param  string $key
+     * @param string $key
      *
      * @return bool
      */
@@ -203,7 +203,7 @@ trait Upload
     }
 
     /**
-     * @param string       $key
+     * @param string $key
      * @param UploadedFile|null $file
      */
     public function setUploadFile(string $key, UploadedFile $file = null)
