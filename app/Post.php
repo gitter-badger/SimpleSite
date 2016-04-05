@@ -105,7 +105,7 @@ class Post extends Model
     /**
      * @param string $title
      */
-    public function setTitleAttribute(string $title)
+    public function setTitleAttribute($title)
     {
         $this->attributes['title'] = trim($title);
     }
@@ -113,7 +113,7 @@ class Post extends Model
     /**
      * @param string $text
      */
-    public function setTextSourceAttribute(string $text)
+    public function setTextSourceAttribute($text)
     {
         $this->attributes['text_source'] = trim($text);
 
@@ -157,7 +157,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeRecent($query, int $days = 1)
+    public function scopeRecent($query, $days = 1)
     {
         return $query->where('created_at', '>', Carbon::now()->subDay($days));
     }

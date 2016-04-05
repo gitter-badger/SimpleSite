@@ -26,7 +26,7 @@ class GalleryController extends Controller
      * @param Request $request
      * @param int     $categoryId
      */
-    public function showCategory(Request $request, int $categoryId)
+    public function showCategory(Request $request, $categoryId)
     {
         $category = PhotoCategory::findOrFail($categoryId);
 

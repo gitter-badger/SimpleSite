@@ -32,7 +32,7 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show($id)
     {
         $post = Post::findOrFail($id);
 
@@ -71,7 +71,7 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(int $id)
+    public function edit($id)
     {
         $post = Post::findOrFail($id);
 
@@ -90,7 +90,7 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostForm $form, int $id)
+    public function update(UpdatePostForm $form, $id)
     {
         $form->isValid();
 
@@ -109,7 +109,7 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy($id)
     {
         $post = Post::findOrFail($id);
         $post->delete();
