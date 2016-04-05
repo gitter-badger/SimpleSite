@@ -78,7 +78,7 @@ return [
             'driver'  => 'ldap',
             'model'   => App\User::class,
             'options' => [
-                'server' => env('LDAP__HOST'),
+                'server' => env('LDAP_HOST'),
                 'domain' => '@itp',
             ],
         ],
