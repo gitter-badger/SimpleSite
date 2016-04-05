@@ -200,6 +200,9 @@ class Poll extends Model
      */
     public function scopeActive($query)
     {
-        return $query->where('expired_at', '>=', Carbon::now()->toDateString());
+        return $query->where(function($q) {
+            $q->orWhere('expired_at', '>=', Carbon::now()->toDateString());
+            $q->orWhereNull('expired_at');
+        });
     }
 }

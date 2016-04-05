@@ -7,10 +7,10 @@
         </div>
         <div class="content">
             <div class="field" ng-repeat="answer in poll.answers" ng-hide="poll.is_voted||!user.id" style="margin-bottom: 10px">
-                    <input id="answer<% answer.id %>" ng-hide="poll.multiple" type="radio" ng-model="poll.votes" name="poll" ng-value="answer.id" />
-                    <input id="answer<% answer.id %>" ng-show="poll.multiple" type="checkbox" ng-model="poll.votes" name="poll[]" ng-value="answer.id" />
+                    <input ng-hide="poll.multiple" type="radio" ng-model="poll.votes" ng-value="answer.id" />
+                    <input ng-show="poll.multiple" type="checkbox" ng-model="poll.votes[answer.id]" />
 
-                    <label for="answer<% answer.id %>" style="cursor: pointer">
+                    <label style="cursor: pointer">
                         <% answer.title %>
                         <p class="meta" ng-show="answer.description"><% answer.description %></p>
                     </label>
@@ -30,19 +30,14 @@
                     <i class="remove icon"></i> @lang('core.poll.button.reset')
                 </button>
             </div>
+            <br />
+            <br />
         </div>
 
-        <div class="extra">
-            <div class="ui green small label">
-                @lang('core.poll.label.total_votes')
-                <strong><% poll.total_votes %></strong>
-            </div>
-        </div>
-
-        <div class="extra">
-            <div class="right floated author" ng-bind-html="renderHtml(poll.author.name)">
-
-            </div>
+        <div class="ui  bottom attached label">
+            @lang('core.poll.label.total_votes')
+            <strong><% poll.total_votes %></strong>
+            <div class="right floated author" ng-bind-html="renderHtml(poll.author.name_with_avatar)"></div>
         </div>
     </div>
 </div>

@@ -46,11 +46,13 @@ Route::group(['middleware' => 'web'], function () {
         ]);
 
         Route::post('poll/vote/{id}', [
+            'middleware' => 'auth',
             'as' => 'poll.vote',
             'uses' => 'PollController@vote',
         ]);
 
         Route::post('poll/reset/{id}', [
+            'middleware' => 'auth',
             'as' => 'poll.reset',
             'uses' => 'PollController@reset',
         ]);
