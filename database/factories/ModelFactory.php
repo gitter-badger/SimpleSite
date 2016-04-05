@@ -13,30 +13,32 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name'           => $faker->name,
-        'email'          => $faker->safeEmail,
-        'password'       => bcrypt(str_random(10)),
+        'name' => $faker->name,
+        'email' => $faker->safeEmail,
+        'password' => bcrypt('password'),
         'remember_token' => str_random(10),
-        'avatar_file'    => function () {
-            $files     = File::files(public_path('tmp'));
+        'avatar_file' => function () {
+            $files = File::files(public_path('tmp'));
             $filesPath = $files[array_rand($files)];
+
             return new \Illuminate\Http\UploadedFile($filesPath, basename($filesPath), 'image/jpeg', File::size($filesPath));
-        }
+        },
     ];
 });
 
 $factory->define(App\Role::class, function (Faker\Generator $faker) {
     return [
-        'name'           => $faker->name,
-        'label'          => $faker->sentence
+        'name' => $faker->name,
+        'label' => $faker->sentence,
     ];
 });
 
 $factory->define(App\Post::class, function (Faker\Generator $faker) {
     return [
-        'title'       => $faker->sentence(5),
+        'title' => $faker->sentence(5),
+        'type' => $faker->randomElement([\App\Post::TYPE_EVENT, \App\Post::TYPE_NEWS]),
         'text_source' => $faker->sentence(10).'<cut></cut># Title'.PHP_EOL.$faker->sentence(100),
-        'author_id'   => function () {
+        'author_id' => function () {
             $user = App\User::first();
             if (is_null($user)) {
                 $user = factory(App\User::class)->create();
@@ -49,19 +51,20 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
             null,
             null,
             function () {
-                $files     = File::files(public_path('tmp'));
+                $files = File::files(public_path('tmp'));
                 $filesPath = $files[array_rand($files)];
+
                 return new \Illuminate\Http\UploadedFile($filesPath, basename($filesPath), 'image/jpeg', File::size($filesPath));
-            }
-        ])
+            },
+        ]),
     ];
 });
 
 $factory->define(App\Poll::class, function (Faker\Generator $faker) {
     return [
-        'title'       => $faker->title,
+        'title' => $faker->title,
         'description' => $faker->text,
-        'author_id'   => function () {
+        'author_id' => function () {
             return factory(App\User::class)->create()->id;
         },
     ];
@@ -69,9 +72,9 @@ $factory->define(App\Poll::class, function (Faker\Generator $faker) {
 
 $factory->define(App\PollAnswer::class, function (Faker\Generator $faker) {
     return [
-        'title'       => $faker->title,
+        'title' => $faker->title,
         'description' => $faker->text,
-        'author_id'   => function () {
+        'author_id' => function () {
             $user = App\User::first();
             if (is_null($user)) {
                 $user = factory(App\User::class)->create();
@@ -84,7 +87,7 @@ $factory->define(App\PollAnswer::class, function (Faker\Generator $faker) {
 
 $factory->define(App\PhotoCategory::class, function (Faker\Generator $faker) {
     return [
-        'title'       => $faker->sentence(3),
+        'title' => $faker->sentence(3),
         'description' => $faker->randomElement([
             $faker->sentence(3),
             '',
@@ -94,7 +97,7 @@ $factory->define(App\PhotoCategory::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Photo::class, function (Faker\Generator $faker) {
     return [
-        'caption'     => $faker->sentence(3),
+        'caption' => $faker->sentence(3),
         'description' => $faker->randomElement([
             $faker->sentence(3),
             '',
@@ -109,10 +112,10 @@ $factory->define(App\Photo::class, function (Faker\Generator $faker) {
             return $faker->randomElement($categories);
         },
         'upload_file' => function () {
-            $files     = File::files(public_path('tmp'));
+            $files = File::files(public_path('tmp'));
             $filesPath = $files[array_rand($files)];
 
             return new \Illuminate\Http\UploadedFile($filesPath, basename($filesPath), 'image/jpeg', File::size($filesPath));
-        }
+        },
     ];
 });
