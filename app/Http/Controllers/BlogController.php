@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\NewsFilters;
 use App\Http\Forms\StorePostForm;
 use App\Http\Forms\UpdatePostForm;
 use App\PhotoCategory;
@@ -18,10 +19,10 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(NewsFilters $filters)
     {
         return view('blog.index', [
-            'posts' => \App\Post::latest()->paginate(5),
+            'posts' => \App\Post::filter($filters)->latest()->paginate(5),
         ]);
     }
 

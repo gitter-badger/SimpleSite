@@ -15,6 +15,7 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->string('type')->default(\App\Post::TYPE_NEWS);
 
             $table->text('text_intro');
             $table->text('text');

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Helpers\MarkdownParser;
 use App\Traits\Authored;
+use App\Traits\Filterable;
 use App\Traits\Upload;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,6 +21,7 @@ use Intervention\Image\Facades\Image;
  * @property integer                    $author_id
  * @property User                       $author
  *
+ * @property string                     $type
  * @property string                     $title
  * @property string                     $text_source
  * @property string                     $text
@@ -41,7 +43,10 @@ use Intervention\Image\Facades\Image;
 class Post extends Model
 {
 
-    use SoftDeletes, Authored, Upload;
+    use SoftDeletes, Authored, Filterable, Upload;
+
+    const TYPE_NEWS = 'news';
+    const TYPE_EVENT = 'event';
 
     /**
      * The table associated with the model.
@@ -58,6 +63,7 @@ class Post extends Model
     protected $fillable = [
         'text_source',
         'title',
+        'type',
     ];
 
     /**
@@ -101,6 +107,25 @@ class Post extends Model
     /**********************************************************************
      * Mutators
      **********************************************************************/
+
+    /**
+     * @return string
+     */
+    public function getTypeTitleAttribute()
+    {
+        $params = [];
+        if ($this->isEvent() and ! is_null($this->event_date)) {
+            if ($this->event_date->lt(Carbon::now())) {
+                return trans("core.post.label.past_event", $params);
+            }
+
+            $params['date'] = $this->event_date->format('d.m.Y');
+
+            return trans("core.post.label.event_with_date", $params);
+        }
+
+        return trans("core.post.label.{$this->type}", $params);
+    }
 
     /**
      * @param string $title
