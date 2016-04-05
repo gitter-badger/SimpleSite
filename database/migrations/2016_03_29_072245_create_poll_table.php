@@ -20,6 +20,7 @@ class CreatePollTable extends Migration
             $table->boolean('multiple')->default(false);
 
             $table->timestamps();
+            $table->date('expired_at');
             $table->softDeletes();
 
             $table->unsignedInteger('author_id')->index();

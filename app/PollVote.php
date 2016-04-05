@@ -27,6 +27,16 @@ class PollVote extends Model
 {
     use Authored;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function (PollVote $vote) {
+            $vote->answer->decrement('votes');
+            $vote->answer->update();
+        });
+    }
+
     /**
      * @param Poll $poll
      */

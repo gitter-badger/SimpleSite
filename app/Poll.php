@@ -86,7 +86,7 @@ class Poll extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'expired_at'];
 
     /**
      * @param PollAnswer $answer
@@ -96,7 +96,25 @@ class Poll extends Model
      */
     public function vote(PollAnswer $answer, User $voter)
     {
+        if (! $this->isMultiple() and $this->isVotedBy($voter)) {
+            return false;
+        }
+
         return $answer->vote($voter);
+    }
+
+    /**
+     * @param User $voter
+     *
+     * @return bool
+     */
+    public function isVotedBy(User $voter = null)
+    {
+        if (is_null($voter)) {
+            return false;
+        }
+
+        return ! is_null($this->votes()->where('author_id', $voter->id)->first());
     }
 
     /**
@@ -114,11 +132,21 @@ class Poll extends Model
     {
         $total = 0;
 
-        foreach ($this->answers as $answer) {
+        foreach ($this->answers()->get() as $answer) {
             $total += $answer->votes;
         }
 
         return $total;
+    }
+
+    /**
+     * @param User $voter
+     */
+    public function resetVotesFor(User $voter)
+    {
+        $this->votes()->where('author_id', $voter->id)->get()->each(function ($vote) {
+            $vote->delete();
+        });
     }
 
     /**********************************************************************
@@ -128,7 +156,7 @@ class Poll extends Model
     /**
      * @param string $title
      */
-    public function setTitleAttribute(string $title)
+    public function setTitleAttribute($title)
     {
         $this->attributes['title'] = trim($title);
     }
@@ -136,7 +164,7 @@ class Poll extends Model
     /**
      * @param string $description
      */
-    public function setDescriptionAttribute(string $description)
+    public function setDescriptionAttribute($description)
     {
         $this->attributes['description'] = trim($description);
     }
@@ -159,5 +187,19 @@ class Poll extends Model
     public function votes()
     {
         return $this->hasMany(PollVote::class);
+    }
+
+    /**********************************************************************
+     * Scopes
+     **********************************************************************/
+
+    /**
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('expired_at', '>=', Carbon::now()->toDateString());
     }
 }

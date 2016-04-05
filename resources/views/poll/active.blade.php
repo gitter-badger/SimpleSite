@@ -1,0 +1,1 @@
+@include('poll.partials.list')

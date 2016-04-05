@@ -17,28 +17,50 @@ $this->post('login', 'Auth\AuthController@login');
 $this->get('logout', 'Auth\AuthController@logout');
 
 Route::group(['middleware' => 'web'], function () {
+
     Route::get('/', [
-        'as' => 'home', 'uses' => 'HomeController@index'
+        'as' => 'home',
+        'uses' => 'HomeController@index',
     ]);
 
     Route::resource('news', 'BlogController');
+
     Route::get('gallery', [
         'as' => 'gallery.index',
-        'uses' => 'GalleryController@index'
+        'uses' => 'GalleryController@index',
     ]);
+
     Route::get('gallery/{id}', [
         'as' => 'gallery.category',
-        'uses' => 'GalleryController@showCategory'
+        'uses' => 'GalleryController@showCategory',
     ]);
 
-
-    Route::post('upload/image', function(\App\Http\Forms\UploadForm $form) {
+    Route::post('upload/image', function (\App\Http\Forms\UploadForm $form) {
         return $form->persist();
     });
-});
 
+    Route::group(['namespace' => 'Api', 'prefix' => 'api', 'as' => 'api.'], function () {
+        Route::get('polls.json', [
+            'as' => 'poll.list',
+            'uses' => 'PollController@index',
+        ]);
+
+        Route::post('poll/vote/{id}', [
+            'as' => 'poll.vote',
+            'uses' => 'PollController@vote',
+        ]);
+
+        Route::post('poll/reset/{id}', [
+            'as' => 'poll.reset',
+            'uses' => 'PollController@reset',
+        ]);
+
+        Route::get('app.js', [
+            'uses' => 'AppController@scripts',
+        ]);
+    });
+});
+/*
 Route::group(['middleware' => ['web', 'auth']], function () {
-
     Route::resource('photo/category', 'PhotoCategoriesController');
-
-});
+});*/

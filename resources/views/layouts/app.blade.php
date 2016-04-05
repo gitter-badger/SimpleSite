@@ -9,14 +9,16 @@
     <title>@lang('core.title.portal')</title>
 
     <link href="/css/app.css" rel='stylesheet' type='text/css'>
-
-    <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="/js/semantic.min.js"></script>
-    <script src="/js/all.js"></script>
 </head>
 <body>
     @include('layouts.partials.header')
     @yield('content')
+
+    <!-- JavaScripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="{{ url('/js/semantic.min.js') }}"></script>
+    <script src="{{ url('/js/all.js') }}"></script>
+    <script src="{{ url('/api/app.js') }}"></script>
+    <script src="{{ url('/js/app.js') }}"></script>
 </body>
 </html>
