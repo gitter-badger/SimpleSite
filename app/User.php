@@ -56,6 +56,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'avatar_url',
+        'name_with_avatar'
+    ];
+
+    /**
      * @var array
      */
     protected $uploadSettings = [
@@ -100,8 +110,10 @@ class User extends Authenticatable
      *
      * @return string|void
      */
-    public function getNameAttribute($name = null)
+    public function getNameWithAvatarAttribute($name = null)
     {
+        $name = $this->name;
+
         if (empty($name)) {
             return;
         }
