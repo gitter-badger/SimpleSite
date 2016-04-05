@@ -58,6 +58,17 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('app.js', [
             'uses' => 'AppController@scripts',
         ]);
+
+        Route::get('post/{id}/members.json', [
+            'as' => 'post.members.list',
+            'uses' => 'PostController@members',
+        ]);
+
+        Route::post('post/{id}/members.json', [
+            'middleware' => 'auth',
+            'as' => 'post.members.add',
+            'uses' => 'PostController@addMember',
+        ]);
     });
 });
 /*

@@ -5,12 +5,6 @@ var pollApp = angular.module('pollApp', ['myApp', 'checklist-model'], function (
     $interpolateProvider.endSymbol('%>');
 });
 
-pollApp.filter("sanitize", ['$sce', function ($sce) {
-    return function (htmlCode) {
-        return $sce.trustAsHtml(htmlCode);
-    }
-}]);
-
 pollApp.controller('PollListCtrl', function ($scope, $sce, USER, $http, $timeout) {
     $scope.updateProgressBar = function () {
         $timeout(function () {
@@ -20,7 +14,7 @@ pollApp.controller('PollListCtrl', function ($scope, $sce, USER, $http, $timeout
 
     $scope.user = USER;
 
-    $http.get('api/polls.json').success(function (data) {
+    $http.get('/api/polls.json').success(function (data) {
         $scope.polls = data;
     });
 
@@ -31,17 +25,69 @@ pollApp.controller('PollListCtrl', function ($scope, $sce, USER, $http, $timeout
             return false;
         }
 
-        $http.post('api/poll/vote/' + poll.id, {votes: selected}).success(function (data) {
+        var arrayKeys = function (input) {
+            var output = new Array();
+            var counter = 0;
+            for (var i in input) {
+                if (!input[i]) continue;
+                output[counter++] = i;
+            }
+            return output;
+        }
+
+        if (poll.multiple) {
+            poll.votes = arrayKeys(poll.votes);
+        }
+
+        console.log(poll.votes, $.isArray(poll.votes));
+
+        if (!$.isArray(poll.votes)) {
+            poll.votes = [poll.votes];
+        }
+
+        $http.post('/api/poll/vote/' + poll.id, {votes: poll.votes}).success(function (data) {
             $scope.polls = data;
             $scope.updateProgressBar();
         });
     }
 
     $scope.reset = function (poll) {
-        $http.post('api/poll/reset/' + poll.id).success(function (data) {
+        $http.post('/api/poll/reset/' + poll.id).success(function (data) {
             $scope.polls = data;
             $scope.updateProgressBar();
         });
+    }
+
+    $scope.renderHtml = function (html) {
+        return $sce.trustAsHtml(html);
+    }
+});
+
+var PostMembers = angular.module('PostMembers', ['myApp'], function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('<%');
+    $interpolateProvider.endSymbol('%>');
+});
+
+PostMembers.controller('PostMembersCtrl', function ($scope, $sce, USER, $http, $timeout) {
+    $scope.is_guest = !USER;
+    $timeout(function () {
+        $http.get('/api/post/' + $scope.postId + '/members.json').success(function (data) {
+            $scope.count = data.count;
+            $scope.members = data.members;
+            $scope.is_member = data.is_member;
+        });
+    }, 10);
+
+    $scope.attend = function () {
+        $http.post('/api/post/' + $scope.postId + '/members.json').success(function (data) {
+            $scope.count = data.count;
+            $scope.members = data.members;
+            $scope.is_member = data.is_member;
+        });
+    }
+
+    $scope.showMembers = function () {
+        $('.ui.modal').modal('show');
     }
 
     $scope.renderHtml = function (html) {

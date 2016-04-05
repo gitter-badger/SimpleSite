@@ -39,6 +39,7 @@ use Intervention\Image\Facades\Image;
  * @property Carbon                     $created_at
  * @property Carbon                     $updated_at
  * @property Carbon                     $deleted_at
+ * @property Carbon                     $event_date
  */
 class Post extends Model
 {
@@ -102,7 +103,31 @@ class Post extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'event_date'];
+
+    /**
+     * @return bool
+     */
+    public function isEvent()
+    {
+        return $this->type == static::TYPE_EVENT;
+    }
+
+    /**
+     * @return int
+     */
+    public function membersCount()
+    {
+        return $this->members()->count();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPastEvent()
+    {
+        return is_null($this->event_date) or $this->event_date->lt(Carbon::now());
+    }
 
     /**********************************************************************
      * Mutators
@@ -192,10 +217,18 @@ class Post extends Model
      **********************************************************************/
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
     public function photo_categories()
     {
         return $this->belongsToMany(PhotoCategory::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function members()
+    {
+        return $this->belongsToMany(User::class, 'post_member', 'post_id', 'user_id');
     }
 }

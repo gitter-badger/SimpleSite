@@ -1,7 +1,11 @@
-<div class="ui four cards">
+<div class="ui {{ $num or 'tree' }} cards">
     @foreach($posts as $post)
         <div class="card">
             <div class="content">
+                <span class="ui top attached @if(!$post->isPastEvent()) pink @endif label">
+                    {!! $post->type_title !!}
+                </span>
+
                 <h4 class="header">
                     <a href="{{ route('news.show', [$post->id]) }}">{{ $post->title }}</a>
                 </h4>
@@ -10,7 +14,8 @@
                     {!! $post->text_intro !!}
                 </div>
                 <div class="meta align-right">
-                    <span class="time align">{{ $post->created_at->format('d F Y') }}</span>
+                    <span class="type">{!! $post->type_title !!}</span>
+                    <span class="time">{{ $post->created_at->format('d F Y') }}</span>
                 </div>
             </div>
             @if(!empty($post->thumb))

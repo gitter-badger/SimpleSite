@@ -2,9 +2,13 @@
     @foreach($posts as $post)
         <div class="item news-item">
             <div class="content">
-                <h3 class="header">
+                <span class="ui ribbon @if(!$post->isPastEvent()) pink @endif label">
+                    {!! $post->type_title !!}
+                </span>
+
+                <h2>
                     <a href="{{ route('news.show', [$post->id]) }}">{{ $post->title }}</a>
-                </h3>
+                </h2>
 
                 <div class="description">
                     {!! $post->text_intro !!}
