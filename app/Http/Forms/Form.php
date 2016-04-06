@@ -96,7 +96,7 @@ abstract class Form
      *
      * @return array|string
      */
-    public function __get(string $property)
+    public function __get($property)
     {
         // Consider doing a bit more checking here...
 

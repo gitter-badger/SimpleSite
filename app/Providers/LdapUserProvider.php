@@ -31,7 +31,7 @@ class LdapUserProvider extends EloquentUserProvider
      * @param string                               $model
      * @param array                                 $options
      */
-    public function __construct(HasherContract $hasher, string $model, array $options = [])
+    public function __construct(HasherContract $hasher, $model, array $options = [])
     {
         parent::__construct($hasher, $model);
 
