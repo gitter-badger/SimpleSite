@@ -35,6 +35,7 @@ use Intervention\Image\Facades\Image;
  * @property string                     $thumb_url
  *
  * @property PhotoCategory[]|Collection $photo_categories
+ * @property Poll[]|Collection          $polls
  *
  * @property Carbon                     $created_at
  * @property Carbon                     $updated_at
@@ -222,6 +223,14 @@ class Post extends Model
     public function photo_categories()
     {
         return $this->belongsToMany(PhotoCategory::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function polls()
+    {
+        return $this->belongsToMany(Poll::class);
     }
 
     /**
