@@ -12,20 +12,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * Class User
  * @package App
  *
- * @property int $id
+ * @property int               $id
  *
- * @property string $name
- * @property string $email
- * @property string $password
+ * @property string            $name
+ * @property string            $email
+ * @property string            $password
  *
- * @property string $avatar
- * @property string $avatar_path
- * @property string $avatar_url
+ * @property string            $avatar
+ * @property string            $avatar_path
+ * @property string            $avatar_url
  *
  * @property Collection|Role[] $roles
  *
- * @property Carbon $created_at
- * @property Carbon $updated_at
+ * @property Carbon            $created_at
+ * @property Carbon            $updated_at
  */
 class User extends Authenticatable
 {
@@ -62,7 +62,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'avatar_url',
-        'name_with_avatar'
+        'name_with_avatar',
     ];
 
     /**
@@ -106,11 +106,23 @@ class User extends Authenticatable
      **********************************************************************/
 
     /**
-     * @param string|null $name
+     * @param string $name
      *
+     * @return string
+     */
+    public function getNameAttribute($name)
+    {
+        if (empty($name)) {
+            return $this->email;
+        }
+
+        return $name;
+    }
+    
+    /**
      * @return string|void
      */
-    public function getNameWithAvatarAttribute($name = null)
+    public function getNameWithAvatarAttribute()
     {
         $name = $this->name;
 

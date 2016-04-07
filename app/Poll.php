@@ -61,6 +61,15 @@ class Poll extends Model
         return $poll;
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function (Poll $poll) {
+            $poll->author_id = auth()->user()->id;
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -152,6 +161,15 @@ class Poll extends Model
     /**********************************************************************
      * Mutators
      **********************************************************************/
+
+    /**
+     * @return in
+     */
+    public function getTotalVotesAttribute()
+    {
+        return $this->totalVotes();
+    }
+
 
     /**
      * @param string $title

@@ -28,6 +28,16 @@ class PollAnswer extends Model
 {
     use Authored;
 
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function (PollAnswer $answer) {
+            $answer->author_id = auth()->user()->id;
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *

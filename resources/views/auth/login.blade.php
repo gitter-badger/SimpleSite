@@ -20,35 +20,25 @@
                     <div class="field {{ $errors->has('email') ? 'error' : '' }}">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input type="text" name="email" value="{{ old('email') }}" placeholder="E-mail address">
+                            <input type="text" name="email" value="{{ old('email') }}" placeholder="@lang('core.user.field.email')">
                         </div>
                     </div>
                     <div class="field {{ $errors->has('password') ? 'error' : '' }}">
                         <div class="ui left icon input">
                             <i class="lock icon"></i>
-                            <input type="password" name="password" placeholder="Password">
+                            <input type="password" name="password" placeholder="@lang('core.user.field.password')">
                         </div>
                     </div>
 
                     <div class="field">
                         <div class="ui checkbox">
                             <input type="checkbox" name="remember" tabindex="0" class="hidden">
-                            <label>Remember Me</label>
+                            <label>@lang('core.user.label.remember')</label>
                         </div>
                     </div>
 
-                    <button class="ui fluid large teal submit button">Login</button>
+                    <button class="ui fluid large teal submit button">@lang('core.user.button.login')</button>
                 </div>
-
-                @if (count($errors) > 0)
-                    <div class="ui error message">
-                        <ul class="list">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                        </ul>
-                    </div>
-                @endif
             </form>
         </div>
     </div>

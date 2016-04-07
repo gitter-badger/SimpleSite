@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "erusev/parsedown": "^1.5",
         "intervention/image": "^2.3",
-        "laravelcollective/html": "^5.2"
+        "laravelcollective/html": "^5.2",
+        "laravelrus/sleepingowl": "4.*@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
