@@ -104,6 +104,10 @@ class User extends Authenticatable
      */
     public function isManager()
     {
+        if ($this->isSuperAdmin()) {
+            return true;
+        }
+
         return $this->hasRole(Role::ROLE_MANAGER);
     }
 
