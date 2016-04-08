@@ -43,7 +43,9 @@ class PhotoCategory extends Model
      */
     public function getThumbUrlAttribute()
     {
-        return $this->photo->thumb_url;
+        if (! is_null($photo = $this->photo)) {
+            return $this->photo->thumb_url;
+        }
     }
 
 
