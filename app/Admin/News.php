@@ -9,10 +9,16 @@ AdminSection::registerModel(Post::class, function (ModelConfiguration $model) {
 
     // Display
     $model->onDisplay(function () {
-        return AdminDisplay::table()->setColumns([
-            AdminColumn::link('title')->setLabel(trans('core.post.field.title')),
-            AdminColumnEditable::checkbox('is_pinned')->setLabel(trans('core.post.field.is_pinned')),
-        ])->paginate(20);
+        $display = AdminDisplay::table()
+           ->setColumns([
+               AdminColumn::link('title')->setLabel(trans('core.post.field.title')),
+               AdminColumn::datetime('created_at')->setLabel(trans('core.post.field.created_at'))->setFormat('d.m.Y H:i')->setWidth('150px'),
+               AdminColumnEditable::checkbox('is_pinned')->setLabel(trans('core.post.field.is_pinned'))->setWidth('100px'),
+           ])->paginate(20);
+
+        $display->setScopes([['latest']]);
+
+        return $display;
     });
 
     // Create And Edit
