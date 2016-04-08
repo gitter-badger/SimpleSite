@@ -10,6 +10,9 @@
         @if (Auth::guest())
             <a class="item" href="{{ url('/login') }}">@lang('core.title.login')</a>
         @else
+            @if (Auth::user()->isSuperAdmin())
+            <a class="item" href="{{ url('/admin') }}"><i class="fa fa-btn fa-cog"></i>@lang('core.title.admin')</a>
+            @endif
             <a class="item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>@lang('core.title.logout')</a>
         @endif
     </div>

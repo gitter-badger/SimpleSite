@@ -39,5 +39,13 @@ class AuthServiceProvider extends ServiceProvider
         $this->app['auth']->provider('ldap', function ($app, array $config) {
             return new LdapUserProvider($app['hash'], $config['model'], $config['options']);
         });
+
+        view()->composer(\AdminTemplate::getViewPath('_partials.header'), function($view) {
+            $view->getFactory()->inject(
+                'navbar.right', view('auth.partials.navbar', [
+                    'user' => auth()->user()
+                ])
+            );
+        });
     }
 }
