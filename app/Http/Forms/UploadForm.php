@@ -26,16 +26,11 @@ class UploadForm extends Form
      */
     public function persist()
     {
-        $data = $this->request->getContent();
-        $name = $this->request->server->get('HTTP_X_FILE_NAME');
-        File::put($filePath = storage_path('app/public/'.$name), $data);
+        $uploadFile = $this->request->file('file');
 
-        if (! File::exists($filePath)) {
+        if (is_null($uploadFile)) {
             return [];
         }
-
-        /** @var UploadedFile $uploadFile */
-        $uploadFile = new UploadedFile($filePath, $name, File::mimeType($filePath), File::size($filePath));
 
         $file = new Upload();
 
@@ -46,8 +41,28 @@ class UploadForm extends Form
 
         $file->save();
 
-        unlink($filePath);
+        unlink($uploadFile->getRealPath());
 
         return $file->toArray();
+    }
+
+    /**
+     * @return UploadedFile|null
+     */
+    protected function storeFile()
+    {
+        dd($this->request->file('file'));
+        $data = $this->request->getContent();
+        $name = $this->request->server->get('HTTP_X_FILE_NAME');
+        File::put($filePath = storage_path('app/public/'.$name), $data);
+
+        if (! File::exists($filePath)) {
+            return null;
+        }
+
+         /** @var UploadedFile $uploadFile */
+        $uploadFile = new UploadedFile($filePath, $name, File::mimeType($filePath), File::size($filePath));
+
+        return $uploadFile;
     }
 }

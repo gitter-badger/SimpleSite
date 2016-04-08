@@ -16,7 +16,7 @@ elixir(function(mix) {
 
     mix.scripts([
         '../../../node_modules/magnific-popup/dist/jquery.magnific-popup.js',
-        '../../../node_modules/filedrop/filedrop.js',
+        '../../../node_modules/dropzone/dist/dropzone.js',
         '../../../node_modules/angular/angular.min.js',
         '../../../node_modules/checklist-model/checklist-model.js',
         'common.js'

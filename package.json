@@ -9,6 +9,7 @@
     "magnific-popup": "^1.1.0",
     "filedrop": "^2.0.0",
     "checklist-model": "0.9.0",
-    "angular": "1.5.3"
+    "angular": "1.5.3",
+    "dropzone": "4.3.0"
   }
 }

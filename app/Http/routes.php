@@ -12,6 +12,8 @@
 */
 
 // Authentication Routes...
+use Illuminate\Http\JsonResponse;
+
 $this->get('login', 'Auth\AuthController@showLoginForm');
 $this->post('login', 'Auth\AuthController@login');
 $this->get('logout', 'Auth\AuthController@logout');
@@ -37,6 +39,15 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::post('upload/image', function (\App\Http\Forms\UploadForm $form) {
         return $form->persist();
+    });
+
+    Route::post('upload/photo/{id}', function (\App\Http\Forms\UploadPhotoForm $form) {
+        return new JsonResponse($form->persist());
+    });
+
+    Route::delete('delete/photo/{id}', function ($id) {
+        \App\Photo::find($id)->delete();
+        return new JsonResponse(true);
     });
 
     Route::group(['namespace' => 'Api', 'prefix' => 'api', 'as' => 'api.'], function () {

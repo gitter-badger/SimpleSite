@@ -20,5 +20,6 @@
     <script src="{{ url('/js/all.js') }}"></script>
     <script src="{{ url('/api/app.js') }}"></script>
     <script src="{{ url('/js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>
