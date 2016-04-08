@@ -42,7 +42,9 @@ AdminSection::registerModel(Post::class, function (ModelConfiguration $model) {
                 ->setDisplay('title'),
 
             AdminFormElement::custom()->setCallback(function(Post $post) {
-                $post->assignAuthor(auth()->user());
+                if (is_null($post->author_id)) {
+                    $post->assignAuthor(auth()->user());
+                }
             })
         )
             ->setHtmlAttribute('enctype', 'multipart/form-data');
