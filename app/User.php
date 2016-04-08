@@ -66,15 +66,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * @var array
-     */
-    protected $uploadSettings = [
-        'avatar' => [
-            'resize' => [200, 200],
-        ],
-    ];
-
-    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -84,6 +75,21 @@ class User extends Authenticatable
         'remember_token',
         'hash',
     ];
+
+    /**
+     * @return array
+     */
+    public function getUploadSettings()
+    {
+        return [
+            'avatar' => [
+                'resize' => [200, null, function ($constraint) {
+                    $constraint->upsize();
+                    $constraint->aspectRatio();
+                }],
+            ],
+        ];
+    }
 
     /**
      * @return bool

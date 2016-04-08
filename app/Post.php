@@ -79,18 +79,6 @@ class Post extends Model
     ];
 
     /**
-     * @var array
-     */
-    protected $uploadSettings = [
-        'image' => [
-            'resize' => [640, 480],
-        ],
-        'thumb' => [
-            'resize' => [150, 150],
-        ],
-    ];
-
-    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -105,6 +93,28 @@ class Post extends Model
      * @var array
      */
     protected $dates = ['deleted_at', 'event_date'];
+
+
+    /**
+     * @return array
+     */
+    public function getUploadSettings()
+    {
+        return [
+            'image' => [
+                'resize' => [800, null, function ($constraint) {
+                    $constraint->upsize();
+                    $constraint->aspectRatio();
+                }],
+            ],
+            'thumb' => [
+                'resize' => [150, null, function ($constraint) {
+                    $constraint->upsize();
+                    $constraint->aspectRatio();
+                }],
+            ],
+        ];
+    }
 
     /**
      * @return bool
