@@ -27,7 +27,7 @@ AdminSection::registerModel(Post::class, function (ModelConfiguration $model) {
                 Post::TYPE_EVENT => trans('core.post.label.event'),
                 Post::TYPE_NEWS => trans('core.post.label.news')
             ]),
-            AdminFormElement::datetime('event_at', trans('core.post.field.event_at'))
+            AdminFormElement::date('event_at', trans('core.post.field.event_at'))->setFormat('Y-m-d H:i:00')
         )
         ->addBody(
             AdminFormElement::wysiwyg('text_source', trans('core.post.field.text'), 'simplemde')
