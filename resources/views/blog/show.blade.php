@@ -25,6 +25,8 @@
                             <div class="image">
                                 <img src="{{ $post->image_url }}" class="ui rounded image">
                             </div>
+                            <br />
+                            <br />
                         @endif
 
                         {!! $post->text !!}
