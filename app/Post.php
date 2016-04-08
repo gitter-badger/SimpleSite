@@ -242,7 +242,7 @@ class Post extends Model
      */
     public function photo_categories()
     {
-        return $this->belongsToMany(PhotoCategory::class)->notEmpty();
+        return $this->belongsToMany(PhotoCategory::class);
     }
 
     /**

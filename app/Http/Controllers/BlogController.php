@@ -39,7 +39,7 @@ class BlogController extends Controller
 
         return view('blog.show', [
             'post'       => $post,
-            'categories' => $post->photo_categories,
+            'categories' => $post->photo_categories()->notEmpty()->get(),
         ]);
     }
 
