@@ -137,7 +137,7 @@ class Post extends Model
      */
     public function isPastEvent()
     {
-        return is_null($this->event_date) or $this->event_date->lt(Carbon::now());
+        return is_null($this->event_date) or $this->event_date->endOfDay()->lte(Carbon::now()->startOfDay());
     }
 
     /**********************************************************************
@@ -151,7 +151,7 @@ class Post extends Model
     {
         $params = [];
         if ($this->isEvent() and ! is_null($this->event_date)) {
-            if ($this->event_date->lte(Carbon::now())) {
+            if ($this->isPastEvent()) {
                 return trans("core.post.label.past_event", $params);
             }
 
@@ -220,7 +220,13 @@ class Post extends Model
      */
     public function scopeRecent($query, $days = 1)
     {
-        return $query->where('created_at', '>', Carbon::now()->subDay($days));
+        return $query->where(function($q) use($days) {
+            $q->orWhere('created_at', '>', Carbon::now()->subDay($days));
+            $q->orWhere(function($q) {
+                $q->whereNotNull('event_date');
+                $q->where('event_date', '>=', Carbon::now()->toDateString());
+            });
+        });
     }
 
     /**********************************************************************
