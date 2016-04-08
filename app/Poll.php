@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property Carbon                  $created_at
  * @property Carbon                  $updated_at
+ * @property Carbon                  $expired_at
  * @property Carbon                  $deleted_at
  */
 class Poll extends Model

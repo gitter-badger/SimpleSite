@@ -76,6 +76,8 @@ return [
             'title' => 'Заголовок',
             'total_votes' => 'Всего голосов',
             'description' => 'Описание',
+            'answers' => 'Ответы',
+            'expired_at' => 'Период действия',
         ],
         'button' => [
             'vote' => 'Голосовать',

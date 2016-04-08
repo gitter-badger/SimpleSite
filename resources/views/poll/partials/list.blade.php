@@ -1,4 +1,3 @@
-<h1>Polls</h1>
 <div ng-app="pollApp" ng-controller="PollListCtrl" class="ui two cards">
     <div class="card " ng-repeat="poll in polls" data-id="<% poll.id %>">
         <div class="content">
