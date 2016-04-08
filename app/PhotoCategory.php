@@ -62,7 +62,7 @@ class PhotoCategory extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function photo()
     {
@@ -74,7 +74,7 @@ class PhotoCategory extends Model
      **********************************************************************/
 
     /**
-     * @param     $query
+     * @param $query
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
