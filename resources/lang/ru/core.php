@@ -71,9 +71,11 @@ return [
             'remember' => 'Запомнить меня',
         ],
         'field' => [
+            'username' => 'Имя',
             'email' => 'Email адрес',
             'password' => 'Пароль',
             'avatar' => 'Фото',
+            'roles' => 'Роли'
         ],
         'button' => [
             'login' => 'Войти',
