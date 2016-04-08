@@ -30,7 +30,7 @@ class GalleryController extends Controller
     {
         $category = PhotoCategory::findOrFail($categoryId);
 
-        $photos = $category->photos()->paginate(30);
+        $photos = $category->photos;
 
         return view('gallery.show', compact('category', 'photos'));
     }

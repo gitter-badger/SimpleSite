@@ -19,8 +19,6 @@
             </div>
         </div>
 
-        {!! $photos->render() !!}
-
         @if(auth()->user()->isSuperAdmin())
         <div id="upload" class="dropzone" style="margin: 50px 0;">
             Drop files here to upload
