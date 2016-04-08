@@ -44,8 +44,13 @@ class UserTest extends TestCase
         /** @var App\User $user */
         $user = new App\User();
 
+        $user->email = 'test@test.ru';
         $user->name = 'test';
+
         $this->assertEquals($user->name, 'test');
+
+        $user->name = '';
+        $this->assertEquals($user->name, 'test@test.ru');
     }
 
 
@@ -84,5 +89,36 @@ class UserTest extends TestCase
         $this->assertEquals($user->avatar_url, url('test'));
         $this->assertEquals($user->avatar_path, public_path('test'));
         $this->assertEquals($user->name_with_avatar, "<img class=\"ui avatar mini image\" src=\"".url('test')."\" /> Test Test");
+    }
+
+    /**
+     * @dataProvider phoneNumbers
+     */
+    public function testPhoneNumberParser($phone)
+    {
+        $user = new \App\User([
+            'phone_mobile' => $phone
+        ]);
+
+        $this->assertEquals('+7 (495) 569-6223', $user->phone_mobile, $phone);
+    }
+    
+    public function phoneNumbers()
+    {
+        return [
+            ['+7 (495) 5696223'], ['+7 (495) 56962 23'], ['+7 (495) 56962-23'],
+            ['7 (495) 5696223'], ['7 (495) 56962 23'], ['7 (495) 56962-23'],
+            ['+7(495)5696223'], ['+7(495)56962 23'], ['+7(495)56962-23'],
+            ['7(495)5696223'], ['7(495)56962 23'], ['7(495)56962-23'],
+            ['+74955696223'], ['+749556962 23'], ['74955696223'],
+            ['749556962 23'], ['749556962-23'], ['+7 495 5696223'],
+            ['+7 495 56962 23'], ['+7 495 56962-23'], ['7 495 5696223'],
+            ['7 495 56962 23'], ['7 495 56962-23'], ['+7 495 569 6223'],
+            ['+7 495 569 62 23'], ['+7 495 569 62-23'], ['7 495 569 6223'],
+            ['7 495 569 62 23'], ['7 495 569 62-23'], ['+7-495-569-62-23'],
+            ['+7 (495) 569-62-23'], ['+7 (495) 569 62-23'], ['+7 495-569 62-23'],
+            ['+7 495-569-62-23'], ['+7 495-5696223'], ['+7495-5696223'],
+            ['7495-5696223'],
+        ];
     }
 }

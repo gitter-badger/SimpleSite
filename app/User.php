@@ -17,6 +17,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string            $name
  * @property string            $email
  * @property string            $password
+ * @property string            $position
+ * @property int               $phone_internal
+ * @property int               $phone_mobile
+ * @property bool              $is_ldap
  *
  * @property string            $avatar
  * @property string            $avatar_path
@@ -26,6 +30,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @property Carbon            $created_at
  * @property Carbon            $updated_at
+ * @property Carbon            $password_expired_at
  */
 class User extends Authenticatable
 {
@@ -41,8 +46,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'hash',
         'is_ldap',
+        'position',
+        'phone_internal',
+        'phone_mobile',
+        'password_expired_at'
     ];
 
     /**
@@ -53,6 +61,7 @@ class User extends Authenticatable
     protected $casts = [
         'avatar' => 'upload',
         'is_ldap' => 'boolean',
+        'phone_internal' => 'integer'
     ];
 
     /**
@@ -72,9 +81,15 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
-        'hash',
+        'remember_token'
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['password_expired_at'];
 
     /**
      * @return array
@@ -148,4 +163,17 @@ class User extends Authenticatable
 
         return $name;
     }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhoneMobileAttribute($phone)
+    {
+        $this->attributes['phone_mobile'] = preg_replace(
+            '~\+?[^\d]{0,7}([0-9]{1})?[^\d]{0,7}(\d{3})[^\d]{0,7}(\d{3})[^\d]{0,7}(\d{2})[^\d]{0,7}(\d{2})~',
+            '+$1 ($2) $3-$4$5',
+            $phone
+        );
+    }
+
 }
