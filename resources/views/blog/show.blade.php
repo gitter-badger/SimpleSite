@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="ui container">
+    <div class="ui container" ng-init="postId='{{ $post->id }}'" >
         <div class="ui items">
             <div class="news-item item box">
                 <div class="content">
@@ -11,21 +11,16 @@
 
                     <h1>{{ $post->title }}</h1>
 
-                    <div class="meta">
-                        <span class="author">{!! $post->author->name !!}</span> <span>|</span>
-                        <span class="date">@lang('core.post.field.created_at'): {{ $post->created_at->format('d F Y') }}</span>
-                    </div>
-
                     <div class="ui section divider"></div>
 
                     <div class="description">
                         {!! $post->text_intro !!}
 
                         @if(!empty($post->image))
+                            <br/>
                             <div class="image">
                                 <img src="{{ $post->image_url }}" class="ui rounded image">
                             </div>
-                            <br />
                             <br />
                         @endif
 
@@ -75,6 +70,14 @@
                             </div>
                         </div>
                     @endif
+
+                    <div class="ui section divider"></div>
+
+                    <div class="meta">
+                        {{-- <span class="author">{!! $post->author->name !!}</span>  <span>|</span> --}}
+
+                        <span class="date">@lang('core.post.field.created_at'): {{ $post->created_at->format('d F Y') }}</span>
+                    </div>
                 </div>
             </div>
         </div>
