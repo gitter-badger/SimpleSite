@@ -141,7 +141,7 @@ class Post extends Model
     {
         $params = [];
         if ($this->isEvent() and ! is_null($this->event_date)) {
-            if ($this->event_date->lt(Carbon::now())) {
+            if ($this->event_date->lte(Carbon::now())) {
                 return trans("core.post.label.past_event", $params);
             }
 

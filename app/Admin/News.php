@@ -18,7 +18,8 @@ AdminSection::registerModel(Post::class, function (ModelConfiguration $model) {
     $model->onCreateAndEdit(function() {
         return AdminForm::panel()
         ->addHeader(
-            AdminFormElement::text('title', trans('core.post.field.title'))->required()
+            AdminFormElement::text('title', trans('core.post.field.title'))->required(),
+            AdminFormElement::date('created_at', trans('core.post.field.created_at'))->setFormat('Y-m-d H:i:s')
         )
         ->addHeader(
             AdminFormElement::select('type', trans('core.post.field.type'), [
@@ -38,7 +39,11 @@ AdminSection::registerModel(Post::class, function (ModelConfiguration $model) {
                 ->setDisplay('title')
         )->addBody(
             AdminFormElement::multiselect('polls', trans('core.post.field.polls'), new \App\Poll())
-                ->setDisplay('title')
+                ->setDisplay('title'),
+
+            AdminFormElement::custom()->setCallback(function(Post $post) {
+                $post->assignAuthor(auth()->user());
+            })
         )
             ->setHtmlAttribute('enctype', 'multipart/form-data');
     });
