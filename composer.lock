@@ -4,9 +4,66 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3e3ae722990ce830489ee57c86c55fe3",
-    "content-hash": "22d7845d393f7a4a45b168d060919ae9",
+    "hash": "46db351be8c6c956a6b07bc9355bb3c5",
+    "content-hash": "bd1cdcf85a27dc5ca9bbcac16d21f31c",
     "packages": [
+        {
+            "name": "adldap/adldap",
+            "version": "5.0.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adldap/adLDAP.git",
+                "reference": "b814cd5ab63c10519a8758702e067543a5549bcf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adldap/adLDAP/zipball/b814cd5ab63c10519a8758702e067543a5549bcf",
+                "reference": "b814cd5ab63c10519a8758702e067543a5549bcf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ldap": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Adldap\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Scott Barnett",
+                    "email": "scott@wiggumworld.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Richard Hyland",
+                    "email": "adldap@richardhyland.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Steve Bauman",
+                    "email": "steven_bauman@outlook.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP LDAP Library for Active Directory Manipulation",
+            "keywords": [
+                "active directory",
+                "ldap",
+                "windows"
+            ],
+            "time": "2015-06-16 12:32:39"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "3.0.0",
@@ -3975,7 +4032,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "laravelrus/sleepingowl": 20
+        "laravelrus/sleepingowl": 20,
+        "adldap/adldap": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

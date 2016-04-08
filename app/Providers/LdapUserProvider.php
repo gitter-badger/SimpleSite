@@ -35,10 +35,7 @@ class LdapUserProvider extends EloquentUserProvider
     public function __construct(HasherContract $hasher, $model, array $options = [])
     {
         parent::__construct($hasher, $model);
-
         $this->options = $options;
-
-        $this->ldap = ldap_connect(array_get($this->options, 'server', 'localhost'));
     }
 
     /**
@@ -63,16 +60,14 @@ class LdapUserProvider extends EloquentUserProvider
         if (is_null($user) and Str::contains($credentials['email'], '@itprotect.ru')) {
 
             list($name, $domain) = explode("@", $credentials['email'], 2);
-            $username = $name.array_get($this->options, 'domain');
             $password = $credentials['password'];
 
-            $this->ldapUser = @ldap_bind($this->ldap, $username, $password);
+            $this->ldapUser = \Ldap::authenticate($name, $password);
 
             if ($this->ldapUser) {
                 $user = User::create([
                     'email' => $credentials['email'],
                     'name' => $name,
-                    'hash' => Crypt::encrypt($credentials['password']),
                     'password' => $this->getHasher()->make($credentials['password']),
                     'is_ldap' => true,
                 ]);

@@ -82,7 +82,7 @@ return [
                 'user' => env('LDAP_USER'),
                 'password' => env('LDAP_PASSWORD'),
                 'base_dn' => env('LDAP_BASE_DN'),
-                'domain' => '@itp',
+                'domain' => env('LDAP_DOMAIN'),
             ],
         ],
 
