@@ -227,7 +227,7 @@ class Post extends Model
             $q->orWhere('created_at', '>', Carbon::now()->subDay($days));
             $q->orWhere(function($q) {
                 $q->whereNotNull('event_at');
-                $q->whereRaw('event_at', '>=', Carbon::now());
+                $q->where('event_at', '>=', Carbon::now());
             })
             ->orWhere('is_pinned', true);
         });
