@@ -108,6 +108,7 @@ class PollTest extends TestCase
     protected function createPoll($title, $description, $answers)
     {
         $this->user = factory(App\User::class)->create();
+        $this->actingAs($this->user);
 
         return \App\Poll::createFromArray([
             'title'       => $title,

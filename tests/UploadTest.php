@@ -24,9 +24,9 @@ class UploadTest extends TestCase
             File::size($filePath)
         );
 
-        $response = $this->call('POST', 'upload/image', [], [], [], [
-            'HTTP_X_FILE_NAME' => 'image.jpg'
-        ], file_get_contents($file));
+        $response = $this->call('POST', 'upload/image', [], [], [
+            'file' => $file
+        ]);
 
         $this->assertResponseOk();
         $this->assertResponseStatus(200);
