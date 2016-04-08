@@ -7,6 +7,7 @@ return [
         'news' => 'Новости',
         'polls' => 'Опросы',
         'gallery' => 'Галерея',
+        'photos' => 'Фотографии',
         'login' => 'Авторизация',
         'logout' => 'Выход',
         'permissions' => 'Права доступа',
@@ -55,6 +56,16 @@ return [
         ],
         'label' => [
             'total_photos' => 'Фотографий',
+        ],
+    ],
+    'photo' => [
+        'field' => [
+            'caption' => 'Название',
+            'description' => 'Описание',
+            'created_at' => 'Загружена',
+            'image' => 'Фото',
+            'thumb' => 'Превью',
+            'category' => 'Альбом',
         ],
     ],
     'poll' => [
