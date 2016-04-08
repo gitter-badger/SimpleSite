@@ -62,12 +62,14 @@ class Photo extends Model
     {
         return [
             'image' => [
+                'orientate' => [],
                 'resize' => [1280, null, function ($constraint) {
                     $constraint->upsize();
                     $constraint->aspectRatio();
-                }],
+                }]
             ],
             'thumb' => [
+                'orientate' => [],
                 'fit' => [200, 300, function ($constraint) {
                     $constraint->upsize();
                     $constraint->aspectRatio();
