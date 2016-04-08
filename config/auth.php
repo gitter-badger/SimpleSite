@@ -75,10 +75,13 @@ return [
             'model'  => App\User::class,
         ],
         'ldap'  => [
-            'driver'  => 'ldap',
-            'model'   => App\User::class,
+            'driver' => 'ldap',
+            'model' => App\User::class,
             'options' => [
                 'server' => env('LDAP_HOST'),
+                'user' => env('LDAP_USER'),
+                'password' => env('LDAP_PASSWORD'),
+                'base_dn' => env('LDAP_BASE_DN'),
                 'domain' => '@itp',
             ],
         ],

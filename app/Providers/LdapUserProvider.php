@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\User;
 use Crypt;
+use Illuminate\Support\Debug\Dumper;
 use Illuminate\Support\Str;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
@@ -28,8 +29,8 @@ class LdapUserProvider extends EloquentUserProvider
      * Create a new database user provider.
      *
      * @param \Illuminate\Contracts\Hashing\Hasher $hasher
-     * @param string                               $model
-     * @param array                                 $options
+     * @param string $model
+     * @param array $options
      */
     public function __construct(HasherContract $hasher, $model, array $options = [])
     {
@@ -69,11 +70,11 @@ class LdapUserProvider extends EloquentUserProvider
 
             if ($this->ldapUser) {
                 $user = User::create([
-                    'email'    => $credentials['email'],
-                    'name'     => $name,
-                    'hash'     => Crypt::encrypt($credentials['password']),
+                    'email' => $credentials['email'],
+                    'name' => $name,
+                    'hash' => Crypt::encrypt($credentials['password']),
                     'password' => $this->getHasher()->make($credentials['password']),
-                    'is_ldap'  => true,
+                    'is_ldap' => true,
                 ]);
             }
         }
@@ -85,7 +86,7 @@ class LdapUserProvider extends EloquentUserProvider
      * Validate a user against the given credentials.
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  array                                      $credentials
+     * @param  array $credentials
      *
      * @return bool
      */
