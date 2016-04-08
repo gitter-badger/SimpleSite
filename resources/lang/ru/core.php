@@ -27,12 +27,13 @@ return [
         'field' => [
             'title' => 'Заголовок',
             'created_at' => 'Опубликовано',
-            'event_date' => 'Дата события',
+            'event_at' => 'Дата события',
             'text' => 'Текст',
             'image' => 'Изображение',
             'type' => 'Тип',
             'photo_categories' => 'Прикрепленная галерея',
             'polls' => 'Голосование',
+            'is_pinned' => 'Закреплена',
         ],
         'button' => [
             'save' => 'Сохранить',
@@ -50,6 +51,9 @@ return [
     'gallery' => [
         'field' => [
             'title' => 'Название',
+        ],
+        'label' => [
+            'total_photos' => 'Фотографий',
         ],
     ],
     'poll' => [
@@ -75,7 +79,7 @@ return [
             'email' => 'Email адрес',
             'password' => 'Пароль',
             'avatar' => 'Фото',
-            'roles' => 'Роли'
+            'roles' => 'Роли',
         ],
         'button' => [
             'login' => 'Войти',

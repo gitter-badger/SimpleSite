@@ -20,6 +20,7 @@ use Intervention\Image\Facades\Image;
  * @property integer                    $id
  * @property integer                    $author_id
  * @property User                       $author
+ * @property bool                       $is_pinned
  *
  * @property string                     $type
  * @property string                     $title
@@ -40,7 +41,7 @@ use Intervention\Image\Facades\Image;
  * @property Carbon                     $created_at
  * @property Carbon                     $updated_at
  * @property Carbon                     $deleted_at
- * @property Carbon                     $event_date
+ * @property Carbon                     $event_at
  */
 class Post extends Model
 {
@@ -66,6 +67,7 @@ class Post extends Model
         'text_source',
         'title',
         'type',
+        'is_pinned'
     ];
 
     /**
@@ -76,6 +78,7 @@ class Post extends Model
     protected $casts = [
         'image' => 'upload',
         'thumb' => 'upload',
+        'is_pinned' => 'bool',
     ];
 
     /**
@@ -92,7 +95,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at', 'event_date'];
+    protected $dates = ['deleted_at', 'event_at'];
 
 
     /**
@@ -137,7 +140,7 @@ class Post extends Model
      */
     public function isPastEvent()
     {
-        return is_null($this->event_date) or $this->event_date->endOfDay()->lte(Carbon::now()->startOfDay());
+        return is_null($this->event_at) or $this->event_at->lte(Carbon::now());
     }
 
     /**********************************************************************
@@ -150,12 +153,12 @@ class Post extends Model
     public function getTypeTitleAttribute()
     {
         $params = [];
-        if ($this->isEvent() and ! is_null($this->event_date)) {
+        if ($this->isEvent() and ! is_null($this->event_at)) {
             if ($this->isPastEvent()) {
                 return trans("core.post.label.past_event", $params);
             }
 
-            $params['date'] = $this->event_date->format('d.m.Y');
+            $params['date'] = $this->event_at->format('d.m.Y H:i');
 
             return trans("core.post.label.event_with_date", $params);
         }
@@ -223,9 +226,10 @@ class Post extends Model
         return $query->where(function($q) use($days) {
             $q->orWhere('created_at', '>', Carbon::now()->subDay($days));
             $q->orWhere(function($q) {
-                $q->whereNotNull('event_date');
-                $q->where('event_date', '>=', Carbon::now()->toDateString());
-            });
+                $q->whereNotNull('event_at');
+                $q->whereRaw('event_at', '>=', Carbon::now());
+            })
+            ->orWhere('is_pinned', true);
         });
     }
 

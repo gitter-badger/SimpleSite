@@ -11,6 +11,7 @@ AdminSection::registerModel(Post::class, function (ModelConfiguration $model) {
     $model->onDisplay(function () {
         return AdminDisplay::table()->setColumns([
             AdminColumn::link('title')->setLabel(trans('core.post.field.title')),
+            AdminColumnEditable::checkbox('is_pinned')->setLabel(trans('core.post.field.is_pinned')),
         ])->paginate(20);
     });
 
@@ -26,7 +27,7 @@ AdminSection::registerModel(Post::class, function (ModelConfiguration $model) {
                 Post::TYPE_EVENT => trans('core.post.label.event'),
                 Post::TYPE_NEWS => trans('core.post.label.news')
             ]),
-            AdminFormElement::date('event_date', trans('core.post.field.event_date'))
+            AdminFormElement::datetime('event_at', trans('core.post.field.event_at'))
         )
         ->addBody(
             AdminFormElement::wysiwyg('text_source', trans('core.post.field.text'), 'simplemde')

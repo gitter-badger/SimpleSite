@@ -28,7 +28,7 @@ class CreatePostsTable extends Migration
             $table->foreign('author_id')->references('id')->on('users');
 
             $table->timestamps();
-            $table->date('event_date')->nullable();
+            $table->datetime('event_at')->nullable();
 
             $table->softDeletes();
         });
