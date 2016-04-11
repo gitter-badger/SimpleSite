@@ -53,6 +53,8 @@ return [
     'gallery' => [
         'field' => [
             'title' => 'Название',
+            'created_at' => 'Дата создания',
+            'description' => 'Описание'
         ],
         'label' => [
             'total_photos' => 'Фотографий',

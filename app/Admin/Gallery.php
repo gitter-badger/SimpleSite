@@ -24,8 +24,6 @@ AdminSection::registerModel(PhotoCategory::class, function (ModelConfiguration $
             AdminFormElement::date('created_at', trans('core.gallery.field.created_at'))->setFormat('Y-m-d H:i:s')
         )->addBody(
             AdminFormElement::textarea('description', trans('core.gallery.field.description'))->setRows(3)
-        )->addBody(
-            AdminFormElement::relatedImages('photos', trans('core.gallery.field.photos'))
         );
     });
 
