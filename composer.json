@@ -4,6 +4,12 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/butschster/adLDAP"
+        }
+    ],
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
@@ -11,7 +17,7 @@
         "intervention/image": "^2.3",
         "laravelcollective/html": "^5.2",
         "laravelrus/sleepingowl": "4.*@dev",
-        "adldap/adldap": "5.0.0.x-dev"
+        "adldap/adldap": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -37,6 +37,11 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'GalleryController@showCategory',
     ]);
 
+    Route::get('users', [
+        'as' => 'user.index',
+        'uses' => 'UserController@index',
+    ]);
+
     Route::post('upload/image', function (\App\Http\Forms\UploadForm $form) {
         return $form->persist();
     });

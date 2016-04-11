@@ -4,22 +4,28 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "46db351be8c6c956a6b07bc9355bb3c5",
-    "content-hash": "bd1cdcf85a27dc5ca9bbcac16d21f31c",
+    "hash": "6a94b5d3ca298dbed7a77b900d2e2946",
+    "content-hash": "d0b28aa9fc04d059592ef1da2f6c0f68",
     "packages": [
         {
             "name": "adldap/adldap",
-            "version": "5.0.0.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/adldap/adLDAP.git",
-                "reference": "b814cd5ab63c10519a8758702e067543a5549bcf"
+                "url": "https://github.com/butschster/adLDAP.git",
+                "reference": "f841d727a71f4879a81c8d9b49a55ce3bed3ee07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adldap/adLDAP/zipball/b814cd5ab63c10519a8758702e067543a5549bcf",
-                "reference": "b814cd5ab63c10519a8758702e067543a5549bcf",
+                "url": "https://api.github.com/repos/butschster/adLDAP/zipball/f841d727a71f4879a81c8d9b49a55ce3bed3ee07",
+                "reference": "f841d727a71f4879a81c8d9b49a55ce3bed3ee07",
                 "shasum": ""
+            },
+            "archive": {
+                "exclude": [
+                    "/examples",
+                    "/tests"
+                ]
             },
             "require": {
                 "ext-ldap": "*",
@@ -35,19 +41,23 @@
                     "Adldap\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Adldap\\Tests\\": "tests/"
+                }
+            },
             "license": [
                 "LGPL-2.1"
             ],
             "authors": [
                 {
-                    "name": "Scott Barnett",
-                    "email": "scott@wiggumworld.com",
+                    "name": "Richard Hyland",
+                    "email": "adldap@richardhyland.com",
                     "role": "Developer"
                 },
                 {
-                    "name": "Richard Hyland",
-                    "email": "adldap@richardhyland.com",
+                    "name": "Scott Barnett",
+                    "email": "scott@wiggumworld.com",
                     "role": "Developer"
                 },
                 {
@@ -62,7 +72,11 @@
                 "ldap",
                 "windows"
             ],
-            "time": "2015-06-16 12:32:39"
+            "support": {
+                "issues": "https://github.com/adldap/adLDAP/issues",
+                "source": "https://github.com/adldap/adLDAP"
+            },
+            "time": "2016-04-11 08:17:09"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -1234,16 +1248,16 @@
         },
         {
             "name": "laravelrus/sleepingowl",
-            "version": "4.24.108-beta",
+            "version": "4.30.110-beta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelRUS/SleepingOwlAdmin.git",
-                "reference": "07517afdd9bc3d0d6baa67700d70984ba92287ef"
+                "reference": "53167cab188614851a7a6c5f450feda4ad323142"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelRUS/SleepingOwlAdmin/zipball/07517afdd9bc3d0d6baa67700d70984ba92287ef",
-                "reference": "07517afdd9bc3d0d6baa67700d70984ba92287ef",
+                "url": "https://api.github.com/repos/LaravelRUS/SleepingOwlAdmin/zipball/53167cab188614851a7a6c5f450feda4ad323142",
+                "reference": "53167cab188614851a7a6c5f450feda4ad323142",
                 "shasum": ""
             },
             "require": {
@@ -1288,7 +1302,7 @@
                 "crud",
                 "laravel"
             ],
-            "time": "2016-04-06 19:41:28"
+            "time": "2016-04-07 13:40:23"
         },
         {
             "name": "league/flysystem",

@@ -57,20 +57,18 @@ class LdapUserProvider extends EloquentUserProvider
     {
         $user = parent::retrieveByCredentials($credentials);
 
-        if (is_null($user) and Str::contains($credentials['email'], '@itprotect.ru')) {
-
+        if ((is_null($user) or empty($user->password)) and Str::contains($credentials['email'], '@itprotect.ru')) {
             list($name, $domain) = explode("@", $credentials['email'], 2);
             $password = $credentials['password'];
 
-            $this->ldapUser = \Ldap::authenticate($name, $password);
-
-            if ($this->ldapUser) {
-                $user = User::create([
+            if(\Ldap::authenticate($name, $password)) {
+                $user = User::firstOrCreate([
                     'email' => $credentials['email'],
-                    'name' => $name,
-                    'password' => $this->getHasher()->make($credentials['password']),
-                    'is_ldap' => true,
                 ]);
+
+                $user->password = $this->getHasher()->make($credentials['password']);
+                $user->is_ldap = true;
+                $user->save();
             }
         }
 

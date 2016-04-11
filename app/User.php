@@ -127,6 +127,20 @@ class User extends Authenticatable
     }
 
     /**********************************************************************
+     * Scopes
+     **********************************************************************/
+
+    /**
+     * @param     $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOrderByName($query)
+    {
+        return $query->orderBy('name', 'asc');
+    }
+
+    /**********************************************************************
      * Mutators
      **********************************************************************/
 

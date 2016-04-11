@@ -11,7 +11,7 @@ return [
         'login' => 'Авторизация',
         'logout' => 'Выход',
         'permissions' => 'Права доступа',
-        'users' => 'Пользователи',
+        'users' => 'Сотрудники',
         'roles' => 'Роли',
         'admin' => 'Администрирование',
     ],
@@ -95,6 +95,8 @@ return [
             'password' => 'Пароль',
             'avatar' => 'Фото',
             'roles' => 'Роли',
+            'phone_internal' => 'Внутренний',
+            'phone_mobile' => 'Мобильный'
         ],
         'button' => [
             'login' => 'Войти',
