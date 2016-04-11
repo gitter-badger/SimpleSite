@@ -30,7 +30,9 @@
                         <td>
                             <h4 class="ui image header">
                                 @if($user->avatar_url)
-                                <img src="{{ $user->avatar_url }}" class="ui mini rounded image">
+                                <a class="image-link" href="{{ $user->avatar_url }}" title="{{ $user->display_name }}">
+                                    <img src="{{ $user->avatar_url }}" class="ui mini rounded image">
+                                </a>
                                 @endif
                                 <div class="content">
                                     <a href="{{ route('user.profile', [$user->id]) }}">{{ $user->display_name }}</a>
