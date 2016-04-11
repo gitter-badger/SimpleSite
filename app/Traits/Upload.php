@@ -71,7 +71,7 @@ trait Upload
     protected function attachFile($field, UploadedFile $file)
     {
         $destination_path = 'storage';
-        $filename         = str_random(6).'_'.$file->getClientOriginalName();
+        $filename         = uniqid().$file->getClientOriginalExtension();
 
         $subFolder = substr(md5($filename), 0, 2);
 
