@@ -4,6 +4,6 @@
     @include('blog.partials.list')
 
     <div class="news-archive-link">
-        <a href="{{ route('news.index') }}">@lang('core.post.title.archive')</a>
+        <a href="{{ route('news.index') }}" class="ui button">@lang('core.post.title.archive')</a>
     </div>
 </div>
