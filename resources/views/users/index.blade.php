@@ -5,7 +5,7 @@
         <div class="box">
             <h2>@lang('core.title.users')</h2>
 
-            <table class="ui selectable padded very basic small table searchable">
+            <table class="ui selectable padded very basic table searchable">
                 <colgroup>
                     <col />
                     <col width="100px" />
@@ -30,8 +30,8 @@
                         <td>
                             <h4 class="ui image header">
                                 @if($user->avatar_url)
-                                <a class="image-link" href="{{ $user->avatar_url }}" title="{{ $user->display_name }}">
-                                    <img src="{{ $user->avatar_url }}" class="ui mini rounded image">
+                                <a class="ui image image-link" href="{{ $user->avatar_url }}" title="{{ $user->display_name }}">
+                                    <img src="{{ $user->avatar_url }}" class="ui mini circular image">
                                 </a>
                                 @endif
                                 <div class="content">

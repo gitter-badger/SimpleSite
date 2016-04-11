@@ -10,11 +10,17 @@
             </div>
 
             <div class="ui medium bordered image">
+                @can('change-avatar', $user)
+                <a
+                    class="ui orange left corner label"
+                    style="cursor: pointer">
+                    <i class="photo icon"></i>
+                </a>
+                @endcan
+
                 <img src="{{ $user->avatar_url_or_blank }}"
                  @can('change-avatar', $user)
-                    class="popup"
-                    data-content="@lang('core.user.message.drag_to_upload')"
-                    style="cursor: pointer"
+
                 @endcan
                 />
             </div>
@@ -61,7 +67,7 @@
             uploadMultiple: false,
             previewsContainer: false,
             acceptedFiles: 'image/*',
-            clickable: ".image .popup",
+            clickable: ".image .corner",
             processing: function(file, response) {
                 $('#uploadAvatar').dimmer('show');
             },
