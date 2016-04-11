@@ -20,7 +20,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'phone_mobile' => $faker->phoneNumber,
         'remember_token' => str_random(10),
         'display_name' => $faker->name,
-        'position' => $faker->paragraph,
+        'position' => $faker->sentence,
         'avatar_file' => function () {
             $files = File::files(public_path('tmp'));
             $filesPath = $files[array_rand($files)];
