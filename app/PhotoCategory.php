@@ -82,4 +82,14 @@ class PhotoCategory extends Model
     {
         return $query->has('photos');
     }
+    
+    /**
+     * @param     $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLatest($query)
+    {
+        return $query->orderBy('created_at', 'desc');
+    }
 }

@@ -17,8 +17,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $categories = PhotoCategory::notEmpty()->with('photo')->paginate();
-
+        $categories = PhotoCategory::notEmpty()->latest()->with('photo')->paginate();
         return view('gallery.index', compact('categories'));
     }
 
@@ -29,9 +28,7 @@ class GalleryController extends Controller
     public function showCategory(Request $request, $categoryId)
     {
         $category = PhotoCategory::findOrFail($categoryId);
-
         $photos = $category->photos;
-
         return view('gallery.show', compact('category', 'photos'));
     }
 
