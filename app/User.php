@@ -157,6 +157,28 @@ class User extends Authenticatable
 
         return $name;
     }
+
+    /**
+     * @return string
+     */
+    public function getAvatarUrlOrBlankAttribute()
+    {
+        if (empty($url = $this->avatar_url)) {
+            return url('images/blank.png');
+        }
+
+        return $url;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    public function getMailToAttribute($name)
+    {
+        return "<a href=\"mailto:$this->email\">$this->email</a>";
+    }
     
     /**
      * @return string|void
@@ -172,7 +194,7 @@ class User extends Authenticatable
         $avatar = $this->avatar_url;
 
         if (! empty($avatar)) {
-            return "<img class=\"ui avatar mini image\" src=\"{$this->avatar_url}\" /> {$name}";
+            return "<img class=\"ui avatar avatar image\" src=\"{$this->avatar_url}\" /> {$name}";
         }
 
         return $name;

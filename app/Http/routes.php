@@ -42,35 +42,36 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'UserController@index',
     ]);
 
-    Route::post('upload/image', function (\App\Http\Forms\UploadForm $form) {
-        return $form->persist();
+    Route::get('profile', [
+        'as' => 'user.profile',
+        'uses' => 'UserController@profile',
+    ]);
+
+    Route::group(['middleware' => 'admin'], function () {
+        Route::post('upload/image', function (\App\Http\Forms\UploadForm $form) {
+            return $form->persist();
+        });
+
+        Route::post('upload/photo/{id}', function (\App\Http\Forms\UploadPhotoForm $form) {
+            return new JsonResponse($form->persist());
+        });
+
+        Route::delete('delete/photo/{id}', function ($id) {
+            \App\Photo::find($id)->delete();
+            return new JsonResponse(true);
+        });
     });
 
-    Route::post('upload/photo/{id}', function (\App\Http\Forms\UploadPhotoForm $form) {
-        return new JsonResponse($form->persist());
-    });
-
-    Route::delete('delete/photo/{id}', function ($id) {
-        \App\Photo::find($id)->delete();
-        return new JsonResponse(true);
+    Route::group(['middleware' => 'auth'], function () {
+        Route::post('profile/avatar', function (\App\Http\Forms\UploadAvatarForm $form) {
+            return new JsonResponse($form->persist());
+        });
     });
 
     Route::group(['namespace' => 'Api', 'prefix' => 'api', 'as' => 'api.'], function () {
         Route::get('polls.json', [
             'as' => 'poll.list',
             'uses' => 'PollController@index',
-        ]);
-
-        Route::post('poll/vote/{id}', [
-            'middleware' => 'auth',
-            'as' => 'poll.vote',
-            'uses' => 'PollController@vote',
-        ]);
-
-        Route::post('poll/reset/{id}', [
-            'middleware' => 'auth',
-            'as' => 'poll.reset',
-            'uses' => 'PollController@reset',
         ]);
 
         Route::get('app.js', [
@@ -82,11 +83,25 @@ Route::group(['middleware' => 'web'], function () {
             'uses' => 'PostController@members',
         ]);
 
-        Route::post('post/{id}/members.json', [
-            'middleware' => 'auth',
-            'as' => 'post.members.add',
-            'uses' => 'PostController@addMember',
-        ]);
+        Route::group(['middleware' => 'auth'], function () {
+            Route::post('poll/vote/{id}', [
+                'middleware' => 'auth',
+                'as' => 'poll.vote',
+                'uses' => 'PollController@vote',
+            ]);
+
+            Route::post('poll/reset/{id}', [
+                'middleware' => 'auth',
+                'as' => 'poll.reset',
+                'uses' => 'PollController@reset',
+            ]);
+
+            Route::post('post/{id}/members.json', [
+                'middleware' => 'auth',
+                'as' => 'post.members.add',
+                'uses' => 'PostController@addMember',
+            ]);
+        });
     });
 });
 /*

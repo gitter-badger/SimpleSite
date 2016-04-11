@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="ui container">
-        <div class="news-items box">
+        <div class="box">
             <h2>@lang('core.title.users')</h2>
 
             <table class="ui selectable padded very basic small table searchable">
@@ -49,7 +49,7 @@
                             {{ $user->phone_mobile }}
                         </td>
                         <td>
-                            <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+                            {!! $user->mail_to !!}
                         </td>
                     </tr>
                     @endforeach

@@ -10,9 +10,7 @@ class UserController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index()
     {
@@ -20,8 +18,13 @@ class UserController extends Controller
             return strtoupper(Str::substr($user->name, 0, 1));
         });
 
-        return view('users.index', [
-            'users' => $users,
-        ]);
+        return view('users.index', compact('users'));
+    }
+
+    public function profile()
+    {
+        $user = auth()->user();
+        
+        return view('users.profile', compact('user'));
     }
 }
