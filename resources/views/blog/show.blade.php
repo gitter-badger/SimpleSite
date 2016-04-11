@@ -62,7 +62,7 @@
                                         <div class="item" ng-repeat="member in members">
                                             <img class="ui avatar image" src="<% member.avatar_url %>">
                                             <div class="content">
-                                                <span class="header"><% member.name %></span>
+                                                <span class="header"><% member.display_name %></span>
                                             </div>
                                         </div>
                                     </div>
