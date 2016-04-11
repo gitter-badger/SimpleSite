@@ -7,18 +7,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>@lang('core.title.portal')</title>
-
-    <link href="/css/app.css" rel='stylesheet' type='text/css'>
+    <link href="{{ asset('css/app.css') }}" rel='stylesheet' type='text/css'>
 </head>
 <body>
     @include('layouts.partials.header')
     @yield('content')
 
     <!-- JavaScripts -->
-    <script src="{{ url('/js/all.js') }}"></script>
-    <script src="{{ url('/js/semantic.min.js') }}"></script>
-    <script src="{{ url('/api/app.js') }}"></script>
-    <script src="{{ url('/js/app.js') }}"></script>
+    <script src="{{ asset('api/settings.js') }}"></script>
+    <script src="{{ asset('js/all.js') }}"></script>
+    <script src="{{ asset('js/controllers.js') }}"></script>
     @yield('scripts')
 </body>
 </html>

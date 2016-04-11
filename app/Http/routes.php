@@ -47,7 +47,6 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'UserController@profile',
     ]);
 
-
     Route::get('user/{id}', [
         'as' => 'user.profile',
         'uses' => 'UserController@userProfile',
@@ -80,8 +79,8 @@ Route::group(['middleware' => 'web'], function () {
             'uses' => 'PollController@index',
         ]);
 
-        Route::get('app.js', [
-            'uses' => 'AppController@scripts',
+        Route::get('settings.js', [
+            'uses' => 'AppController@settings',
         ]);
 
         Route::get('post/{id}/members.json', [

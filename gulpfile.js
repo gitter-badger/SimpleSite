@@ -16,12 +16,20 @@ elixir(function(mix) {
 
     mix.scripts([
         '../../../public/libs/jquery/js/jquery.min.js',
+        '../../../public/libs/semantic-ui/js/semantic.min.js',
         '../../../public/libs/jquery.filtertable/js/jquery.filtertable.js',
-        '../../../node_modules/magnific-popup/dist/jquery.magnific-popup.js',
-        '../../../node_modules/dropzone/dist/dropzone.js',
+        '../../../node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
+        '../../../node_modules/dropzone/dist/min/dropzone.min.js',
         '../../../node_modules/angular/angular.min.js',
         '../../../node_modules/checklist-model/checklist-model.js',
-        'jquery.filtertable.js',
+        '../../../public/checklist-model/checklist-model.js',
+        '../../../node_modules/underscore/underscore-min.js',
         'common.js'
     ])
+
+    mix.combine([
+        'resources/assets/js/controllers/blog.js',
+        'resources/assets/js/controllers/polls.js'
+    ], 'public/js/controllers.js');
+
 });

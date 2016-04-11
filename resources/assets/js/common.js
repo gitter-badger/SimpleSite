@@ -1,3 +1,30 @@
+var Asset = {
+    path: function(path) {
+        if (path.charAt(0) === '/')
+            path = path.slice(1);
+
+        return window.settings.asset_url + path;
+    }
+}
+
+var User = {
+    _object: null,
+    init: function(user) {
+        this._object = user;
+    },
+    getId: function() {
+        return this._object.id || null;
+    },
+    getObject: function () {
+        return this._object;
+    },
+    isLoggedIn: function() {
+        return _.has(this._object, "id");
+    }
+}
+
+User.init(window.settings.user);
+
 $(function () {
     $.ajaxSetup({
         headers: {

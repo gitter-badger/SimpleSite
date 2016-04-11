@@ -10,13 +10,15 @@ use Illuminate\Http\Response;
 class AppController extends Controller
 {
 
-    public function scripts(Request $request)
+    public function settings(Request $request)
     {
-        $content = "var myApp = angular.module('myApp',[]);
-myApp.constant('USER', ".json_encode($request->user()).");
-myApp.constant('TOKEN', ".json_encode(csrf_token()).");
-myApp.constant('LOCALE', ".json_encode(app()->getLocale()).");
-";
+        $content = 'window.settings = '.json_encode([
+            'asset_url' => asset(''),
+            'user' => $request->user(),
+            'token' => csrf_token(),
+            'locale' => app()->getLocale(),
+            'trans' => trans('core'),
+        ]);
 
         return $this->cacheResponse(new Response($content, 200, [
             'Content-Type' => 'text/javascript',
