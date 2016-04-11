@@ -2,6 +2,8 @@
 
 namespace App\Http\Forms;
 
+use App\User;
+
 class UploadAvatarForm extends Form
 {
 
@@ -26,8 +28,12 @@ class UploadAvatarForm extends Form
             return;
         }
 
-        $uploadFile = $this->request->file('file');
+        $userId = $this->request->input('user_id');
+        if ($user->id != $userId and ($user->isManager() and is_null($user = User::find($userId)))) {
+            return;
+        }
 
+        $uploadFile = $this->request->file('file');
         if (is_null($uploadFile)) {
             return;
         }

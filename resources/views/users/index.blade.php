@@ -28,17 +28,17 @@
                     @foreach($_users as $user)
                     <tr>
                         <td>
-                            <h5 class="ui image header">
+                            <h4 class="ui image header">
                                 @if($user->avatar_url)
                                 <img src="{{ $user->avatar_url }}" class="ui mini rounded image">
                                 @endif
                                 <div class="content">
-                                    {{ $user->name }}
+                                    <a href="{{ route('user.profile', [$user->id]) }}">{{ $user->name }}</a>
                                     <div class="sub header">
                                         {{ $user->position }}
                                     </div>
                                 </div>
-                            </h5>
+                            </h4>
                         </td>
                         <td class="center aligned">
                             @if($user->phone_internal > 0)

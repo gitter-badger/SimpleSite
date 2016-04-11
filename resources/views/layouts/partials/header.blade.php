@@ -19,7 +19,7 @@
                 <a class="ui olive item" href="{{ url('/admin') }}"><i class="dashboard icon"></i> @lang('core.title.admin')</a>
                 @endif
 
-                <a class="item" href="{{ route('user.profile') }}">{!! Auth::user()->name_with_avatar !!}</a>
+                <a class="item" href="{{ route('profile') }}">{!! Auth::user()->name_with_avatar !!}</a>
                 <a class="item" href="{{ url('/logout') }}">@lang('core.title.logout')</a>
             @endif
         </div>

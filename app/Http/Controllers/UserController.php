@@ -21,10 +21,21 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
+    /**
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function profile()
     {
         $user = auth()->user();
-        
-        return view('users.profile', compact('user'));
+        $isOwner = true;
+
+        return view('users.profile', compact('user', 'isOwner'));
+    }
+    
+    public function userProfile($id)
+    {
+        $user = User::findOrFail($id);
+        $isOwner = false;
+        return view('users.profile', compact('user', 'isOwner'));
     }
 }

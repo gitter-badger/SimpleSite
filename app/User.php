@@ -98,7 +98,7 @@ class User extends Authenticatable
     {
         return [
             'avatar' => [
-                'resize' => [200, null, function ($constraint) {
+                'fit' => [300, 300, function ($constraint) {
                     $constraint->upsize();
                     $constraint->aspectRatio();
                 }],

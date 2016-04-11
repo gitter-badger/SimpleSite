@@ -43,8 +43,14 @@ Route::group(['middleware' => 'web'], function () {
     ]);
 
     Route::get('profile', [
-        'as' => 'user.profile',
+        'as' => 'profile',
         'uses' => 'UserController@profile',
+    ]);
+
+
+    Route::get('user/{id}', [
+        'as' => 'user.profile',
+        'uses' => 'UserController@userProfile',
     ]);
 
     Route::group(['middleware' => 'admin'], function () {

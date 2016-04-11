@@ -13,6 +13,7 @@ $(function () {
     });
 
     $('.dropdown').dropdown();
+    $('.popup').popup();
 
     $('.searchable').filterTable({
         label: '<i class="search icon"></i>',
