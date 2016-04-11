@@ -20,10 +20,16 @@ class UpdateUserProfile extends Command
 
     public function handle()
     {
-        if ($users = Ldap::user()->all()) {
+        if ($users = Ldap::search()->all()) {
             foreach ($users as $ldapUser) {
                 if (isset($ldapUser['mail']) and $user = User::firstOrCreate(['email' => $ldapUser['mail']])) {
-                    $user->name           = array_get($ldapUser, 'displayname');
+                    // othertelephone - Фамилия
+                    // othermobile - Имя
+                    if (! $this->isCyrillic($name = array_get($ldapUser, 'name')) and (! empty($ldapUser['othertelephone']) and ! empty($ldapUser['othermobile']))) {
+                        $name = $ldapUser['othermobile'].' '.$ldapUser['othertelephone'];
+                    }
+
+                    $user->name           = $name;
                     $user->position       = array_get($ldapUser, 'title');
                     $user->phone_internal = array_get($ldapUser, 'telephonenumber');
                     $user->phone_mobile   = array_get($ldapUser, 'mobile');
@@ -32,5 +38,15 @@ class UpdateUserProfile extends Command
                 }
             }
         }
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return bool
+     */
+    protected function isCyrillic($string)
+    {
+        return preg_match( '/[\p{Cyrillic}]/u', $string);
     }
 }

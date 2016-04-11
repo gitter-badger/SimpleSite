@@ -5,7 +5,7 @@
         <div class="news-items box">
             <h2>@lang('core.title.users')</h2>
 
-            <table class="ui selectable padded very basic small table">
+            <table class="ui selectable padded very basic small table searchable">
                 <colgroup>
                     <col />
                     <col width="100px" />
@@ -21,7 +21,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
+                @foreach($users as $char => $_users)
+                    <tr>
+                        <th colspan="4">{{ $char }}</th>
+                    </tr>
+                    @foreach($_users as $user)
                     <tr>
                         <td>
                             <h5 class="ui image header">
@@ -48,6 +52,7 @@
                             <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                         </td>
                     </tr>
+                    @endforeach
                 @endforeach
                 </tbody>
             </table>

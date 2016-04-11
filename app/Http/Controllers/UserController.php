@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Http\Requests;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -15,8 +16,12 @@ class UserController extends Controller
      */
     public function index()
     {
+        $users = User::orderByName()->get()->groupBy(function (User $user, $key) {
+            return strtoupper(Str::substr($user->name, 0, 1));
+        });
+
         return view('users.index', [
-            'users' => \App\User::orderByName()->get(),
+            'users' => $users,
         ]);
     }
 }

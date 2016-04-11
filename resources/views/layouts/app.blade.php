@@ -15,9 +15,8 @@
     @yield('content')
 
     <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="{{ url('/js/semantic.min.js') }}"></script>
     <script src="{{ url('/js/all.js') }}"></script>
+    <script src="{{ url('/js/semantic.min.js') }}"></script>
     <script src="{{ url('/api/app.js') }}"></script>
     <script src="{{ url('/js/app.js') }}"></script>
     @yield('scripts')
