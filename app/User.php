@@ -17,6 +17,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string            $name
  * @property string            $display_name
  * @property string            $email
+ * @property string            $mail_to
  * @property string            $password
  * @property string            $position
  * @property int               $phone_internal
@@ -26,6 +27,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string            $avatar
  * @property string            $avatar_path
  * @property string            $avatar_url
+ * @property string            $avatar_url_or_blank
+ * @property string            $name_with_avatar
+ * @property string            $profile_link
  *
  * @property Collection|Role[] $roles
  *
@@ -74,6 +78,7 @@ class User extends Authenticatable
     protected $appends = [
         'avatar_url',
         'name_with_avatar',
+        'profile_link',
     ];
 
     /**
@@ -171,7 +176,7 @@ class User extends Authenticatable
      */
     public function scopeOrderByName($query)
     {
-        return $query->orderBy('name', 'asc');
+        return $query->orderBy('display_name', 'asc');
     }
 
     /**********************************************************************
@@ -212,7 +217,7 @@ class User extends Authenticatable
     public function getAvatarUrlOrBlankAttribute()
     {
         if (empty($url = $this->avatar_url)) {
-            return url('images/blank.png');
+            return asset('images/blank.png');
         }
 
         return $url;
@@ -242,10 +247,18 @@ class User extends Authenticatable
         $avatar = $this->avatar_url;
 
         if (! empty($avatar)) {
-            return "<img class=\"ui avatar avatar image\" src=\"{$this->avatar_url}\" /> {$name}";
+            $name = "<img class=\"ui avatar avatar image\" src=\"{$this->avatar_url}\" /> {$name}";
         }
 
         return $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfileLinkAttribute()
+    {
+        return "<a href=\"".route('user.profile', [$this->id])."\" target=\"_blank\">{$this->name_with_avatar}</a>";
     }
 
     /**
