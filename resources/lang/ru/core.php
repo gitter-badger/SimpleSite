@@ -89,6 +89,9 @@ return [
             'remember' => 'Запомнить меня',
             'since' => 'Зарегестрирован :date',
         ],
+        'title' => [
+            'contacts' => 'Контакты'
+        ],
         'field' => [
             'username' => 'Имя',
             'email' => 'Email адрес',

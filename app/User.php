@@ -126,6 +126,38 @@ class User extends Authenticatable
         return $this->hasRole(Role::ROLE_MANAGER);
     }
 
+    /**
+     * @return array
+     */
+    public function contacts()
+    {
+        $contacts = [
+            [
+                'title' => trans('core.user.field.email'),
+                'value' => $this->mail_to,
+                'icon' => 'mail outline',
+            ],
+        ];
+
+        if (! empty($phone = $this->phone_internal)) {
+            $contacts[] = [
+                'title' => trans('core.user.field.phone_internal'),
+                'value' => $phone,
+                'icon' => 'phone',
+            ];
+        }
+
+        if (! empty($phone = $this->phone_mobile)) {
+            $contacts[] = [
+                'title' => trans('core.user.field.phone_mobile'),
+                'value' => $phone,
+                'icon' => 'phone',
+            ];
+        }
+
+        return $contacts;
+    }
+
     /**********************************************************************
      * Scopes
      **********************************************************************/
