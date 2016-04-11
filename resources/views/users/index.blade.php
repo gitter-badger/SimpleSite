@@ -33,7 +33,7 @@
                                 <img src="{{ $user->avatar_url }}" class="ui mini rounded image">
                                 @endif
                                 <div class="content">
-                                    <a href="{{ route('user.profile', [$user->id]) }}">{{ $user->name }}</a>
+                                    <a href="{{ route('user.profile', [$user->id]) }}">{{ $user->display_name }}</a>
                                     <div class="sub header">
                                         {{ $user->position }}
                                     </div>

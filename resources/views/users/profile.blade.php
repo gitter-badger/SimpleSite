@@ -14,7 +14,7 @@
             </div>
 
             <div class="content">
-                <h1>{{ $user->name }}</h1>
+                <h1>{{ $user->display_name }}</h1>
 
                 <div class="ui section divider"></div>
 

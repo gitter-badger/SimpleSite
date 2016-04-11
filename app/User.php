@@ -183,12 +183,22 @@ class User extends Authenticatable
      *
      * @return string
      */
+    public function getDisplayNameAttribute($name)
+    {
+        if (is_null($name)) {
+            return $this->name;
+        }
+
+        return $name;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
     public function getNameAttribute($name)
     {
-        if (! is_null($this->display_name)) {
-            return $this->display_name;
-        }
-        
         if (empty($name)) {
             return $this->email;
         }
@@ -223,7 +233,7 @@ class User extends Authenticatable
      */
     public function getNameWithAvatarAttribute()
     {
-        $name = $this->name;
+        $name = $this->display_name;
 
         if (empty($name)) {
             return;
