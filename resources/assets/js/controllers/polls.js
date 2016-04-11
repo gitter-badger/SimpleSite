@@ -10,6 +10,8 @@ pollApp.controller('PollListCtrl', function ($scope, $sce, $http, $timeout) {
         }, 300);
     }
 
+    $scope.user = User;
+
     $http.get(Asset.path('api/polls.json')).success(function (data) {
         $scope.polls = data;
     });
