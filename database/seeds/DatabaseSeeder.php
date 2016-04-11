@@ -13,7 +13,11 @@ class DatabaseSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
+
         $this->call(UsersTableSeeder::class);
+        
+        Auth::loginUsingId(1);
+
         $this->call(BlogTableSeeder::class);
         $this->call(PhotosTableSeeder::class);
         $this->call(PollsTableSeeder::class);

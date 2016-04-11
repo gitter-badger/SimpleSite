@@ -34,5 +34,7 @@ class CreatePostsPollsTable extends Migration
             $table->dropForeign(['post_id']);
             $table->dropForeign(['poll_id']);
         });
+
+        Schema::drop('poll_post');
     }
 }

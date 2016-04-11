@@ -16,7 +16,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'email' => $faker->safeEmail,
         'password' => bcrypt('password'),
+        'phone_internal' => $faker->randomNumber(4),
+        'phone_mobile' => $faker->phoneNumber,
         'remember_token' => str_random(10),
+        'display_name' => $faker->name,
+        'position' => $faker->paragraph,
         'avatar_file' => function () {
             $files = File::files(public_path('tmp'));
             $filesPath = $files[array_rand($files)];

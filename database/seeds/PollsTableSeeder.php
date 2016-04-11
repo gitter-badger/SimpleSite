@@ -15,6 +15,7 @@ class PollsTableSeeder extends Seeder
         App\Poll::truncate();
         App\PollAnswer::truncate();
         App\PollVote::truncate();
+        DB::table('poll_post')->truncate();
 
         App\Poll::createFromArray([
             'title' => 'Место проведения корпоратива',
