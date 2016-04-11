@@ -13,7 +13,7 @@ AdminSection::registerModel(User::class, function (ModelConfiguration $model) {
             ->with('roles')
             ->setHtmlAttribute('class', 'table-primary')
             ->setColumns([
-                AdminColumn::link('name', trans('core.user.field.username')),
+                AdminColumn::link('display_name', trans('core.user.field.username')),
                 AdminColumn::email('email', trans('core.user.field.email'))->setWidth('150px'),
                 AdminColumn::lists('roles.label', trans('core.user.field.roles'))->setWidth('200px'),
             ])->paginate(20);
