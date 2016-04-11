@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class GalleryPolicy
@@ -9,12 +10,15 @@ class GalleryPolicy
     use HandlesAuthorization;
 
     /**
-     * Create a new policy instance.
+     * @param User $user
+     * @param string $ability
      *
-     * @return void
+     * @return bool
      */
-    public function __construct()
+    public function before(User $user, $ability)
     {
-        //
+        if ($user->isManager()) {
+            return true;
+        }
     }
 }

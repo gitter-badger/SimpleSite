@@ -19,46 +19,46 @@
             </div>
         </div>
 
-        @if(auth()->user()->isSuperAdmin())
+        @can('upload', $category)
         <div id="upload" class="dropzone" style="margin: 50px 0;">
             Drop files here to upload
         </div>
-        @endif
+        @endcan
     </div>
 @endsection
 
-@if(auth()->user()->isSuperAdmin())
+@can('upload', $category)
 @section('scripts')
-        <script>
-            $(function () {
-                $("#upload").dropzone({
-                    url: '/upload/photo/{{ $category->id }}',
-                    method: 'POST',
-                    addRemoveLinks: true,
+<script>
+    $(function () {
+        $("#upload").dropzone({
+            url: '/upload/photo/{{ $category->id }}',
+            method: 'POST',
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success: function(file, response) {
+                if(response) {
+                    $('.photo-items .cards').append(response.html);
+
+                    file.photo = response.photo;
+                }
+            },
+            removedfile: function(file) {
+                $.ajax('/delete/photo/' + file.photo.id, {
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    success: function(file, response) {
-                        if(response) {
-                            $('.photo-items .cards').append(response.html);
-
-                            file.photo = response.photo;
-                        }
-                    },
-                    removedfile: function(file) {
-                        $.ajax('/delete/photo/' + file.photo.id, {
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            method: 'DELETE',
-                            success: function () {
-                                $('[data-id="' + file.photo.id + '"]').remove();
-                            }
-                        });
+                    method: 'DELETE',
+                    success: function () {
+                        $('[data-id="' + file.photo.id + '"]').remove();
                     }
                 });
-            });
-        </script>
+            }
+        });
+    });
+</script>
 @endsection
-@endif
+@endcan
 

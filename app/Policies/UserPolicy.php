@@ -2,19 +2,35 @@
 
 namespace App\Policies;
 
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
 {
+
     use HandlesAuthorization;
 
     /**
-     * Create a new policy instance.
+     * @param User $user
+     * @param string $ability
      *
-     * @return void
+     * @return bool
      */
-    public function __construct()
+    public function before(User $user, $ability)
     {
-        //
+        if ($user->isManager()) {
+            return true;
+        }
+    }
+
+    /**
+     * @param User $user
+     * @param User $profile
+     *
+     * @return bool
+     */
+    public function changeAvatar(User $user, User $profile)
+    {
+        return $user->id === $profile->id;
     }
 }

@@ -24,12 +24,13 @@ class UploadAvatarForm extends Form
      */
     public function persist()
     {
-        if (is_null($user = auth()->user())) {
+        $userId = $this->request->input('user_id');
+
+        if (is_null($user = User::find($userId))) {
             return;
         }
 
-        $userId = $this->request->input('user_id');
-        if ($user->id != $userId and ($user->isManager() and is_null($user = User::find($userId)))) {
+        if (\Gate::denies('change-avatar', $user)) {
             return;
         }
 

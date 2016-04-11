@@ -27,15 +27,17 @@ class UserController extends Controller
     public function profile()
     {
         $user = auth()->user();
-        $isOwner = true;
-
         return view('users.profile', compact('user', 'isOwner'));
     }
-    
+
+    /**
+     * @param int $id
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function userProfile($id)
     {
         $user = User::findOrFail($id);
-        $isOwner = false;
         return view('users.profile', compact('user', 'isOwner'));
     }
 }
