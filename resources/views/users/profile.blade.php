@@ -44,7 +44,7 @@
 <script>
     $(function () {
         $("#uploadAvatar").dropzone({
-            url: "/profile/avatar",
+            url: Asset.path('profile/avatar'),
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'

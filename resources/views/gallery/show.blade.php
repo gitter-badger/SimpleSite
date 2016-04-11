@@ -32,7 +32,7 @@
 <script>
     $(function () {
         $("#upload").dropzone({
-            url: '/upload/photo/{{ $category->id }}',
+            url: Asset.path('upload/photo/{{ $category->id }}'),
             method: 'POST',
             addRemoveLinks: true,
             headers: {
@@ -45,8 +45,8 @@
                     file.photo = response.photo;
                 }
             },
-            removedfile: function(file) {
-                $.ajax('/delete/photo/' + file.photo.id, {
+            removedfile: function (file) {
+                $.ajax(Asset.path('delete/photo/' + file.photo.id), {
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
