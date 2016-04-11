@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
     protected function registerBlogComposers()
     {
         view()->composer('blog.latest', function (View $view) {
-            $view->with('posts', \App\Post::latest()->recent()->get());
+            $view->with('posts', \App\Post::latest()->take(3)->get());
         });
     }
 }
