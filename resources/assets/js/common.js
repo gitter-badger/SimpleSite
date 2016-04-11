@@ -24,6 +24,7 @@ var User = {
 }
 
 User.init(window.settings.user);
+Dropzone.autoDiscover = false;
 
 $(function () {
     $.ajaxSetup({
