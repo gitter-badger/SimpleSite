@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int               $id
  *
  * @property string            $name
+ * @property string            $display_name
  * @property string            $email
  * @property string            $password
  * @property string            $position
@@ -44,6 +45,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'display_name',
         'email',
         'password',
         'is_ldap',
@@ -183,6 +185,10 @@ class User extends Authenticatable
      */
     public function getNameAttribute($name)
     {
+        if (! is_null($this->display_name)) {
+            return $this->display_name;
+        }
+        
         if (empty($name)) {
             return $this->email;
         }

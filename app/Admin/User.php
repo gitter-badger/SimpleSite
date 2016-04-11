@@ -28,6 +28,7 @@ AdminSection::registerModel(User::class, function (ModelConfiguration $model) {
                     ->addColumn(function() {
                         return [
                             AdminFormElement::text('name', 'Username')->required(),
+                            AdminFormElement::text('display_name', 'Display name'),
                             AdminFormElement::text('email', 'E-mail')->required()->addValidationRule('email')
                         ];
                     })->addColumn(function() {
