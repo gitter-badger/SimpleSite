@@ -1,5 +1,5 @@
 <div class="card" data-id="{{ $photo->id }}">
-    <a class="image image-link" href="{{ $photo->image_url }}">
+    <a class="image image-link" href="{{ $photo->image_url }}" title="{{ $photo->caption }} {{ $photo->description }}">
         <img src="{{ $photo->thumb_url }}">
     </a>
     @if(!empty($photo->caption) or !empty($photo->description))
