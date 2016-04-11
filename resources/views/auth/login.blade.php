@@ -30,10 +30,10 @@
                         </div>
                     </div>
 
-                    <div class="field">
+                    <div class="field" style="text-align: left;">
                         <div class="ui checkbox">
-                            <input type="checkbox" name="remember" tabindex="0" class="hidden">
-                            <label>@lang('core.user.label.remember')</label>
+                            <input type="checkbox" name="remember" id="rememberMe" tabindex="0">
+                            <label for="rememberMe">@lang('core.user.label.remember')</label>
                         </div>
                     </div>
 
