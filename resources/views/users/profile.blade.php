@@ -4,13 +4,19 @@
 <div class="ui container">
     <div class="ui section divider hidden"></div>
     <div class="ui items">
-        <div class="ui item" id="uploadAvatar">
+        <div class="ui item dz-default" id="uploadAvatar">
             <div class="ui inverted dimmer">
                 <div class="ui text loader">Loading</div>
             </div>
 
             <div class="ui medium bordered image">
-                <img src="{{ $user->avatar_url_or_blank }}" @can('change-avatar', $user) class="popup" data-content="@lang('core.user.message.drag_to_upload')" @endcan />
+                <img src="{{ $user->avatar_url_or_blank }}"
+                 @can('change-avatar', $user)
+                    class="popup"
+                    data-content="@lang('core.user.message.drag_to_upload')"
+                    style="cursor: pointer"
+                @endcan
+                />
             </div>
 
             <div class="content">
@@ -52,10 +58,10 @@
             params: {
               'user_id': {{ $user->id }}
             },
-            clickable: true,
             uploadMultiple: false,
             previewsContainer: false,
             acceptedFiles: 'image/*',
+            clickable: ".image .popup",
             processing: function(file, response) {
                 $('#uploadAvatar').dimmer('show');
             },
