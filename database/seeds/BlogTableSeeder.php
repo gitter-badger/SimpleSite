@@ -13,6 +13,6 @@ class BlogTableSeeder extends Seeder
     {
         App\Post::truncate();
         
-        factory(App\Post::class, 10)->create();
+        factory(App\Post::class, 100)->create();
     }
 }

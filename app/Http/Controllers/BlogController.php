@@ -7,9 +7,15 @@ use App\Http\Forms\StorePostForm;
 use App\Http\Forms\UpdatePostForm;
 use App\PhotoCategory;
 use App\Post;
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Http\Response;
+use Jsvrcek\ICS\CalendarExport;
+use Jsvrcek\ICS\CalendarStream;
+use Jsvrcek\ICS\Model\Calendar;
+use Jsvrcek\ICS\Model\CalendarEvent;
+use Jsvrcek\ICS\Model\Relationship\Attendee;
+use Jsvrcek\ICS\Model\Relationship\Organizer;
+use Jsvrcek\ICS\Utility\Formatter;
 
 class BlogController extends Controller
 {
@@ -17,15 +23,61 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param NewsFilters $filters
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(NewsFilters $filters)
     {
         return view('blog.index', [
-            'posts' => \App\Post::filter($filters)->latest()->paginate(5),
+            'posts' => Post::filter($filters)->latest()->paginate(5),
         ]);
     }
 
+
+    public function events()
+    {
+        $calendar = new Calendar(config('app.url'));
+
+        $calendar->addCustomHeader('X-WR-CALNAME', trans('core.title.portal_calendar'));
+
+        /** @var Post[] $events */
+        $events = Post::events()->with('members')->latest()->get();
+
+        foreach ($events as $event) {
+            $calendarEvent = new CalendarEvent();
+            $calendarEvent
+                ->setStart($event->event_at)
+                ->setSummary($event->title)
+                ->setDescription(strip_tags($event->text_intro.PHP_EOL.$event->text).PHP_EOL.trans('core.post.label.link_to_event', [
+                    'link' => $event->link
+                ]))
+                ->setUid('event_'.$event->id)
+                ->setUrl($event->link);
+
+            $organizer = new Organizer(new Formatter());
+            $organizer->setValue($event->author->email);
+            $organizer->setName($event->author->display_name);
+            $calendarEvent->setOrganizer($organizer);
+
+            foreach ($event->members as $member) {
+                $attendee = new Attendee(new Formatter());
+                $attendee->setValue($member->email)->setName($member->display_name);
+                $calendarEvent->addAttendee($attendee);
+            }
+
+            $calendar->addEvent($calendarEvent);
+        }
+
+        //setup exporter
+        $calendarExport = new CalendarExport(new CalendarStream, new Formatter());
+        $calendarExport->addCalendar($calendar);
+
+        $response = new Response($calendarExport->getStream());
+
+        return $response;
+    }
+    
     /**
      * Display the specified resource.
      *

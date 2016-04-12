@@ -7,7 +7,7 @@
                 </span>
 
                 <h2>
-                    <a href="{{ route('news.show', [$post->id]) }}">{{ $post->title }}</a>
+                    <a href="{{ $post->link }}">{{ $post->title }}</a>
                 </h2>
 
                 <div class="description">

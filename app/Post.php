@@ -27,6 +27,7 @@ use Intervention\Image\Facades\Image;
  * @property string                     $text_source
  * @property string                     $text
  * @property string                     $text_intro
+ * @property string                     $link
  *
  * @property string                     $image
  * @property string                     $thumb
@@ -146,6 +147,14 @@ class Post extends Model
     /**********************************************************************
      * Mutators
      **********************************************************************/
+    /**
+     * @return string
+     */
+    public function getLinkAttribute()
+    {
+        return route('news.show', [$this->id]);
+    }
+
 
     /**
      * @return string
@@ -214,6 +223,19 @@ class Post extends Model
     {
         return $query->orderBy('created_at', 'desc');
     }
+
+    /**
+     * @param     $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeEvents($query)
+    {
+        return $query
+            ->where('type', static::TYPE_EVENT)
+            ->whereNotNull('event_at');
+    }
+
 
     /**
      * @param     $query

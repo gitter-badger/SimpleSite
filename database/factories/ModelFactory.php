@@ -41,6 +41,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->sentence(5),
         'type' => $faker->randomElement([\App\Post::TYPE_EVENT, \App\Post::TYPE_NEWS]),
+        'event_at' => $faker->dateTimeBetween('-1 month', '+1 year'),
         'text_source' => $faker->sentence(10).'<cut></cut># Title'.PHP_EOL.$faker->sentence(100),
         'author_id' => function () {
             $user = App\User::first();

@@ -25,6 +25,11 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'HomeController@index',
     ]);
 
+    Route::get('events.ics', [
+        'as' => 'news.events',
+        'uses' => 'BlogController@events',
+    ]);
+
     Route::resource('news', 'BlogController');
 
     Route::get('gallery', [
