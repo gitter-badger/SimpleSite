@@ -33,6 +33,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string            $profile_link
  *
  * @property Collection|Role[] $roles
+ * @property Collection|Post[] $events
  *
  * @property Carbon            $created_at
  * @property Carbon            $updated_at
@@ -285,4 +286,16 @@ class User extends Authenticatable
         );
     }
 
+    /**********************************************************************
+     * Relations
+     **********************************************************************/
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function events()
+    {
+        return $this->belongsToMany(Post::class, 'post_member', 'user_id', 'post_id');
+    }
 }

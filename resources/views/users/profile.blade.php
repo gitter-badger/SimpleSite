@@ -35,7 +35,7 @@
         <div class="ui segment">
             <span class="ui red ribbon label">@lang('core.user.title.contacts')</span>
             <table class="ui very basic table">
-                @foreach($user->contacts() as $contact)
+                @foreach($contacts as $contact)
                     <tr>
                         <td>{{ $contact['title'] }}</td>
                         <td><strong>{!! $contact['value'] !!}</strong></td>
@@ -43,6 +43,14 @@
                 @endforeach
             </table>
         </div>
+
+        @if(count($events) > 0)
+        <div class="ui segment">
+            <span class="ui red ribbon label">@lang('core.user.title.events')</span>
+            <div class="ui divider section"></div>
+            @include('blog.partials.card', ['posts' => $events])
+        </div>
+        @endif
     </div>
 </div>
 @endsection

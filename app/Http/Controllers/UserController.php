@@ -28,8 +28,9 @@ class UserController extends Controller
      */
     public function profile()
     {
-        $user = auth()->user();
-        return view('users.profile', compact('user', 'isOwner'));
+        return $this->renderProfile(
+            auth()->user()
+        );
     }
 
     /**
@@ -39,7 +40,16 @@ class UserController extends Controller
      */
     public function userProfile($id)
     {
-        $user = User::findOrFail($id);
-        return view('users.profile', compact('user', 'isOwner'));
+        return $this->renderProfile(
+            User::with('events')->findOrFail($id)
+        );
+    }
+
+    protected function renderProfile(User $user)
+    {
+        $events = $user->events;
+        $contacts = $user->contacts();
+
+        return view('users.profile', compact('user', 'events', 'contacts'));
     }
 }

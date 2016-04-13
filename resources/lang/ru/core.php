@@ -19,6 +19,7 @@ return [
     'message' => [
         'model_not_found' => 'Объект не найден',
         'empty_section' => 'В разделе нет ифнормации',
+        'copyright' => 'АО «Инфозащита» © '.date('Y'),
     ],
 
     'post' => [
@@ -49,14 +50,14 @@ return [
             'news' => 'Новость',
             'total_members' => 'Участников',
             'members' => 'Участники',
-            'link_to_event' => 'Ссылка на событие: :link'
+            'link_to_event' => 'Ссылка на событие: :link',
         ],
     ],
     'gallery' => [
         'field' => [
             'title' => 'Название',
             'created_at' => 'Дата создания',
-            'description' => 'Описание'
+            'description' => 'Описание',
         ],
         'label' => [
             'total_photos' => 'Фотографий',
@@ -94,7 +95,8 @@ return [
             'since' => 'Зарегестрирован :date',
         ],
         'title' => [
-            'contacts' => 'Контакты'
+            'contacts' => 'Контакты',
+            'events' => 'Участник событий',
         ],
         'field' => [
             'username' => 'Имя',
@@ -103,14 +105,14 @@ return [
             'avatar' => 'Фото',
             'roles' => 'Роли',
             'phone_internal' => 'Внутренний',
-            'phone_mobile' => 'Мобильный'
+            'phone_mobile' => 'Мобильный',
         ],
         'button' => [
             'login' => 'Войти',
             'logout' => 'Выход',
         ],
         'message' => [
-            'drag_to_upload' => 'Перетащи сюда изображение для загрузки аватара'
-        ]
+            'drag_to_upload' => 'Перетащи сюда изображение для загрузки аватара',
+        ],
     ],
 ];
