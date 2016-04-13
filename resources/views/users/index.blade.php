@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="ui container">
+    <div class="ui container" ng-app="UsersApp" ng-controller="UsersAppCtrl">
         <div class="box">
             <h2>@lang('core.title.users')</h2>
 
@@ -20,44 +20,104 @@
                         <th>@lang('core.user.field.email')</th>
                     </tr>
                 </thead>
-                <tbody>
-                @foreach($users as $char => $_users)
+                <tbody ng-repeat="(key, users) in usersData">
                     <tr>
-                        <th colspan="4">{{ $char }}</th>
+                        <th colspan="4">[[ key ]]</th>
                     </tr>
-                    @foreach($_users as $user)
-                    <tr>
+                    <tr ng-repeat="user in users" ng-dblclick="redirectToProfile(user)">
                         <td>
-                            <h4 class="ui image header">
-                                @if($user->avatar_url)
-                                <a class="ui image image-link" href="{{ $user->avatar_url }}" title="{{ $user->display_name }}">
-                                    <img src="{{ $user->avatar_url }}" class="ui mini circular image">
-                                </a>
-                                @endif
+                            <h4 class="ui header">
+                                <img ng-src="[[ user.avatar_url ]]" class="ui mini circular image" ng-click="openProfile(user)">
+
                                 <div class="content">
-                                    <a href="{{ route('user.profile', [$user->id]) }}">{{ $user->display_name }}</a>
+                                    <strong>[[ user.display_name ]]</strong>
                                     <div class="sub header">
-                                        {{ $user->position }}
+                                        [[ user.position ]]
                                     </div>
                                 </div>
                             </h4>
                         </td>
                         <td class="center aligned">
-                            @if($user->phone_internal > 0)
-                            <strong>{{ $user->phone_internal }}</strong>
-                            @endif
+                            <strong ng-show="user.phone_internal > 0">[[ user.phone_internal ]]</strong>
                         </td>
                         <td class="right aligned">
-                            {{ $user->phone_mobile }}
+                            [[ user.phone_mobile ]]
                         </td>
                         <td>
-                            {!! $user->mail_to !!}
+                            <a href="mailto:[[ user.email ]]">[[ user.email ]]</a>
                         </td>
                     </tr>
-                    @endforeach
-                @endforeach
                 </tbody>
             </table>
         </div>
+
+        <div class="ui modal" ng-controller="UserDetailAppCtrl">
+            <i class="close icon"></i>
+            <div class="content">
+                <div class="ui items">
+                    <div class="ui item dz-default" id="uploadAvatar">
+                        <div class="ui medium bordered image segment">
+                            <img ng-src="[[ user.avatar_url_or_blank ]]" />
+                        </div>
+
+                        <div class="content">
+                            <h1>[[ user.display_name ]]</h1>
+
+                            <div class="ui section divider"></div>
+
+                            <div class="meta">
+                                [[ user.position ]]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+var UsersApp = angular.module('UsersApp', [], function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
+});
+
+UsersApp.controller('UsersAppCtrl', function ($scope, $http, $timeout) {
+    $scope.usersData = [];
+
+    $http.get(Asset.path('api/users.json')).success(function (data) {
+        $scope.usersData = data;
+
+        $timeout(function () {
+            $scope.initSearch();
+        }, 100);
+    });
+
+
+    $scope.initSearch = function() {
+        $('.searchable').filterTable({
+            label: '<i class="search icon"></i>',
+            containerTag: 'div',
+            placeholder: 'Введите слово для поиска',
+            containerClass: 'ui large fluid icon input input-search'
+        });
+    }
+
+    $scope.openProfile = function(user) {
+        $scope.$broadcast('openProfile', user);
+    }
+
+    $scope.redirectToProfile = function(user) {
+       window.location.href = '/user/'+user.id;
+    }
+});
+
+UsersApp.controller('UserDetailAppCtrl', function ($scope, $http) {
+    $scope.$on('openProfile', function(event, user) {
+        $scope.user = user;
+        $('.ui.modal').modal('show');
+    });
+});
+</script>
 @endsection

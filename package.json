@@ -10,6 +10,7 @@
     "filedrop": "^2.0.0",
     "checklist-model": "0.9.0",
     "angular": "1.5.3",
+    "angular-route": "1.4.x",
     "dropzone": "4.3.0",
     "underscore": "1.8.3"
   }

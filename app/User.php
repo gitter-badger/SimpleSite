@@ -78,8 +78,8 @@ class User extends Authenticatable
      */
     protected $appends = [
         'avatar_url',
+        'avatar_url_or_blank',
         'name_with_avatar',
-        'profile_link',
     ];
 
     /**

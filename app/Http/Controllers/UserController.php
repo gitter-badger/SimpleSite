@@ -14,13 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::get()
-            ->sortBy('display_name')
-            ->groupBy(function (User $user, $key) {
-                return Str::upper(Str::substr($user->display_name, 0, 1));
-            });
-
-        return view('users.index', compact('users'));
+        return view('users.index');
     }
 
     /**
@@ -29,7 +23,7 @@ class UserController extends Controller
     public function profile()
     {
         $user = auth()->user();
-        return view('users.profile', compact('user', 'isOwner'));
+        return view('users.profile', compact('user'));
     }
 
     /**
@@ -40,6 +34,6 @@ class UserController extends Controller
     public function userProfile($id)
     {
         $user = User::findOrFail($id);
-        return view('users.profile', compact('user', 'isOwner'));
+        return view('users.profile', compact('user'));
     }
 }

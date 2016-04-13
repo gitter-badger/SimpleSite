@@ -79,6 +79,11 @@ Route::group(['middleware' => 'web'], function () {
     });
 
     Route::group(['namespace' => 'Api', 'prefix' => 'api', 'as' => 'api.'], function () {
+        Route::get('users.json', [
+            'as' => 'user.list',
+            'uses' => 'UserController@getList',
+        ]);
+
         Route::get('polls.json', [
             'as' => 'poll.list',
             'uses' => 'PollController@index',

@@ -21,6 +21,7 @@ elixir(function(mix) {
         '../../../node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
         '../../../node_modules/dropzone/dist/min/dropzone.min.js',
         '../../../node_modules/angular/angular.min.js',
+        '../../../node_modules/angular-route/angular-route.min.js',
         '../../../node_modules/checklist-model/checklist-model.js',
         '../../../public/checklist-model/checklist-model.js',
         '../../../node_modules/underscore/underscore-min.js',
