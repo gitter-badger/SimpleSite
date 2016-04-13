@@ -11,10 +11,17 @@ header {
 }
 
 .box {
-  padding:    30px !important;
   margin:     30px 0 !important;
   background: #fff !important;
   box-shadow: 0 3px 3px #ccc !important;
+
+  &.padded {
+    padding: 30px !important;
+  }
+
+  &.padded > .ribbon.label {
+    left: -45px !important;
+  }
 }
 
 .news-items {
@@ -55,13 +62,23 @@ header {
 
 #uploadAvatar {
   &.dz-drag-hover {
-    border: 8px dashed #ccc !important;
+    border:  8px dashed #ccc !important;
     opacity: .5 !important;
   }
 }
 
+#userProfile {
+  > .items {
+    .item {
+      .description {
+        padding: 30px !important;
+      }
+    }
+  }
+}
+
 footer {
-  margin-top: 40px !important;
-  padding-top: 30px !important;
+  margin-top:     40px !important;
+  padding-top:    30px !important;
   padding-bottom: 30px !important;
 }

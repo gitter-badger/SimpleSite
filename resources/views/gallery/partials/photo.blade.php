@@ -5,7 +5,7 @@
     @if(!empty($photo->caption) or !empty($photo->description))
     <div class="content">
         @if(!empty($photo->caption))
-            <h5 class="ui header">{{ $photo->caption }}</h5>
+        <h5 class="ui header">{{ $photo->caption }}</h5>
         @endif
         @if(!empty($photo->description))
             <div class="description">

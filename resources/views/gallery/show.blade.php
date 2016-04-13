@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="ui container">
-        <div class="photo-category-description box">
+        <div class="photo-category-description box padded">
             <h1 class="header">{{ $category->title }}</h1>
             @if(!empty($category->description))
                 <div class="category-description description">

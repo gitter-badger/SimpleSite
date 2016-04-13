@@ -2,7 +2,7 @@
     @foreach($posts as $post)
         <div class="item news-item">
             <div class="content">
-                <span class="ui ribbon @if(!$post->isPastEvent()) pink @endif label">
+                <span class="ui ribbon @if($post->isEvent() and !$post->isPastEvent()) pink @endif label">
                     {!! $post->type_title !!}
                 </span>
 
@@ -18,11 +18,13 @@
                     <span class="date">{{ $post->created_at->format('d F Y') }}</span>
                 </div>
             </div>
+
             @if(!empty($post->thumb))
-                <div class="image">
-                    <img src="{{ $post->thumb_url }}">
-                </div>
+            <div class="image">
+                <img src="{{ $post->thumb_url }}">
+            </div>
             @endif
+
         </div>
 
         <div class="ui news-divider divider"></div>

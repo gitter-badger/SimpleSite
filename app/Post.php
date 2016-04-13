@@ -141,7 +141,7 @@ class Post extends Model
      */
     public function isPastEvent()
     {
-        return is_null($this->event_at) or $this->event_at->lte(Carbon::now());
+        return (is_null($this->event_at) or $this->event_at->lte(Carbon::now()));
     }
 
     /**********************************************************************

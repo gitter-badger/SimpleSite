@@ -1,19 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="ui container">
-    <div class="ui section divider hidden"></div>
+<div class="ui container" id="userProfile">
     <div class="ui items">
-        <div class="ui item dz-default" id="uploadAvatar">
+        <div class="ui item box" id="uploadAvatar">
             <div class="ui inverted dimmer">
                 <div class="ui text loader">Loading</div>
             </div>
 
-            <div class="ui medium segment image">
+            <div class="ui medium image">
                 @can('change-avatar', $user)
-                <a
-                    class="ui orange left corner label"
-                    style="cursor: pointer">
+                <a class="ui orange left corner label link">
                     <i class="photo icon"></i>
                 </a>
                 @endcan
@@ -21,7 +18,7 @@
                 <img src="{{ $user->avatar_url_or_blank }}" />
             </div>
 
-            <div class="content">
+            <div class="content description">
                 <h1>{{ $user->display_name }}</h1>
 
                 <div class="ui section divider"></div>
@@ -32,9 +29,13 @@
             </div>
         </div>
 
-        <div class="ui segment">
+        <div class="ui box padded">
             <span class="ui red ribbon label">@lang('core.user.title.contacts')</span>
             <table class="ui very basic table">
+                <colgroup>
+                    <col width="200px" />
+                    <col />
+                </colgroup>
                 @foreach($contacts as $contact)
                     <tr>
                         <td>{{ $contact['title'] }}</td>
@@ -45,9 +46,9 @@
         </div>
 
         @if(count($events) > 0)
-        <div class="ui segment">
+        <div class="ui box padded">
             <span class="ui red ribbon label">@lang('core.user.title.events')</span>
-            <div class="ui divider section"></div>
+            <div class="ui hidden divider"></div>
             @include('blog.partials.card', ['posts' => $events])
         </div>
         @endif

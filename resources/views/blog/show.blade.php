@@ -3,7 +3,7 @@
 @section('content')
     <div class="ui container" ng-init="postId='{{ $post->id }}'">
         <div class="ui items">
-            <div class="news-item item box">
+            <div class="news-item item box padded">
                 <div class="content">
                     <span class="ui ribbon @if(!$post->isPastEvent()) pink @endif label">
                         {!! $post->type_title !!}
@@ -27,7 +27,7 @@
                         {!! $post->text !!}
                     </div>
 
-                    @if(! $post->isPastEvent())
+                    @if($post->isEvent() and !$post->isPastEvent())
                         <br/>
                         <br/>
                         @include('blog.partials.members')

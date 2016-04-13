@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="ui container">
-        <div class="box">
+        <div class="box padded">
             <h1>@lang('core.post.title.edit')</h1>
             <link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
             <script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>

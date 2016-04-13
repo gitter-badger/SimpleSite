@@ -14,7 +14,6 @@ return [
         'permissions' => 'Права доступа',
         'users' => 'Сотрудники',
         'roles' => 'Роли',
-        'admin' => 'Администрирование',
     ],
     'message' => [
         'model_not_found' => 'Объект не найден',
@@ -93,6 +92,12 @@ return [
         'label' => [
             'remember' => 'Запомнить меня',
             'since' => 'Зарегестрирован :date',
+        ],
+        'link' => [
+            'profile' => 'Профиль',
+            'admin' => 'Администрирование',
+            'login' => 'Вход',
+            'logout' => 'Выход',
         ],
         'title' => [
             'contacts' => 'Контакты',

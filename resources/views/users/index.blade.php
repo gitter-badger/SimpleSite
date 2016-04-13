@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="ui container">
-        <div class="box">
+        <div class="box padded">
             <h2>@lang('core.title.users')</h2>
 
             <table class="ui selectable padded very basic table searchable">
@@ -28,13 +28,14 @@
                     @foreach($_users as $user)
                     <tr>
                         <td>
-                            <h4 class="ui image header">
+                            <h4 class="header">
                                 @if($user->avatar_url)
-                                <a class="ui image image-link" href="{{ $user->avatar_url }}" title="{{ $user->display_name }}">
-                                    <img src="{{ $user->avatar_url }}" class="ui mini circular image">
-                                </a>
+                                    <a class="image-link" style="float: left" href="{{ $user->avatar_url }}" title="{{ $user->display_name }}">
+                                        <img src="{{ $user->avatar_url }}" class="ui mini circular image">
+                                    </a>
                                 @endif
-                                <div class="content">
+
+                                <div class="content" style="float: left; padding-left: 20px">
                                     <a href="{{ route('user.profile', [$user->id]) }}">{{ $user->display_name }}</a>
                                     <br />
                                     <small class="sub">
