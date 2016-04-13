@@ -14,9 +14,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderByName()->get()->groupBy(function (User $user, $key) {
-            return strtoupper(Str::substr($user->display_name, 0, 1));
-        });
+        $users = User::get()
+            ->sortBy('display_name')
+            ->groupBy(function (User $user, $key) {
+                return Str::upper(Str::substr($user->display_name, 0, 1));
+            });
 
         return view('users.index', compact('users'));
     }
