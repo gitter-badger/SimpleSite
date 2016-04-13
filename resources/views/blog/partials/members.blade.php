@@ -4,13 +4,13 @@
             <i class="checkmark icon"></i> @lang('core.post.button.attend')
         </button>
         <a class="ui basic green label" ng-click="showMembers()">
-            <% count %>
+            [[ count ]]
         </a>
     </div>
     <div ng-show="is_guest || is_member">
         <a class="ui green statistic" ng-click="showMembers()">
             <div class="value">
-                <i class="child icon"></i>  <% count %>
+                <i class="child icon"></i>  [[ count ]]
             </div>
             <div class="label">
                 @lang('core.post.label.total_members')
@@ -26,9 +26,9 @@
         <div class="content">
             <div class="ui horizontal relaxed selection list">
                 <div class="item" ng-repeat="member in members">
-                    <img class="ui avatar image" src="<% member.avatar_url %>">
+                    <img class="ui avatar image" src="[[ member.avatar_url ]]">
                     <div class="content">
-                        <span class="header"><% member.display_name %></span>
+                        <span class="header">[[ member.display_name ]]</span>
                     </div>
                 </div>
             </div>

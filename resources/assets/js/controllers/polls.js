@@ -1,6 +1,6 @@
 var pollApp = angular.module('pollApp', ['checklist-model'], function ($interpolateProvider) {
-    $interpolateProvider.startSymbol('<%');
-    $interpolateProvider.endSymbol('%>');
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
 });
 
 pollApp.controller('PollListCtrl', function ($scope, $sce, $http, $timeout) {

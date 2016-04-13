@@ -1,6 +1,6 @@
 var PostMembers = angular.module('PostMembers', [], function ($interpolateProvider) {
-    $interpolateProvider.startSymbol('<%');
-    $interpolateProvider.endSymbol('%>');
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
 });
 
 PostMembers.controller('PostMembersCtrl', function ($scope, $sce, $http, $timeout) {
@@ -30,8 +30,8 @@ PostMembers.controller('PostMembersCtrl', function ($scope, $sce, $http, $timeou
     }
 });
 var pollApp = angular.module('pollApp', ['checklist-model'], function ($interpolateProvider) {
-    $interpolateProvider.startSymbol('<%');
-    $interpolateProvider.endSymbol('%>');
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
 });
 
 pollApp.controller('PollListCtrl', function ($scope, $sce, $http, $timeout) {

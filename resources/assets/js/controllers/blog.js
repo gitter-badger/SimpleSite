@@ -1,6 +1,6 @@
 var PostMembers = angular.module('PostMembers', [], function ($interpolateProvider) {
-    $interpolateProvider.startSymbol('<%');
-    $interpolateProvider.endSymbol('%>');
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
 });
 
 PostMembers.controller('PostMembersCtrl', function ($scope, $sce, $http, $timeout) {
