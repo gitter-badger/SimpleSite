@@ -36,9 +36,10 @@
                                 @endif
                                 <div class="content">
                                     <a href="{{ route('user.profile', [$user->id]) }}">{{ $user->display_name }}</a>
-                                    <div class="sub header">
+                                    <br />
+                                    <small class="sub">
                                         {{ $user->position }}
-                                    </div>
+                                    </small>
                                 </div>
                             </h4>
                         </td>
