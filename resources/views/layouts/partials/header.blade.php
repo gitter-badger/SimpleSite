@@ -7,18 +7,7 @@
         {!! app('front.navigation')->render() !!}
 
         <div class="right inverted menu">
-            @if (Auth::guest())
-                <div class="item">
-                    <a class="ui button" href="{{ url('/login') }}">@lang('core.title.login')</a>
-                </div>
-            @else
-                @if (Auth::user()->isSuperAdmin())
-                <a class="ui olive item" href="{{ url('/admin') }}"><i class="dashboard icon"></i> @lang('core.title.admin')</a>
-                @endif
-
-                <a class="item" href="{{ route('profile') }}">{!! Auth::user()->name_with_avatar !!}</a>
-                <a class="item" href="{{ url('/logout') }}">@lang('core.title.logout')</a>
-            @endif
+            @include('auth.partials.header')
         </div>
     </div>
 </div>
