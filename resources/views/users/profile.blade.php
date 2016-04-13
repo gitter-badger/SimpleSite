@@ -9,7 +9,7 @@
                 <div class="ui text loader">Loading</div>
             </div>
 
-            <div class="ui medium bordered image">
+            <div class="ui medium segment image">
                 @can('change-avatar', $user)
                 <a
                     class="ui orange left corner label"
@@ -18,11 +18,7 @@
                 </a>
                 @endcan
 
-                <img src="{{ $user->avatar_url_or_blank }}"
-                 @can('change-avatar', $user)
-
-                @endcan
-                />
+                <img src="{{ $user->avatar_url_or_blank }}" />
             </div>
 
             <div class="content">
