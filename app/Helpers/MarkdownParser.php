@@ -2,10 +2,17 @@
 
 namespace App\Helpers;
 
+use App\User;
 use Parsedown;
 
 class MarkdownParser extends Parsedown
 {
+
+    public function __construct()
+    {
+        $this->InlineTypes['@'] = ['userMention'];
+        $this->inlineMarkerList .= '@';
+    }
 
     /**
      * @param string $text
@@ -32,6 +39,30 @@ class MarkdownParser extends Parsedown
         $text = $parser->text($text);
 
         return [$text, $textIntro];
+    }
+
+    /**
+     * @param array $Excerpt
+     *
+     * @return array
+     */
+    protected function inlineUserMention(array $Excerpt)
+    {
+        if (preg_match('/\@\{([а-яёА-ЯЁa-zA-Z ]+)\}/iu', $Excerpt['text'], $matches)) {
+            if (! empty($matches[1]) and ! is_null($user = User::where('display_name', 'like', "%$matches[1]%")->first())) {
+                return [
+                    'extent' => strlen($matches[0]),
+                    'element' => [
+                        'name' => 'a',
+                        'text' => $user->name_with_avatar,
+                        'attributes' => [
+                            'href' => route('user.profile', [$user->id]),
+                            'target' => '_blank'
+                        ],
+                    ],
+                ];
+            }
+        }
     }
 
     /**
