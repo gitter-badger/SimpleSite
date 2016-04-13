@@ -7,6 +7,7 @@
             [[ count ]]
         </a>
     </div>
+
     <div ng-show="is_guest || is_member">
         <a class="ui green statistic" ng-click="showMembers()">
             <div class="value">
@@ -26,7 +27,7 @@
         <div class="content">
             <div class="ui horizontal relaxed selection list">
                 <div class="item" ng-repeat="member in members">
-                    <img class="ui avatar image" src="[[ member.avatar_url ]]">
+                    <img class="ui avatar image" ng-src="[[ member.avatar_url ]]">
                     <div class="content">
                         <span class="header">[[ member.display_name ]]</span>
                     </div>
