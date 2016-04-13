@@ -21,8 +21,7 @@ class UpdateUserProfile extends Command
         if ($users = Ldap::search()->all()) {
             $updatedIds = [];
             foreach ($users as $ldapUser) {
-                if (isset($ldapUser['mail']) and $user = User::firstOrCreate(['email' => $ldapUser['mail']])) {
-
+                if (isset($ldapUser['mail']) and $user = User::withTrashed()->firstOrCreate(['email' => $ldapUser['mail']])) {
                     $user->name           = array_get($ldapUser, 'name');
                     $user->position       = array_get($ldapUser, 'title');
                     $user->phone_internal = array_get($ldapUser, 'telephonenumber');
@@ -30,7 +29,9 @@ class UpdateUserProfile extends Command
                     $user->is_ldap        = true;
                     $user->save();
 
-                    $updatedIds[] = $user->id;
+                    if (! $user->trashed()) {
+                        $updatedIds[] = $user->id;
+                    }
                 }
             }
 
