@@ -23,9 +23,11 @@
         <button class="ui primary button" ng-click="vote(poll)" ng-hide="poll.is_voted">
             <i class="checkmark icon"></i> @lang('core.poll.button.vote')
         </button>
+        {{--
         <button class="ui orange button" ng-click="reset(poll)" ng-show="poll.is_voted">
             <i class="remove icon"></i> @lang('core.poll.button.reset')
         </button>
+         --}}
     </div>
     <br />
     <br />
