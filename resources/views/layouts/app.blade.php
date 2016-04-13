@@ -13,6 +13,9 @@
     @include('layouts.partials.header')
     @yield('content')
 
+
+    @include('layouts.partials.footer')
+
     <!-- JavaScripts -->
     <script src="{{ asset('api/settings.js') }}"></script>
     <script src="{{ asset('js/all.js') }}"></script>
