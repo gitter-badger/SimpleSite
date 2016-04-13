@@ -4,10 +4,7 @@
 
 <div class="ui attached stackable menu inverted green">
     <div class="ui container">
-        <a class="item" href="{{ route('home') }}">@lang('core.title.index')</a>
-        <a class="item" href="{{ route('news.index') }}">@lang('core.title.news')</a>
-        <a class="item" href="{{ route('gallery.index') }}">@lang('core.title.gallery')</a>
-        <a class="item" href="{{ route('user.index') }}">@lang('core.title.users')</a>
+        {!! app('front.navigation')->render() !!}
 
         <div class="right inverted menu">
             @if (Auth::guest())
