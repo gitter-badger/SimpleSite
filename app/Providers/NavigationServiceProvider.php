@@ -22,22 +22,26 @@ class NavigationServiceProvider extends ServiceProvider
             (new Page())
                 ->setTitle(trans('core.title.index'))
                 ->setUrl(route('home'))
-                ->setHtmlAttribute('class', 'item'),
+                ->setHtmlAttribute('class', 'item')
+                ->setPriority(100),
             (new Page())
                 ->setTitle(trans('core.title.news'))
                 ->setUrl(route('news.index'))
                 ->setHtmlAttribute('class', 'item')
-                ->setIcon('newspaper icon'),
+                ->setIcon('newspaper icon')
+                ->setPriority(200),
             (new Page())
                 ->setTitle(trans('core.title.gallery'))
                 ->setUrl(route('gallery.index'))
                 ->setHtmlAttribute('class', 'item')
-                ->setIcon('photo icon'),
+                ->setIcon('photo icon')
+                ->setPriority(300),
             (new Page())
                 ->setTitle(trans('core.title.users'))
                 ->setUrl(route('user.index'))
                 ->setHtmlAttribute('class', 'item')
-                ->setIcon('group icon'),
+                ->setIcon('group icon')
+                ->setPriority(400),
         ]);
     }
 
