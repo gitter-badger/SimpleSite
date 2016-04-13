@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Adldap\Adldap;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -46,6 +47,23 @@ class AuthServiceProvider extends ServiceProvider
                     'user' => auth()->user()
                 ])
             );
+        });
+    }
+    
+    public function register()
+    {
+        $this->app->singleton('ldap', function() {
+            extract(config('auth.providers.ldap.options', [null, null, null, null, null]));
+
+            return new Adldap([
+                'account_suffix' => $domain,
+                'domain_controllers' => [$server],
+                'base_dn' => $base_dn,
+                'admin_username' => $user,
+                'admin_password' => $password,
+                'use_ssl' => false,
+                'use_tls' => false,
+            ]);
         });
     }
 }

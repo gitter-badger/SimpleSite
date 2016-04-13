@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Adldap\Adldap;
 use App\Helpers\SemanticUIPresenter;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -29,20 +28,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::presenter(function ($paginator) {
             return new SemanticUIPresenter($paginator);
-        });
-
-        $this->app->singleton('ldap', function() {
-            extract(config('auth.providers.ldap.options', [null, null, null, null, null]));
-
-            return new Adldap([
-                'account_suffix' => $domain,
-                'domain_controllers' => [$server],
-                'base_dn' => $base_dn,
-                'admin_username' => $user,
-                'admin_password' => $password,
-                'use_ssl' => false,
-                'use_tls' => false,
-            ]);
         });
     }
 
