@@ -49,18 +49,25 @@ class MarkdownParser extends Parsedown
     protected function inlineUserMention(array $Excerpt)
     {
         if (preg_match('/\@\{([а-яёА-ЯЁa-zA-Z ]+)\}/iu', $Excerpt['text'], $matches)) {
-            if (! empty($matches[1]) and ! is_null($user = User::where('display_name', 'like', "%$matches[1]%")->first())) {
-                return [
-                    'extent' => strlen($matches[0]),
-                    'element' => [
-                        'name' => 'a',
-                        'text' => $user->name_with_avatar,
-                        'attributes' => [
-                            'href' => route('user.profile', [$user->id]),
-                            'target' => '_blank'
+
+            if (! empty($matches[1])) {
+
+                $user = User::where('display_name', 'like', "%{$matches[1]}%")->orWhere('name', 'like', "%{$matches[1]}%")->first();
+
+                if(! is_null($user)) {
+                    return [
+                        'extent' => strlen($matches[0]),
+                        'element' => [
+                            'name' => 'a',
+                            'text' => $user->name_with_avatar,
+                            'attributes' => [
+                                'href' => route('user.profile', [$user->id]),
+                                'target' => '_blank'
+                            ],
                         ],
-                    ],
-                ];
+                    ];
+                }
+
             }
         }
     }
