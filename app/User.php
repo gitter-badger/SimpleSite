@@ -6,6 +6,7 @@ use App\Traits\HasRoles;
 use App\Traits\Upload;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -40,7 +41,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 
-    use Upload, HasRoles;
+    use Upload, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -96,7 +97,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $dates = ['password_expired_at'];
+    protected $dates = ['password_expired_at', 'deleted_at'];
 
     /**
      * @return array
@@ -174,9 +175,20 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
+    public function scopeLdap($query)
+    {
+        return $query->where('is_ldap', true);
+    }
+
+
+    /**
+     * @param     $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeOrderByName($query)
     {
-        return $query->orderBy('display_name', 'asc');
+        return $query->orderBy('display_name');
     }
 
     /**********************************************************************
