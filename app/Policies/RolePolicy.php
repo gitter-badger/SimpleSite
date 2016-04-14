@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RolePolicy
@@ -9,12 +10,15 @@ class RolePolicy
     use HandlesAuthorization;
 
     /**
-     * Create a new policy instance.
+     * @param User $user
+     * @param string $ability
      *
-     * @return void
+     * @return bool
      */
-    public function __construct()
+    public function before(User $user, $ability)
     {
-        //
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
     }
 }
