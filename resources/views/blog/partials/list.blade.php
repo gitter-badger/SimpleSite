@@ -15,7 +15,9 @@
                 </div>
 
                 <div class="meta">
-                    <span class="date">{{ $post->created_at->format('d F Y') }}</span>
+                    <span class="date">
+                        <time>{{ $post->created_at }}</time>
+                    </span>
                 </div>
             </div>
 

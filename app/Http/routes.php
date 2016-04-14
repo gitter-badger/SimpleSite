@@ -93,6 +93,11 @@ Route::group(['middleware' => 'web'], function () {
             'uses' => 'PostController@members',
         ]);
 
+        Route::get('user/{id}/calendar.json', [
+            'as' => 'user.calendar',
+            'uses' => 'UserController@calendar',
+        ]);
+
         Route::group(['middleware' => 'auth'], function () {
             Route::post('poll/vote/{id}', [
                 'middleware' => 'auth',

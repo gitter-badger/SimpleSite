@@ -9,7 +9,7 @@ PackageManager::add('front.controllers')
     ->js(null, asset('js/controllers.js'));
 
 PackageManager::add('fullcalendar')
-    ->js(null, asset('libs/fullcalendar/js/fullcalendar.min.js'), 'front.libs')
+    ->js(null, asset('libs/fullcalendar/js/fullcalendar.min.js'), ['front.libs', 'moment'])
     ->css(null, asset('libs/fullcalendar/css/fullcalendar.min.css'));
 
 PackageManager::add('filterTable')

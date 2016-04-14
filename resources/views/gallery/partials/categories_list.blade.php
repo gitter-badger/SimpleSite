@@ -10,7 +10,9 @@
             </div>
             <div class="extra content">
                 <div class="meta">
-                    <small class="date">{{ $category->created_at->format('d F Y') }}</small>
+                    <small class="date">
+                        <time>{{ $category->created_at }}</time>
+                    </small>
                 </div>
             </div>
             <a class="image" href="{{ route('gallery.category', [$category->id]) }}">

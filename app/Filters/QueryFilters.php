@@ -47,7 +47,7 @@ abstract class QueryFilters
                 continue;
             }
 
-            if (trim($value)) {
+            if (is_array($value) or trim($value)) {
                 $this->$name($value);
             } else {
                 $this->$name();

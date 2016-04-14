@@ -290,12 +290,19 @@ class User extends Authenticatable
      * Relations
      **********************************************************************/
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
     public function events()
     {
         return $this->belongsToMany(Post::class, 'post_member', 'user_id', 'post_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function schedules()
+    {
+        return $this->hasMany(Calendar::class);
     }
 }

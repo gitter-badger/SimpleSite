@@ -18,6 +18,7 @@ class AppController extends Controller
             'token' => csrf_token(),
             'locale' => app()->getLocale(),
             'trans' => trans('core'),
+            'config' => config('portal'),
         ]);
 
         return $this->cacheResponse(new Response($content, 200, [

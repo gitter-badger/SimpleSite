@@ -20,7 +20,9 @@
                 </div>
             </div>
             <div class="extra content">
-                <span class="time">{{ $post->created_at->format('d.m.Y') }}</span>
+                <span class="date">
+                    <time>{{ $post->created_at }}</time>
+                </span>
             </div>
             @if(!empty($post->thumb))
             <a class="image" href="{{ route('news.show', [$post->id]) }}">

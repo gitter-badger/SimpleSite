@@ -38,6 +38,14 @@ elixir(function(mix) {
         .copy(
             'node_modules/fullcalendar/dist/fullcalendar.min.js',
             'public/libs/fullcalendar/js/fullcalendar.min.js'
+        )
+        .copy(
+            'node_modules/fullcalendar/node_modules/moment/min/moment.min.js',
+            'public/libs/moment/js/moment.min.js'
+        )
+        .copy(
+            'node_modules/fullcalendar/node_modules/moment/locale/ru.js',
+            'public/libs/moment/js/ru.js'
         );
 
     mix.scripts([
@@ -47,6 +55,8 @@ elixir(function(mix) {
         'public/libs/dropzone/js/dropzone.min.js',
         'angular/js/angular.min.js',
         'underscore/js/underscore.min.js',
+        'public/libs/moment/js/moment.min.js',
+        'public/libs/moment/js/ru.js',
         '../../resources/assets/js/common.js'
     ], 'public/js', 'public/libs');
 

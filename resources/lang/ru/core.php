@@ -14,6 +14,7 @@ return [
         'permissions' => 'Права доступа',
         'users' => 'Сотрудники',
         'roles' => 'Роли',
+        'calendar' => 'Календарь',
     ],
     'message' => [
         'model_not_found' => 'Объект не найден',
@@ -102,6 +103,7 @@ return [
         'title' => [
             'contacts' => 'Контакты',
             'events' => 'Участник событий',
+            'calendar' => 'Календарь'
         ],
         'field' => [
             'username' => 'Имя',
@@ -118,6 +120,21 @@ return [
         ],
         'message' => [
             'drag_to_upload' => 'Перетащи сюда изображение для загрузки аватара',
+        ],
+    ],
+    'calendar' => [
+        'field' => [
+            'description' => 'Описание',
+            'user' => 'Сотрудник',
+            'start_at' => 'С',
+            'end_at' => 'По',
+            'type' => 'Тип'
+        ],
+        'type' => [
+            \App\Calendar::TYPE_MISSED => 'Отсутсвие',
+            \App\Calendar::TYPE_VACATION => 'Отпуск',
+            \App\Calendar::TYPE_BUSINESS_TRIP => 'Командировка',
+            \App\Calendar::TYPE_OTHER => 'Другое',
         ],
     ],
 ];

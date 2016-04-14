@@ -25,6 +25,7 @@ var User = {
 
 User.init(window.settings.user);
 Dropzone.autoDiscover = false;
+moment.locale(window.settings.locale);
 
 $(function () {
     $.ajaxSetup({
@@ -42,4 +43,9 @@ $(function () {
 
     $('.dropdown').dropdown();
     $('.popup').popup();
+
+    $('time').each(function() {
+        var $self = $(this);
+        $self.text(moment($self.text()).format(window.settings.config.date.format));
+    })
 });

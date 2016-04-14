@@ -49,6 +49,8 @@ class UserController extends Controller
 
     protected function renderProfile(User $user)
     {
+        \Assets::loadPackage('fullcalendar');
+
         $events = $user->events;
         $contacts = $user->contacts();
 

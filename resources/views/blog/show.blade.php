@@ -37,8 +37,9 @@
 
                     <div class="meta">
                         {{-- <span class="author">{!! $post->author->name !!}</span>  <span>|</span> --}}
-                        <span class="date">@lang('core.post.field.created_at')
-                            : {{ $post->created_at->format('d F Y') }}</span>
+                        <span class="date">
+                            @lang('core.post.field.created_at'): <time>{{ $post->created_at }}</time>
+                        </span>
                     </div>
                 </div>
             </div>
