@@ -63,3 +63,14 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+<script>
+    $('.searchable').filterTable({
+        label: '<i class="search icon"></i>',
+        containerTag: 'div',
+        placeholder: 'Введите слово для поиска',
+        containerClass: 'ui large fluid icon input input-search'
+    });
+</script>
+@endsection

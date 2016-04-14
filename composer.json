@@ -18,7 +18,8 @@
         "laravelcollective/html": "^5.2",
         "laravelrus/sleepingowl": "4.*@dev",
         "adldap/adldap": "dev-master",
-        "jsvrcek/ics": "^0.1.0"
+        "jsvrcek/ics": "^0.1.0",
+        "kodicms/laravel-assets": "^0.1.17"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

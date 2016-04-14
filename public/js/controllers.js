@@ -29,7 +29,7 @@ PostMembers.controller('PostMembersCtrl', function ($scope, $sce, $http, $timeou
         return $sce.trustAsHtml(html);
     }
 });
-var pollApp = angular.module('pollApp', ['checklist-model'], function ($interpolateProvider) {
+var pollApp = angular.module('pollApp', [], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
 });

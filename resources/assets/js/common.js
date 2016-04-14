@@ -42,11 +42,4 @@ $(function () {
 
     $('.dropdown').dropdown();
     $('.popup').popup();
-
-    $('.searchable').filterTable({
-        label: '<i class="search icon"></i>',
-        containerTag: 'div',
-        placeholder: 'Введите слово для поиска',
-        containerClass: 'ui large fluid icon input input-search'
-    });
 });

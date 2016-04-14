@@ -14,18 +14,41 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     mix.less('app.less');
 
+    mix
+        .copy(
+            'node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
+            'public/libs/magnific-popup/js/jquery.magnific-popup.min.js'
+        )
+        .copy(
+            'node_modules/dropzone/dist/min/dropzone.min.js',
+            'public/libs/dropzone/js/dropzone.min.js'
+        )
+        .copy(
+            'node_modules/angular/angular.min.js',
+            'public/libs/angular/js/angular.min.js'
+        )
+        .copy(
+            'node_modules/underscore/underscore-min.js',
+            'public/libs/underscore/js/underscore.min.js'
+        )
+        .copy(
+            'node_modules/fullcalendar/dist/fullcalendar.min.css',
+            'public/libs/fullcalendar/css/fullcalendar.min.css'
+        )
+        .copy(
+            'node_modules/fullcalendar/dist/fullcalendar.min.js',
+            'public/libs/fullcalendar/js/fullcalendar.min.js'
+        );
+
     mix.scripts([
-        '../../../public/libs/jquery/js/jquery.min.js',
-        '../../../public/libs/semantic-ui/js/semantic.min.js',
-        '../../../public/libs/jquery.filtertable/js/jquery.filtertable.js',
-        '../../../node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
-        '../../../node_modules/dropzone/dist/min/dropzone.min.js',
-        '../../../node_modules/angular/angular.min.js',
-        '../../../node_modules/checklist-model/checklist-model.js',
-        '../../../public/checklist-model/checklist-model.js',
-        '../../../node_modules/underscore/underscore-min.js',
-        'common.js'
-    ])
+        'jquery/js/jquery.min.js',
+        'semantic-ui/js/semantic.min.js',
+        'magnific-popup/js/jquery.magnific-popup.min.js',
+        'public/libs/dropzone/js/dropzone.min.js',
+        'angular/js/angular.min.js',
+        'underscore/js/underscore.min.js',
+        '../../resources/assets/js/common.js'
+    ], 'public/js', 'public/libs');
 
     mix.combine([
         'resources/assets/js/controllers/blog.js',

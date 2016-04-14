@@ -14,6 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        \Assets::loadPackage('filterTable');
+
         $users = User::get()
             ->sortBy('display_name')
             ->groupBy(function (User $user, $key) {

@@ -1,4 +1,4 @@
-var pollApp = angular.module('pollApp', ['checklist-model'], function ($interpolateProvider) {
+var pollApp = angular.module('pollApp', [], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
 });

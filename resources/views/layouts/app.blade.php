@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>@lang('core.title.portal')</title>
-    <link href="{{ asset('css/app.css') }}" rel='stylesheet' type='text/css'>
+    {!! Assets::getCssList() !!}
 </head>
 <body>
     @include('layouts.partials.header')
@@ -18,9 +18,7 @@
     @include('layouts.partials.footer')
 
     <!-- JavaScripts -->
-    <script src="{{ asset('api/settings.js') }}"></script>
-    <script src="{{ asset('js/all.js') }}"></script>
-    <script src="{{ asset('js/controllers.js') }}"></script>
+    {!! Assets::getJsList() !!}
     @yield('scripts')
 </body>
 </html>
