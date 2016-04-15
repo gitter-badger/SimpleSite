@@ -260,7 +260,7 @@ class User extends Authenticatable
         $avatar = $this->avatar_url;
 
         if (! empty($avatar)) {
-            $name = "<img class=\"ui avatar avatar image\" src=\"{$this->avatar_url}\" /> {$name}";
+            $name = "<img class=\"ui avatar image\" src=\"{$this->avatar_url}\" /> {$name}";
         }
 
         return $name;

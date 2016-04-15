@@ -88,7 +88,7 @@ class UserTest extends TestCase
         $this->assertEquals($user->avatar, 'test');
         $this->assertEquals($user->avatar_url, url('test'));
         $this->assertEquals($user->avatar_path, public_path('test'));
-        $this->assertEquals($user->name_with_avatar, "<img class=\"ui avatar mini image\" src=\"".url('test')."\" /> Test Test");
+        $this->assertEquals( "<img class=\"ui avatar image\" src=\"".url('test')."\" /> Test Test", $user->name_with_avatar);
     }
 
     /**

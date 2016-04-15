@@ -15,6 +15,12 @@ class UploadTest extends TestCase
      */
     public function testFileUpload()
     {
+        /** @var \App\User $user */
+        $user = factory(\App\User::class)->create();
+        $user->assignRoles(\App\Role::ROLE_ADMIN);
+
+        $this->actingAs($user);
+
         $filePath = base_path('tests/tmp/image.jpg');
 
         $file = new \Illuminate\Http\UploadedFile(
