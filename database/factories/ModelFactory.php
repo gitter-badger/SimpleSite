@@ -21,6 +21,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
         'display_name' => $faker->name,
         'position' => $faker->sentence,
+        'birthday' => $faker->dateTimeBetween('-30 years', '-20 years'),
         'avatar_file' => function () {
             $files = File::files(base_path('database/seeds/tmp'));
             $filesPath = $files[array_rand($files)];

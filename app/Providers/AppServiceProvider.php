@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerBlogComposers();
+        $this->registerUserComposers();
     }
 
     /**
@@ -35,6 +36,13 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('blog.latest', function (View $view) {
             $view->with('posts', \App\Post::latest()->take(3)->get());
+        });
+    }
+
+    protected function registerUserComposers()
+    {
+        view()->composer('users.birthdays', function (View $view) {
+            $view->with('users', \App\User::nearestBirthday()->get());
         });
     }
 }

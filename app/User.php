@@ -98,7 +98,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $dates = ['password_expired_at', 'deleted_at'];
+    protected $dates = ['password_expired_at', 'deleted_at', 'birthday'];
 
     /**
      * @return array
@@ -181,7 +181,6 @@ class User extends Authenticatable
         return $query->where('is_ldap', true);
     }
 
-
     /**
      * @param     $query
      *
@@ -190,6 +189,23 @@ class User extends Authenticatable
     public function scopeOrderByName($query)
     {
         return $query->orderBy('display_name');
+    }
+
+    /**
+     * @param $query
+     * @param int $days
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeNearestBirthday($query, $days = 14)
+    {
+        intval($days);
+
+        return $query->where(function($q) use($days) {
+            $q->whereNotNull('birthday')
+                ->whereRaw('dayofyear(curdate()) <= dayofyear(birthday)')
+                ->whereRaw("DAYOFYEAR(curdate()) + {$days} >= dayofyear(birthday)");
+        });
     }
 
     /**********************************************************************
@@ -271,8 +287,17 @@ class User extends Authenticatable
      */
     public function getProfileLinkAttribute()
     {
-        return "<a href=\"".route('user.profile', [$this->id])."\" target=\"_blank\">{$this->name_with_avatar}</a>";
+        return "<a href=\"".$this->link."\" target=\"_blank\">{$this->name_with_avatar}</a>";
     }
+
+    /**
+     * @return string
+     */
+    public function getLinkAttribute()
+    {
+        return route('user.profile', [$this->id]);
+    }
+
 
     /**
      * @param string $phone

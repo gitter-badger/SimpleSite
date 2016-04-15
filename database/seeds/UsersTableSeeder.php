@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
 
         File::deleteDirectory(public_path('upload/users'));
 
-        factory(User::class, 5)->create();
+        factory(User::class, 50)->create();
 
         /** @var User $user */
         $user = factory(User::class)->create([

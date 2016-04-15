@@ -3,7 +3,7 @@
 @section('content')
     <div class="ui container" id="userProfile">
         <div class="ui items">
-            <div class="ui item box" id="uploadAvatar">
+            <div class="ui item margin-vr box" id="uploadAvatar">
                 <div class="ui inverted dimmer">
                     <div class="ui text loader">Loading</div>
                 </div>
@@ -19,15 +19,26 @@
                 <div class="content description">
                     <h1>{{ $user->display_name }}</h1>
 
+                    @if($user->birthday)
+                    <div class="birthday">
+                        @lang('core.user.label.birthday'):
+                        <strong>
+                            <time>
+                                {{ $user->birthday }}
+                            </time>
+                        </strong>
+                    </div>
+                    @endif
+
                     <div class="ui section divider"></div>
 
                     <div class="meta">
-                        {{ $user->position }}
+                       <span class="position">{{ $user->position }}</span>
                     </div>
                 </div>
             </div>
 
-            <div class="ui box padded">
+            <div class="ui margin-vr box padded">
                 <span class="ui red ribbon label">@lang('core.user.title.contacts')</span>
                 <table class="ui very basic table">
                     <colgroup>
@@ -44,14 +55,14 @@
             </div>
 
             @if(count($events) > 0)
-                <div class="ui box padded">
+                <div class="ui margin-vr box padded">
                     <span class="ui red ribbon label">@lang('core.user.title.events')</span>
                     <div class="ui hidden divider"></div>
                     @include('blog.partials.card', ['posts' => $events])
                 </div>
             @endif
 
-            <div class="box padded">
+            <div class="margin-vr box padded">
                 <span class="ui red ribbon label">@lang('core.user.title.calendar')</span>
                 <div id='calendar'></div>
             </div>

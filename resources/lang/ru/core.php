@@ -93,6 +93,8 @@ return [
         'label' => [
             'remember' => 'Запомнить меня',
             'since' => 'Зарегестрирован :date',
+            'birthday' => 'День рождения',
+            'nearest_birthdays' => 'Ближайшие дни рождения',
         ],
         'link' => [
             'profile' => 'Профиль',
@@ -103,7 +105,7 @@ return [
         'title' => [
             'contacts' => 'Контакты',
             'events' => 'Участник событий',
-            'calendar' => 'Календарь'
+            'calendar' => 'Календарь',
         ],
         'field' => [
             'username' => 'Имя',
@@ -113,6 +115,7 @@ return [
             'roles' => 'Роли',
             'phone_internal' => 'Внутренний',
             'phone_mobile' => 'Мобильный',
+            'birthday' => 'День рождения',
         ],
         'button' => [
             'login' => 'Войти',
@@ -128,7 +131,7 @@ return [
             'user' => 'Сотрудник',
             'start_at' => 'С',
             'end_at' => 'По',
-            'type' => 'Тип'
+            'type' => 'Тип',
         ],
         'type' => [
             \App\Calendar::TYPE_MISSED => 'Отсутсвие',

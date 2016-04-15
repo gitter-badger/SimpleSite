@@ -29,7 +29,8 @@ AdminSection::registerModel(User::class, function (ModelConfiguration $model) {
                         return [
                             AdminFormElement::text('name', 'Username')->required(),
                             AdminFormElement::text('display_name', 'Display name'),
-                            AdminFormElement::text('email', 'E-mail')->required()->addValidationRule('email')
+                            AdminFormElement::text('email', 'E-mail')->required()->addValidationRule('email'),
+                            AdminFormElement::date('birthday', trans('core.user.field.birthday'))->setFormat('Y-m-d')
                         ];
                     })->addColumn(function() {
                         return [

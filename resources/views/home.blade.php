@@ -2,7 +2,17 @@
 
 @section('content')
 <div class="ui container">
-    @include('blog.latest')
-    @include('poll.active')
+    <div class="ui grid">
+        <div class="ten wide column">
+            @include('blog.latest')
+        </div>
+        <div class="six wide column">
+            <div class="margin-vr">
+                @include('poll.active')
+            </div>
+
+            @include('users.birthdays')
+        </div>
+    </div>
 </div>
 @endsection

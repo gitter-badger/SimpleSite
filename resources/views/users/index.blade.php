@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="ui container">
-        <div class="box padded">
+        <div class="box margin-vr padded">
             <h2>@lang('core.title.users')</h2>
 
             <table class="ui selectable padded very basic table searchable">

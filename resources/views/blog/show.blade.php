@@ -3,7 +3,7 @@
 @section('content')
     <div class="ui container" ng-init="postId='{{ $post->id }}'">
         <div class="ui items">
-            <div class="news-item item box padded">
+            <div class="news-item item box margin-vr padded">
                 <div class="content">
                     <span class="ui ribbon @if(!$post->isPastEvent()) pink @endif label">
                         {!! $post->type_title !!}

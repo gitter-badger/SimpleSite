@@ -1,4 +1,4 @@
-<div class="news-items box padded">
+<div class="news-items box margin-vr padded">
     <h2>@lang('core.post.title.latest')</h2>
 
     @include('blog.partials.list')
