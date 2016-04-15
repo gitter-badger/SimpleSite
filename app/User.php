@@ -38,6 +38,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon            $created_at
  * @property Carbon            $updated_at
  * @property Carbon            $password_expired_at
+ * @property Carbon            $birthday
  */
 class User extends Authenticatable
 {

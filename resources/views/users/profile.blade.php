@@ -23,9 +23,7 @@
                     <div class="birthday">
                         @lang('core.user.label.birthday'):
                         <strong>
-                            <time>
-                                {{ $user->birthday }}
-                            </time>
+                            {{ $user->birthday->format('d F') }}
                         </strong>
                     </div>
                     @endif
