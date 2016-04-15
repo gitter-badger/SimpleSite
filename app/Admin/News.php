@@ -26,7 +26,10 @@ AdminSection::registerModel(Post::class, function (ModelConfiguration $model) {
         return AdminForm::panel()
         ->addHeader(
             AdminFormElement::text('title', trans('core.post.field.title'))->required(),
-            AdminFormElement::date('created_at', trans('core.post.field.created_at'))->setFormat('Y-m-d H:i:s')
+            AdminFormElement::date('created_at', trans('core.post.field.created_at'))
+                ->setFormat('Y-m-d H:i:s')
+                ->setDefaultValue(\Carbon\Carbon::now())
+                ->required()
         )
         ->addHeader(
             AdminFormElement::select('type', trans('core.post.field.type'), [
