@@ -77,8 +77,8 @@ class Post extends Model
      * @var array
      */
     protected $casts = [
-        'image' => 'upload',
-        'thumb' => 'upload',
+        'image' => 'image',
+        'thumb' => 'image',
         'is_pinned' => 'bool',
     ];
 

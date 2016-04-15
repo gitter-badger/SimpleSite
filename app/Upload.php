@@ -56,7 +56,7 @@ class Upload extends Model
      * @var array
      */
     protected $casts = [
-        'file' => 'upload',
+        'file' => 'image',
     ];
 
     /**

@@ -51,8 +51,8 @@ class Photo extends Model
      * @var array
      */
     protected $casts = [
-        'image' => 'upload',
-        'thumb' => 'upload',
+        'image' => 'image',
+        'thumb' => 'image',
     ];
 
     /**

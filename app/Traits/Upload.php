@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Intervention\Image\Facades\Image;
@@ -13,7 +14,15 @@ trait Upload
     {
         static::updating(function (Model $model) {
             foreach ($model->getUploadFields() as $key) {
-                if (! empty($model->original[$key]) and ($model->original[$key] != $model->attributes[$key]) and file_exists($filePath = public_path($model->original[$key]))) {
+                $originalValue = array_get($model->original, $key);
+
+                if (
+                    ! empty($originalValue)
+                    and
+                    ($originalValue != $model->attributes[$key])
+                    and
+                    file_exists($filePath = public_path($originalValue))
+                ) {
                     unlink($filePath);
                 }
             }
@@ -76,18 +85,24 @@ trait Upload
         $subFolder = substr(md5($filename), 0, 2);
 
         if (! is_dir(public_path($dir = "{$destination_path}/{$this->getTable()}/{$field}/{$subFolder}"))) {
-            \File::makeDirectory(public_path($dir), 493, true);
+            File::makeDirectory(public_path($dir), 493, true);
         }
 
-        $settings = array_get($this->getUploadSettings(), $field, []);
+        $path = "{$dir}/{$filename}";
 
-        $image = Image::make($file);
+        if ($this->hasCast($field, 'image') or $this->isImageUploadedFile($file)) {
+            $settings = array_get($this->getUploadSettings(), $field, []);
 
-        foreach ($settings as $method => $args) {
-            call_user_func_array([$image, $method], $args);
+            $image = Image::make($file);
+
+            foreach ($settings as $method => $args) {
+                call_user_func_array([$image, $method], $args);
+            }
+
+            $image->save(public_path($path));
+        } else {
+            $file->move(public_path($dir), $filename);
         }
-
-        $image->save(public_path($path = "{$dir}/{$filename}"));
 
         $this->{$field} = $path;
     }
@@ -232,7 +247,7 @@ trait Upload
         $casts = $this->getCasts();
 
         foreach ($casts as $field => $type) {
-            if ($type == 'upload') {
+            if (in_array($type, ['upload', 'file', 'image'])) {
                 $fields[] = $field;
             }
         }
@@ -246,5 +261,17 @@ trait Upload
 
             $this->uploadSetKeys[$field.'_file'] = ['setUploadFile', $field];
         }
+    }
+
+    /**
+     * @param UploadedFile $file
+     *
+     * @return bool
+     */
+    protected function isImageUploadedFile(UploadedFile $file)
+    {
+        $size = getimagesize($file->getRealPath());
+
+        return (bool) $size;
     }
 }

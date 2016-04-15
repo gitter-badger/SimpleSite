@@ -67,7 +67,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'avatar' => 'upload',
+        'avatar' => 'image',
         'is_ldap' => 'boolean',
         'phone_internal' => 'integer'
     ];
