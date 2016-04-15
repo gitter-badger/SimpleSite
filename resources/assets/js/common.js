@@ -45,10 +45,11 @@ $(function () {
     $('.popup').popup();
 
     $('time').each(function() {
-        var $self = $(this);
+        var $self = $(this),
+            value = $self.data('value') || $self.text();
 
         $self.text(
-            moment($self.text()).format(
+            moment(value).format(
                 $self.data('format') || window.settings.config.date.format
             )
         );
