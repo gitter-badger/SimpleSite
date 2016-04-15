@@ -14,6 +14,7 @@ class PhotosTableSeeder extends Seeder
         App\Photo::truncate();
         App\PhotoCategory::truncate();
 
+        File::deleteDirectory(public_path('upload/upload'));
         File::deleteDirectory(public_path('upload/photos'));
 
         factory(App\PhotoCategory::class, 20)->create();

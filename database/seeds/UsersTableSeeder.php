@@ -14,6 +14,8 @@ class UsersTableSeeder extends Seeder
     {
         User::truncate();
 
+        File::deleteDirectory(public_path('upload/users'));
+
         factory(User::class, 5)->create();
 
         /** @var User $user */

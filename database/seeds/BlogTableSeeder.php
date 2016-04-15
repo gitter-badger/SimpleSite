@@ -12,6 +12,8 @@ class BlogTableSeeder extends Seeder
     public function run()
     {
         App\Post::truncate();
+
+        File::deleteDirectory(public_path('upload/posts'));
         
         factory(App\Post::class, 100)->create();
     }

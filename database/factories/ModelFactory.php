@@ -22,7 +22,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'display_name' => $faker->name,
         'position' => $faker->sentence,
         'avatar_file' => function () {
-            $files = File::files(public_path('tmp'));
+            $files = File::files(base_path('database/seeds/tmp'));
             $filesPath = $files[array_rand($files)];
 
             return new \Illuminate\Http\UploadedFile($filesPath, basename($filesPath), 'image/jpeg', File::size($filesPath));
@@ -56,7 +56,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
             null,
             null,
             function () {
-                $files = File::files(public_path('tmp'));
+                $files = File::files(base_path('database/seeds/tmp'));
                 $filesPath = $files[array_rand($files)];
 
                 return new \Illuminate\Http\UploadedFile($filesPath, basename($filesPath), 'image/jpeg', File::size($filesPath));
@@ -117,7 +117,7 @@ $factory->define(App\Photo::class, function (Faker\Generator $faker) {
             return $faker->randomElement($categories);
         },
         'upload_file' => function () {
-            $files = File::files(public_path('tmp'));
+            $files = File::files(base_path('database/seeds/tmp'));
             $filesPath = $files[array_rand($files)];
 
             return new \Illuminate\Http\UploadedFile($filesPath, basename($filesPath), 'image/jpeg', File::size($filesPath));
