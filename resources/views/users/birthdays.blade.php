@@ -10,7 +10,7 @@
                 <div class="content">
                     <a class="header" href="{{ $user->link }}">{{ $user->display_name }}</a>
                     <div class="description">
-                        {{ $user->birthday->format('d F') }}
+                        <time class="birthday">{{ $user->birthday }}</time>
                     </div>
                 </div>
             </div>

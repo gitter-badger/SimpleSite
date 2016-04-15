@@ -46,6 +46,8 @@ $(function () {
 
     $('time').each(function() {
         var $self = $(this);
-        $self.text(moment($self.text()).format(window.settings.config.date.format));
+        var format = $self.hasClass('birthday') ? 'D MMMM' : window.settings.config.date.format;
+
+        $self.text(moment($self.text()).format(format));
     })
 });
