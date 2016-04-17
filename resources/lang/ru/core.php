@@ -95,6 +95,7 @@ return [
             'since' => 'Зарегестрирован :date',
             'birthday' => 'День рождения',
             'nearest_birthdays' => 'Ближайшие дни рождения',
+            'birthday_today' => 'Сегодня',
         ],
         'link' => [
             'profile' => 'Профиль',

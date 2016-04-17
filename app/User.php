@@ -137,6 +137,14 @@ class User extends Authenticatable
     }
 
     /**
+     * @return bool
+     */
+    public function hasBirthday()
+    {
+        return ! is_null($this->birthday) and $this->birthday->isBirthday();
+    }
+
+    /**
      * @return array
      */
     public function contacts()
@@ -206,7 +214,7 @@ class User extends Authenticatable
             $q->whereNotNull('birthday')
                 ->whereRaw('dayofyear(curdate()) <= dayofyear(birthday)')
                 ->whereRaw("DAYOFYEAR(curdate()) + {$days} >= dayofyear(birthday)");
-        });
+        })->orderByRaw('DAYOFYEAR(birthday)');
     }
 
     /**********************************************************************

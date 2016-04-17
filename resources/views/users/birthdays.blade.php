@@ -5,15 +5,18 @@
 
         <div class="ui very relaxed divided list">
             @foreach($users as $user)
-            <div class="item">
-                <img class="ui avatar mini image" src="{{ $user->avatar_url }}">
-                <div class="content">
-                    <a class="header" href="{{ $user->link }}">{{ $user->display_name }}</a>
-                    <div class="description">
-                        <time data-format="D MMMM" data-value="{{ $user->birthday }}"></time>
+                <div class="item">
+                    <img class="ui avatar mini image" src="{{ $user->avatar_url }}">
+                    <div class="content">
+                        <a class="header" href="{{ $user->link }}">{{ $user->display_name }}</a>
+                        <div class="description">
+                            <time
+                                    data-format="@if($user->hasBirthday()) [@lang('core.user.label.birthday_today')] @else D MMMM @endif"
+                                    data-value="{{ $user->birthday }}"
+                            ></time>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>
