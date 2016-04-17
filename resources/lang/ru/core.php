@@ -114,9 +114,11 @@ return [
             'password' => 'Пароль',
             'avatar' => 'Фото',
             'roles' => 'Роли',
+            'position' => 'Должность',
             'phone_internal' => 'Внутренний',
             'phone_mobile' => 'Мобильный',
             'birthday' => 'День рождения',
+            'chief' => 'Руководитель',
         ],
         'button' => [
             'login' => 'Войти',

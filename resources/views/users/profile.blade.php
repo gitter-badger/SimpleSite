@@ -19,20 +19,30 @@
                 <div class="content description">
                     <h1>{{ $user->display_name }}</h1>
 
-                    @if($user->birthday)
-                    <div class="birthday">
-                        @lang('core.user.label.birthday'):
-                        <strong>
-                           <time data-format="D MMMM" data-value="{{ $user->birthday }}"></time>
-                        </strong>
-                    </div>
-                    @endif
-
-                    <div class="ui section divider"></div>
-
-                    <div class="meta">
-                       <span class="position">{{ $user->position }}</span>
-                    </div>
+                    <table class="ui very basic table">
+                        <colgroup>
+                            <col width="200px"/>
+                            <col/>
+                        </colgroup>
+                        <tbody>
+                            @if(!is_null($chief))
+                                <tr>
+                                    <td>@lang('core.user.field.chief')</td>
+                                    <td>{!! $chief->profile_link !!}</td>
+                                </tr>
+                            @endif
+                            <tr>
+                                <td>@lang('core.user.field.position')</td>
+                                <td>{{ $user->position }}</td>
+                            </tr>
+                            @if($user->birthday)
+                                <tr>
+                                    <td>@lang('core.user.label.birthday')</td>
+                                    <td><time data-format="D MMMM" data-value="{{ $user->birthday }}"></time></td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -100,11 +110,14 @@
             lang: window.settings.locale,
             events: {
                 url: Asset.path('api/user/'+{{ $user->id }}+'/calendar.json'),
-                success: function (events) {
-                    return events;
-                }
-            }
-        });
+                success
+        :
+        function (events) {
+            return events;
+        }
+        }
+        })
+        ;
     </script>
 @endsection
 @endcan

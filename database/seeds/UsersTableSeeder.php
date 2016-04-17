@@ -16,7 +16,10 @@ class UsersTableSeeder extends Seeder
 
         File::deleteDirectory(public_path('upload/users'));
 
-        factory(User::class, 50)->create();
+        factory(User::class, 50)->create()->each(function(User $user) {
+            $user->chief()->associate(User::orderByRaw('rand()')->first());
+            $user->save();
+        });
 
         /** @var User $user */
         $user = factory(User::class)->create([

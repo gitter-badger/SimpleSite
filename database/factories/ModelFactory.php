@@ -27,7 +27,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
             $filesPath = $files[array_rand($files)];
 
             return new \Illuminate\Http\UploadedFile($filesPath, basename($filesPath), 'image/jpeg', File::size($filesPath));
-        },
+        }
     ];
 });
 

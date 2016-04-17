@@ -52,6 +52,11 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'UserController@profile',
     ]);
 
+    Route::get('users/tree', [
+        'as' => 'user.tree',
+        'uses' => 'UserController@tree',
+    ]);
+
     Route::get('user/{id}', [
         'as' => 'user.profile',
         'uses' => 'UserController@userProfile',

@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * Class User
  * @package App
  *
+ * @property int               $chief_id
  * @property int               $id
  *
  * @property string            $name
@@ -32,6 +33,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string            $name_with_avatar
  * @property string            $profile_link
  *
+ * @property User              $chief
  * @property Collection|Role[] $roles
  * @property Collection|Post[] $events
  *
@@ -338,5 +340,13 @@ class User extends Authenticatable
     public function schedules()
     {
         return $this->hasMany(Calendar::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function chief()
+    {
+        return $this->belongsTo(User::class);
     }
 }
