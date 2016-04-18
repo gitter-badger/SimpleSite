@@ -270,13 +270,17 @@ class User extends Authenticatable
     {
         return "<a href=\"mailto:$this->email\">$this->email</a>";
     }
-    
+
     /**
+     * @param string|null $name
+     *
      * @return string|void
      */
-    public function getNameWithAvatarAttribute()
+    public function getNameWithAvatarAttribute($name = null)
     {
-        $name = $this->display_name;
+        if (is_null($name)) {
+            $name = $this->display_name;
+        }
 
         if (empty($name)) {
             return;
