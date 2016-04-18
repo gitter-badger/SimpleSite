@@ -2,6 +2,7 @@
 
 return [
     'title' => [
+        'company_name' => '<h3 style="text-align: center; margin: 0s">АО Инфозащита</h3>',
         'portal' => 'Корпоративный портал Инфозащита',
         'portal_calendar' => 'График мероприятий с портала Инфозащита',
         'index' => 'Главная',
@@ -21,7 +22,6 @@ return [
         'empty_section' => 'В разделе нет ифнормации',
         'copyright' => 'АО «Инфозащита» © '.date('Y'),
     ],
-
     'post' => [
         'title' => [
             'archive' => 'Архив новостей',

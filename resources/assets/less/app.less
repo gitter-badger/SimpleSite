@@ -86,3 +86,101 @@ footer {
   padding-top:    30px !important;
   padding-bottom: 30px !important;
 }
+
+.tree {
+  min-height: 800px;
+
+  ul {
+    padding-top: 20px;
+    position:    relative;
+    transition:  all 0.5s;
+
+    ul {
+      &::before {
+        content:     '';
+        position:    absolute;
+        top:         0;
+        left:        50%;
+        border-left: 1px solid #ccc;
+        width:       0;
+        height:      20px;
+      }
+    }
+  }
+
+  li {
+    float:           left;
+    text-align:      center;
+    list-style-type: none;
+    position:        relative;
+    padding:         20px 5px 0 5px;
+    transition:      all 0.5s;
+
+    &::before, &::after {
+      content:    '';
+      position:   absolute;
+      top:        0;
+      right:      50%;
+      border-top: 1px solid #ccc;
+      width:      50%;
+      height:     20px;
+    }
+
+    &::after {
+      right:       auto;
+      left:        50%;
+      border-left: 1px solid #ccc;
+    }
+
+    &:only-child::after, &:only-child::before {
+      display: none;
+    }
+
+    &:only-child {
+      padding-top: 0;
+    }
+
+    &:first-child::before, &:last-child::after {
+      border: 0 none;
+    }
+
+    &:last-child::before {
+      border-right:  1px solid #ccc;
+      border-radius: 0 5px 0 0;
+    }
+
+    &:first-child::after {
+      border-radius: 5px 0 0 0;
+    }
+
+    .card {
+      border:          1px solid #ccc;
+      padding:         5px 10px;
+      text-decoration: none;
+      text-align:      left;
+      color:           #666;
+      font-size:       11px;
+      display:         inline-block;
+      transition:      all 0.5s;
+      width:           250px;
+      height:          80px;
+
+      &:hover, &:hover + ul li .card {
+        background: #c8e4f8;
+        color:      #000;
+        border:     1px solid #94a0b4;
+      }
+
+      &:hover + ul li::after,
+      &:hover + ul li::before,
+      &:hover + ul::before,
+      &:hover + ul ul::before {
+        border-color: #94a0b4;
+      }
+
+      a {
+        font-size: 15px;
+      }
+    }
+  }
+}

@@ -44,8 +44,37 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-
     use Upload, HasRoles, SoftDeletes;
+
+    /**
+     * @return array
+     */
+    public static function tree()
+    {
+        $users = User::get()->toArray();
+
+        $indexed = [
+            0 => [
+                'id' => 0,
+                'profile_link' => trans('core.title.company_name'),
+                'position' => null,
+                'chief_id' => null,
+                'children' => [],
+            ],
+        ];
+
+        // first pass - get the array indexed by the primary id
+        foreach ($users as $row) {
+            $indexed[$row['id']]             = $row;
+            $indexed[$row['id']]['children'] = [];
+        }
+
+        foreach ($indexed as $id => $row) {
+            $indexed[$row['chief_id']]['children'][$id] =& $indexed[$id];
+        }
+
+        return [0 => $indexed[0]];
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -72,7 +101,8 @@ class User extends Authenticatable
     protected $casts = [
         'avatar' => 'image',
         'is_ldap' => 'boolean',
-        'phone_internal' => 'integer'
+        'phone_internal' => 'integer',
+        'chief_id' => 'integer'
     ];
 
     /**
@@ -249,6 +279,16 @@ class User extends Authenticatable
         }
 
         return $name;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return int
+     */
+    public function getChiefIdAttribute($id)
+    {
+        return (int) $id;
     }
 
     /**

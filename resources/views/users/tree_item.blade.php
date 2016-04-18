@@ -1,9 +1,16 @@
 <ul>
     @foreach($tree as $user)
         <li>
-            <a href="#">{{ array_get($user, 'display_name') }}</a>
-            @if(!empty($user['childNodes']))
-                @include('users.tree_item', ['tree' => $user['childNodes']])
+            <div class="card">
+                {!! array_get($user, 'profile_link') !!}
+                @if(!empty($user['position']))
+                <br />
+                {{ array_get($user, 'position') }}
+                @endif
+            </div>
+
+            @if(!empty($user['children']))
+                @include('users.tree_item', ['tree' => $user['children']])
             @endif
         </li>
     @endforeach
