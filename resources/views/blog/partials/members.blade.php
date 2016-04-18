@@ -8,6 +8,7 @@
         </a>
     </div>
 
+    {{--
     <div ng-show="is_guest || is_member">
         <a class="ui green statistic" ng-click="showMembers()">
             <div class="value">
@@ -18,19 +19,15 @@
             </div>
         </a>
     </div>
+    --}}
 
-    <div class="ui modal">
-        <i class="close icon"></i>
-        <div class="header">
-            @lang('core.post.label.members')
-        </div>
-        <div class="content">
-            <div class="ui horizontal relaxed selection list">
-                <div class="item" ng-repeat="member in members">
-                    <img class="ui avatar image" ng-src="[[ member.avatar_url ]]">
-                    <div class="content">
-                        <span class="header">[[ member.display_name ]]</span>
-                    </div>
+    <h2>@lang('core.post.label.members')</h2>
+    <div class="members-list ui mini">
+        <div class="ui horizontal relaxed selection list">
+            <div class="item" ng-repeat="member in members">
+                <img class="ui avatar image" ng-src="[[ member.avatar_url ]]">
+                <div class="content">
+                    <a class="header" href="[[ member.link ]]" target="_blank">[[ member.display_name ]]</a>
                 </div>
             </div>
         </div>

@@ -82,6 +82,7 @@ class User extends Authenticatable
         'avatar_url',
         'name_with_avatar',
         'profile_link',
+        'link',
     ];
 
     /**
@@ -342,5 +343,13 @@ class User extends Authenticatable
     public function schedules()
     {
         return $this->hasMany(Calendar::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function mentions()
+    {
+        return $this->morphedByMany(Post::class, 'related', 'user_mentions');
     }
 }

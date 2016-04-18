@@ -41,8 +41,8 @@ class PostController extends Controller
         /** @var Post $post */
         $post = Post::findOrFail($id);
 
-        if (! $post->members()->where('user_id', $request->user()->id)->first()) {
-            $post->members()->attach($request->user());
+        if (! $post->hasMember($user = $request->user())) {
+            $post->addMember($user);
         }
 
         return $this->members($request, $id);

@@ -73,6 +73,11 @@ Route::group(['middleware' => 'web'], function () {
     });
 
     Route::group(['middleware' => 'auth'], function () {
+        Route::put('news/{id}/member', [
+            'as' => 'post.members.add',
+            'uses' => 'BlogController@addMember',
+        ]);
+
         Route::post('profile/avatar', function (\App\Http\Forms\UploadAvatarForm $form) {
             return new JsonResponse($form->persist());
         });

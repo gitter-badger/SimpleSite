@@ -137,6 +137,28 @@ class Post extends Model
     }
 
     /**
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function hasMember(User $user)
+    {
+        return !is_null($this->members()->where('user_id', $user->id)->first());
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return $this
+     */
+    public function addMember(User $user)
+    {
+        $this->members()->attach($user);
+
+        return $this;
+    }
+
+    /**
      * @return bool
      */
     public function isPastEvent()

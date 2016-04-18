@@ -51,6 +51,7 @@ return [
             'total_members' => 'Участников',
             'members' => 'Участники',
             'link_to_event' => 'Ссылка на событие: :link',
+            'authorize_to_participate' => 'Авторизуйтесь для возможности принятия участия'
         ],
     ],
     'gallery' => [

@@ -8,6 +8,7 @@ use App\Http\Forms\UpdatePostForm;
 use App\PhotoCategory;
 use App\Post;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Jsvrcek\ICS\CalendarExport;
 use Jsvrcek\ICS\CalendarStream;
@@ -30,15 +31,13 @@ class BlogController extends Controller
     public function index(NewsFilters $filters)
     {
         return view('blog.index', [
-            'posts' => Post::filter($filters)->latest()->paginate(5),
+            'posts' => Post::filter($filters)->with('members')->latest()->paginate(5)
         ]);
     }
-
 
     public function events()
     {
         $calendar = new Calendar(config('app.url'));
-
         $calendar->addCustomHeader('X-WR-CALNAME', trans('core.title.portal_calendar'));
 
         /** @var Post[] $events */
@@ -166,6 +165,24 @@ class BlogController extends Controller
     {
         $post = Post::findOrFail($id);
         $post->delete();
+
+        return back();
+    }
+
+    /**
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addMember(Request $request, $id)
+    {
+        /** @var Post $post */
+        $post = Post::findOrFail($id);
+
+        if (! $post->hasMember($user = $request->user())) {
+            $post->addMember($user);
+        }
 
         return back();
     }
