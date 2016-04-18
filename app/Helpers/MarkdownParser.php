@@ -7,16 +7,6 @@ use Parsedown;
 
 class MarkdownParser extends Parsedown
 {
-
-    /**
-     * MarkdownParser constructor.
-     */
-    public function __construct()
-    {
-        $this->InlineTypes['@'] = ['userMention'];
-        $this->inlineMarkerList .= '@';
-    }
-
     /**
      * @param string $text
      *
@@ -41,7 +31,30 @@ class MarkdownParser extends Parsedown
 
         $text = $parser->text($text);
 
-        return [$text, $textIntro];
+        return [$text, $textIntro, $parser->getMentionedUsers()];
+    }
+
+    /**
+     * MarkdownParser constructor.
+     */
+    public function __construct()
+    {
+        $this->InlineTypes['@'] = ['userMention'];
+        $this->inlineMarkerList .= '@';
+        $this->mentionedUsers = [];
+    }
+
+    /**
+     * @var array
+     */
+    protected $mentionedUsers = [];
+
+    /**
+     * @return array
+     */
+    public function getMentionedUsers()
+    {
+        return $this->mentionedUsers;
     }
 
     /**
@@ -55,6 +68,9 @@ class MarkdownParser extends Parsedown
             if (! empty($matches[1])) {
                 $user = User::where('display_name', 'like', "%{$matches[1]}%")->orWhere('name', 'like', "%{$matches[1]}%")->first();
                 if(! is_null($user)) {
+
+                    $this->mentionedUsers[] = $user->id;
+
                     return [
                         'extent' => strlen($matches[0]),
                         'element' => [

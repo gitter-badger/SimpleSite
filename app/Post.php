@@ -190,10 +190,12 @@ class Post extends Model
     {
         $this->attributes['text_source'] = trim($text);
 
-        list($parsedText, $parsedTextIntro) = MarkdownParser::parseText($this->attributes['text_source']);
+        list($parsedText, $parsedTextIntro, $mentionedUsers) = MarkdownParser::parseText($this->attributes['text_source']);
 
         $this->attributes['text_intro'] = $parsedTextIntro;
         $this->attributes['text'] = $parsedText;
+
+        $this->mentionedUsers()->sync($mentionedUsers);
     }
 
     /**
@@ -281,5 +283,13 @@ class Post extends Model
     public function members()
     {
         return $this->belongsToMany(User::class, 'post_member', 'post_id', 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function mentionedUsers()
+    {
+        return $this->morphToMany(User::class, 'related', 'user_mentions');
     }
 }
