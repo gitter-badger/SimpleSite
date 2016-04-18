@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Helpers\SemanticUIPresenter;
+use Ddeboer\Imap\Server;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
@@ -18,6 +19,13 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerBlogComposers();
         $this->registerUserComposers();
+
+        $this->app->singleton('imap', function () {
+            extract(config('imap', []));
+
+            $server = new Server($host, $port);
+            return $server->authenticate($username, $password);
+        });
     }
 
     /**
