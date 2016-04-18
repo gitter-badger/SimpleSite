@@ -16,7 +16,7 @@ class CreateUserMentionsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->morphs('related');
 
-            $table->primary('user_id', 'related_id', 'related_type');
+            $table->primary(['user_id', 'related_id', 'related_type']);
 
             $table->foreign('user_id')->references('id')->on('users');
         });
