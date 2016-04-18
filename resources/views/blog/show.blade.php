@@ -27,7 +27,7 @@
                         {!! $post->text !!}
                     </div>
 
-                    @if($post->isEvent() and !$post->isPastEvent())
+                    @if($post->isEvent())
                         <br/>
                         <br/>
                         @include('blog.partials.members')

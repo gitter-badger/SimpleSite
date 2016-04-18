@@ -1,4 +1,5 @@
 <div ng-app="PostMembers" ng-controller="PostMembersCtrl" ng-init="postId='{{ $post->id }}'" ng-model="postId">
+    @if(!$post->isPastEvent())
     <div class="ui labeled button" tabindex="0" ng-hide="is_guest || is_member">
         <button class="ui green button" ng-click="attend()" ng-hide="is_member">
             <i class="checkmark icon"></i> @lang('core.post.button.attend')
@@ -7,6 +8,7 @@
             [[ count ]]
         </a>
     </div>
+    @endif
 
     {{--
     <div ng-show="is_guest || is_member">
