@@ -162,6 +162,8 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Intervention\Image\ImageServiceProviderLaravel5::class,
         Collective\Html\HtmlServiceProvider::class,
+        Maknz\Slack\SlackServiceProviderLaravel5::class,
+        Spatie\Backup\BackupServiceProvider::class,
     ],
 
     /*
@@ -211,6 +213,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Ldap' => App\Facades\Ldap::class,
+        'Slack' => Maknz\Slack\Facades\Slack::class,
     ],
 
 ];
